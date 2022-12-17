@@ -6,6 +6,6 @@ double getMobileSizeFromPercent(BuildContext context, int percent, bool isWidth)
     return MediaQuery.of(context).size.width * percent / 100;
   }
   else{
-    return MediaQuery.of(context).size.width * percent / 100;
+    return MediaQuery.of(context).size.height * percent / 100;
   }
 }
