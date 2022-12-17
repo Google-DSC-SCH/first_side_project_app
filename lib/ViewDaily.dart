@@ -20,9 +20,9 @@ class _ViewDaily extends State<ViewDaily>{
       body: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          // 세로 화면의 25% 비율부터 시작
+          // 세로 화면의 22% 비율부터 시작
           Container(
-            height: MediaQuery.of(context).size.height * 75 / 100,
+            height: MediaQuery.of(context).size.height * 78 / 100,
             width: MediaQuery.of(context).size.width,
             child: Column(
               children: [
