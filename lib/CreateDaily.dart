@@ -7,11 +7,8 @@ class CreateDaily extends StatefulWidget {
 }
 
 class _CreateDaily extends State<CreateDaily> {
-  String title = "";
-  String content = "";
-  String repeatDay = "";
-  String alarmOnOff = "";
-  String alarmTime = "";
+  TextEditingController titleController = TextEditingController();
+  TextEditingController contentController = TextEditingController();
   int selectedState = 0;
   int stateComColor = 0;
   int stateUncomColor = 0;
@@ -31,12 +28,6 @@ class _CreateDaily extends State<CreateDaily> {
     // TODO: implement initState
     super.initState();
 
-    this.title = "제목입니다.";
-    this.content =
-    "대충 설명을 하자면 이런 느낌.\n뭔지 알지? 몰라도 알아야돼. 라때는 말이야 이러쿵저러쿵 꼰대 마인드 ON\n 집가고싶다..";
-    this.repeatDay = "월, 수, 금";
-    this.alarmOnOff = "ON";
-    this.alarmTime = "오후 7:30";
     this.selectedState = 0;
     this.stateComColor = color_whiteYellow;
     this.stateUncomColor = color_realYellow;
@@ -52,6 +43,7 @@ class _CreateDaily extends State<CreateDaily> {
             fit: BoxFit.fill,
             image: AssetImage('assets/img/background.png'))),
     child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.transparent,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -95,30 +87,20 @@ class _CreateDaily extends State<CreateDaily> {
                           Container(
                             height: 5,
                           ),
-                          Card(
-                            shape: RoundedRectangleBorder(
-                              //모서리를 둥글게 하기 위해 사용
-                              borderRadius: BorderRadius.circular(16.0),
-                            ),
-                            color: Color(color_whiteYellow),
-                            elevation: 0, // 그림자 깊이
-                            child: Container(
-                                padding: EdgeInsets.all(5),
-                                width: getMobileSizeFromPercent(
-                                    context, 80, true),
-                                height: getMobileSizeFromPercent(
-                                    context, 5, false),
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        this.title,
-                                        style: TextStyle(fontSize: 21),
-                                      )
-                                    ],
-                                  ),
-                                )),
-                          ),
+                          Container(
+                              width: getMobileSizeFromPercent(
+                                  context, 80, true),
+                              // height: getMobileSizeFromPercent(
+                              //     context, 5, false),
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(16)),
+
+                                  )
+                                ),
+                                style: TextStyle(fontSize: 21),
+                              )),
                         ],
                       ),
 
@@ -147,7 +129,7 @@ class _CreateDaily extends State<CreateDaily> {
                                   child: Column(
                                     children: [
                                       Text(
-                                        this.content,
+                                        "",
                                         style: TextStyle(fontSize: 15),
                                       ),
                                     ],
@@ -166,7 +148,7 @@ class _CreateDaily extends State<CreateDaily> {
                             Text("반복요일",
                                 style: TextStyle(fontSize: titleFontSize)),
                             Text(
-                              this.repeatDay,
+                              "",
                               textAlign: TextAlign.center,
                               style: TextStyle(fontSize: 25),
                             )
@@ -185,12 +167,12 @@ class _CreateDaily extends State<CreateDaily> {
                                 Text("알림 ",
                                     style:
                                     TextStyle(fontSize: titleFontSize)),
-                                Text(this.alarmOnOff,
+                                Text("",
                                     style: TextStyle(fontSize: 25)),
                               ],
                             ),
                             Text(
-                              this.alarmTime,
+                              "",
                               style: TextStyle(fontSize: 25),
                               textAlign: TextAlign.center,
                             )
