@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 // 각 페이지들 import
 import 'testPage.dart';
 import 'ViewDaily.dart';
+import 'CreateDaily.dart';
 
 void main() {
   runApp(const MyApp());
@@ -59,6 +60,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       context, MaterialPageRoute(builder: (_) => ViewDaily()));
                 },
                 child: Text("ViewDaily")),
+
+            // Create Daily 페이지
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => CreateDaily()));
+                },
+                child: Text("CreateDaily")),
           ],
         ),
       ),
