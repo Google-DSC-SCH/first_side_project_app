@@ -18,10 +18,13 @@ class _ViewDaily extends State<ViewDaily> {
 
   // 위젯간 간격(세로)
   double titleFontSize = 17;
+
   // 연노랑
   int color_whiteYellow = 0xFFFAF4B7;
+
   // 찐노랑
   int color_realYellow = 0xFFFFD966;
+
   // 민트
   int color_mint = 0xFFCDF0EA;
 
@@ -33,7 +36,7 @@ class _ViewDaily extends State<ViewDaily> {
 
     this.title = "제목입니다.";
     this.content =
-        "대충 설명을 하자면 이런 느낌.\n뭔지 알지? 몰라도 알아야돼. 라때는 말이야 이러쿵저러쿵 꼰대 마인드 ON\n 집가고싶다..";
+        "대충 설명을 하자면 이런 느낌.\n뭔지 알지? 몰라도 \n\n\n\n\n\n\n\n\n\n\n알아야돼. 라때는 말이야 이러쿵저러쿵 꼰대 마인드 ON\n 집가고싶다..";
     this.repeatDay = "월, 수, 금";
     this.alarmOnOff = "ON";
     this.alarmTime = "오후 7:30";
@@ -52,37 +55,33 @@ class _ViewDaily extends State<ViewDaily> {
                 fit: BoxFit.fill,
                 image: AssetImage('assets/img/background.png'))),
         child: Scaffold(
+            resizeToAvoidBottomInset: false,
             backgroundColor: Colors.transparent,
-            body: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                // 앱 상단 로고
-                Container(
-                    height: (MediaQuery.of(context).size.height -
-                            MediaQuery.of(context).padding.top) *
-                        22 /
-                        100,
-                    width: (MediaQuery.of(context).size.height -
-                            MediaQuery.of(context).padding.top) *
-                        10 /
-                        100,
-                    padding: EdgeInsets.only(
-                        bottom: (MediaQuery.of(context).size.height -
-                                MediaQuery.of(context).padding.top) *
-                            5 /
-                            100),
-                    child: Image.asset(
-                      'assets/img/icon.png',
-                    )),
+            appBar: PreferredSize(
+              preferredSize:
+                  Size.fromHeight(getMobileSizeFromPercent(context, 18, false)),
+              child: Container(
+                color: Colors.transparent,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      child: Image.asset('assets/img/icon.png'),
+                      height: getMobileSizeFromPercent(context, 10, false),
+                    ),
+                    Container()
+                  ],
+                ),
+              ),
+            ),
 
-                // Body
-                // 세로 화면의 22% 비율부터 시작
+            // Body
+            body: Column(
+              children: [
                 Container(
-                    height: (MediaQuery.of(context).size.height -
-                            MediaQuery.of(context).padding.top) *
-                        78 /
-                        100,
-                    width: MediaQuery.of(context).size.width,
+                    height: getMobileSizeFromPercent(context, 82, false) -
+                        MediaQuery.of(context).padding.top * 2,
+                    width: double.infinity,
                     // 여기서부터 찐 개발 시작
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -107,7 +106,7 @@ class _ViewDaily extends State<ViewDaily> {
                                     width: getMobileSizeFromPercent(
                                         context, 80, true),
                                     height: getMobileSizeFromPercent(
-                                        context, 5, false),
+                                        context, 6, false),
                                     child: SingleChildScrollView(
                                       child: Column(
                                         children: [
@@ -273,7 +272,9 @@ class _ViewDaily extends State<ViewDaily> {
                             ),
                           ),
 
-                          Container(height: 10,),
+                          Container(
+                            height: 10,
+                          ),
 
                           // 뒤로가기
                           Container(
@@ -283,41 +284,53 @@ class _ViewDaily extends State<ViewDaily> {
                               children: [
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-
-                                      shape: RoundedRectangleBorder(	//모서리를 둥글게
-                                          borderRadius: BorderRadius.circular(16)),
+                                      shape: RoundedRectangleBorder(
+                                          //모서리를 둥글게
+                                          borderRadius:
+                                              BorderRadius.circular(16)),
                                       primary: Color(color_mint),
                                       onPrimary: Colors.black,
-                                      minimumSize: Size(80, 40),	//width, height
-                                    shadowColor: Colors.transparent
+                                      minimumSize: Size(80, 40),
+                                      //width, height
+                                      shadowColor: Colors.transparent),
+                                  child: Text(
+                                    "수정",
+                                    style: TextStyle(fontSize: 20),
                                   ),
-                                  child: Text("수정", style: TextStyle(fontSize: 20),),
                                   onPressed: () => null,
                                 ),
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(	//모서리를 둥글게
-                                          borderRadius: BorderRadius.circular(16)),
+                                      shape: RoundedRectangleBorder(
+                                          //모서리를 둥글게
+                                          borderRadius:
+                                              BorderRadius.circular(16)),
                                       primary: Color(color_mint),
                                       onPrimary: Colors.black,
                                       minimumSize: Size(80, 40),
-                                      shadowColor: Colors.transparent
+                                      shadowColor: Colors.transparent),
+                                  child: Text(
+                                    "삭제",
+                                    style: TextStyle(fontSize: 20),
                                   ),
-                                  child: Text("삭제", style: TextStyle(fontSize: 20),),
-                                  onPressed: (){
+                                  onPressed: () {
                                     Navigator.pop(context);
                                   },
                                 ),
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(	//모서리를 둥글게
-                                          borderRadius: BorderRadius.circular(16)),
+                                      shape: RoundedRectangleBorder(
+                                          //모서리를 둥글게
+                                          borderRadius:
+                                              BorderRadius.circular(16)),
                                       primary: Color(color_mint),
                                       onPrimary: Colors.black,
                                       minimumSize: Size(80, 40),
-                                      shadowColor: Colors.transparent
+                                      shadowColor: Colors.transparent),
+                                  child: Text(
+                                    "뒤로",
+                                    style: TextStyle(fontSize: 20),
                                   ),
-                                  child: Text("뒤로", style: TextStyle(fontSize: 20),),
                                   onPressed: () => Navigator.pop(context),
                                 ),
                               ],
