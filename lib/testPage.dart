@@ -29,20 +29,15 @@ class TestPage extends StatelessWidget{
             ],
           ),),
         ),
-        body: Column(
-          children: [
-            // Body
-            Container(
-                height: getMobileSizeFromPercent(context, 82, false) - MediaQuery.of(context).padding.top * 2,
-                width: double.infinity,
-                // 여기서부터 찐 개발 시작
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                          Text("여기서부터 개발하시면 됩니다",
-                              style: TextStyle(fontSize: 20)),
-                    ]))
-          ],
-        )),
+        body: Container(
+            height: getMobileSizeFromPercent(context, 82, false) - MediaQuery.of(context).padding.top * 2,
+            width: double.infinity,
+            // 여기서부터 찐 개발 시작
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                      Text("여기서부터 개발하시면 됩니다",
+                          style: TextStyle(fontSize: 20)),
+                ]))),
   );
 }

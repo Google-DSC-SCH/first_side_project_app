@@ -76,272 +76,268 @@ class _ViewDaily extends State<ViewDaily> {
             ),
 
             // Body
-            body: Column(
-              children: [
-                Container(
-                    height: getMobileSizeFromPercent(context, 82, false) -
-                        MediaQuery.of(context).padding.top * 2,
-                    width: double.infinity,
-                    // 여기서부터 찐 개발 시작
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+            body: Container(
+                height: getMobileSizeFromPercent(context, 82, false) -
+                    MediaQuery.of(context).padding.top * 2,
+                width: double.infinity,
+                // 여기서부터 찐 개발 시작
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      // 제목
+                      Column(
                         children: [
-                          // 제목
-                          Column(
-                            children: [
-                              Text("제목",
-                                  style: TextStyle(fontSize: titleFontSize)),
-                              Container(
-                                height: 5,
-                              ),
-                              Card(
-                                shape: RoundedRectangleBorder(
-                                  //모서리를 둥글게 하기 위해 사용
-                                  borderRadius: BorderRadius.circular(16.0),
-                                ),
-                                color: Color(color_whiteYellow),
-                                elevation: 0, // 그림자 깊이
-                                child: Container(
-                                    padding: EdgeInsets.all(5),
-                                    width: getMobileSizeFromPercent(
-                                        context, 80, true),
-                                    height: getMobileSizeFromPercent(
-                                        context, 6, false),
-                                    child: SingleChildScrollView(
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            this.title,
-                                            style: TextStyle(fontSize: 21),
-                                          )
-                                        ],
-                                      ),
-                                    )),
-                              ),
-                            ],
-                          ),
-
-                          // 설명
-                          Column(
-                            children: [
-                              Text("설명",
-                                  style: TextStyle(fontSize: titleFontSize)),
-                              Container(
-                                height: 5,
-                              ),
-                              Card(
-                                shape: RoundedRectangleBorder(
-                                  //모서리를 둥글게 하기 위해 사용
-                                  borderRadius: BorderRadius.circular(16.0),
-                                ),
-                                color: Color(color_whiteYellow),
-                                elevation: 0, // 그림자 깊이
-                                child: Container(
-                                    padding: EdgeInsets.all(5),
-                                    width: getMobileSizeFromPercent(
-                                        context, 80, true),
-                                    height: getMobileSizeFromPercent(
-                                        context, 18, false),
-                                    child: SingleChildScrollView(
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            this.content,
-                                            style: TextStyle(fontSize: 15),
-                                          ),
-                                        ],
-                                      ),
-                                    )),
-                              ),
-                            ],
-                          ),
-
-                          // 반복 요일
-                          Container(
-                            width: getMobileSizeFromPercent(context, 65, true),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("반복요일",
-                                    style: TextStyle(fontSize: titleFontSize)),
-                                Text(
-                                  this.repeatDay,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: 25),
-                                )
-                              ],
-                            ),
-                          ),
-
-                          // 알림
-                          Container(
-                            width: getMobileSizeFromPercent(context, 65, true),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text("알림 ",
-                                        style:
-                                            TextStyle(fontSize: titleFontSize)),
-                                    Text(this.alarmOnOff,
-                                        style: TextStyle(fontSize: 25)),
-                                  ],
-                                ),
-                                Text(
-                                  this.alarmTime,
-                                  style: TextStyle(fontSize: 25),
-                                  textAlign: TextAlign.center,
-                                )
-                              ],
-                            ),
-                          ),
-                          // 상태
-                          Container(
-                            width: getMobileSizeFromPercent(context, 65, true),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("상태",
-                                    style: TextStyle(fontSize: titleFontSize)),
-                                Row(
-                                  children: [
-                                    // 완료 상태
-                                    GestureDetector(
-                                      child: Card(
-                                        shape: RoundedRectangleBorder(
-                                          //모서리를 둥글게 하기 위해 사용
-                                          borderRadius:
-                                              BorderRadius.circular(16.0),
-                                        ),
-                                        color: Color(stateComColor),
-                                        elevation: 0, // 그림자 깊이
-                                        child: Container(
-                                          alignment: Alignment.center,
-                                          width: 80,
-                                          height: 40,
-                                          child: Text(
-                                            "완료",
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      onTap: () {
-                                        // 색 Switch
-                                        setState(() {
-                                          stateComColor = color_realYellow;
-                                          stateUncomColor = color_whiteYellow;
-                                        });
-                                      },
-                                    ),
-                                    Container(width: 10),
-                                    // 미완료 상태
-                                    GestureDetector(
-                                      child: Card(
-                                        shape: RoundedRectangleBorder(
-                                          //모서리를 둥글게 하기 위해 사용
-                                          borderRadius:
-                                              BorderRadius.circular(16.0),
-                                        ),
-                                        color: Color(stateUncomColor),
-                                        elevation: 0, // 그림자 깊이
-                                        child: Container(
-                                          alignment: Alignment.center,
-                                          width: 80,
-                                          height: 40,
-                                          child: Text(
-                                            "미완료",
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      onTap: () {
-                                        setState(() {
-                                          stateComColor = color_whiteYellow;
-                                          stateUncomColor = color_realYellow;
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-
-                          Container(
-                            height: 10,
-                          ),
-
-                          // 뒤로가기
-                          Container(
-                            width: getMobileSizeFromPercent(context, 80, true),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                          //모서리를 둥글게
-                                          borderRadius:
-                                              BorderRadius.circular(16)),
-                                      primary: Color(color_mint),
-                                      onPrimary: Colors.black,
-                                      minimumSize: Size(80, 40),
-                                      //width, height
-                                      shadowColor: Colors.transparent),
-                                  child: Text(
-                                    "수정",
-                                    style: TextStyle(fontSize: 20),
-                                  ),
-                                  onPressed: () => null,
-                                ),
-                                ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                          //모서리를 둥글게
-                                          borderRadius:
-                                              BorderRadius.circular(16)),
-                                      primary: Color(color_mint),
-                                      onPrimary: Colors.black,
-                                      minimumSize: Size(80, 40),
-                                      shadowColor: Colors.transparent),
-                                  child: Text(
-                                    "삭제",
-                                    style: TextStyle(fontSize: 20),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                                ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                          //모서리를 둥글게
-                                          borderRadius:
-                                              BorderRadius.circular(16)),
-                                      primary: Color(color_mint),
-                                      onPrimary: Colors.black,
-                                      minimumSize: Size(80, 40),
-                                      shadowColor: Colors.transparent),
-                                  child: Text(
-                                    "뒤로",
-                                    style: TextStyle(fontSize: 20),
-                                  ),
-                                  onPressed: () => Navigator.pop(context),
-                                ),
-                              ],
-                            ),
-                          ),
-
+                          Text("제목",
+                              style: TextStyle(fontSize: titleFontSize)),
                           Container(
                             height: 5,
                           ),
-                        ]))
-              ],
-            )),
+                          Card(
+                            shape: RoundedRectangleBorder(
+                              //모서리를 둥글게 하기 위해 사용
+                              borderRadius: BorderRadius.circular(16.0),
+                            ),
+                            color: Color(color_whiteYellow),
+                            elevation: 0, // 그림자 깊이
+                            child: Container(
+                                padding: EdgeInsets.all(5),
+                                width: getMobileSizeFromPercent(
+                                    context, 80, true),
+                                height: getMobileSizeFromPercent(
+                                    context, 6, false),
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        this.title,
+                                        style: TextStyle(fontSize: 21),
+                                      )
+                                    ],
+                                  ),
+                                )),
+                          ),
+                        ],
+                      ),
+
+                      // 설명
+                      Column(
+                        children: [
+                          Text("설명",
+                              style: TextStyle(fontSize: titleFontSize)),
+                          Container(
+                            height: 5,
+                          ),
+                          Card(
+                            shape: RoundedRectangleBorder(
+                              //모서리를 둥글게 하기 위해 사용
+                              borderRadius: BorderRadius.circular(16.0),
+                            ),
+                            color: Color(color_whiteYellow),
+                            elevation: 0, // 그림자 깊이
+                            child: Container(
+                                padding: EdgeInsets.all(5),
+                                width: getMobileSizeFromPercent(
+                                    context, 80, true),
+                                height: getMobileSizeFromPercent(
+                                    context, 18, false),
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        this.content,
+                                        style: TextStyle(fontSize: 15),
+                                      ),
+                                    ],
+                                  ),
+                                )),
+                          ),
+                        ],
+                      ),
+
+                      // 반복 요일
+                      Container(
+                        width: getMobileSizeFromPercent(context, 65, true),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("반복요일",
+                                style: TextStyle(fontSize: titleFontSize)),
+                            Text(
+                              this.repeatDay,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 25),
+                            )
+                          ],
+                        ),
+                      ),
+
+                      // 알림
+                      Container(
+                        width: getMobileSizeFromPercent(context, 65, true),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Text("알림 ",
+                                    style:
+                                        TextStyle(fontSize: titleFontSize)),
+                                Text(this.alarmOnOff,
+                                    style: TextStyle(fontSize: 25)),
+                              ],
+                            ),
+                            Text(
+                              this.alarmTime,
+                              style: TextStyle(fontSize: 25),
+                              textAlign: TextAlign.center,
+                            )
+                          ],
+                        ),
+                      ),
+                      // 상태
+                      Container(
+                        width: getMobileSizeFromPercent(context, 65, true),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("상태",
+                                style: TextStyle(fontSize: titleFontSize)),
+                            Row(
+                              children: [
+                                // 완료 상태
+                                GestureDetector(
+                                  child: Card(
+                                    shape: RoundedRectangleBorder(
+                                      //모서리를 둥글게 하기 위해 사용
+                                      borderRadius:
+                                          BorderRadius.circular(16.0),
+                                    ),
+                                    color: Color(stateComColor),
+                                    elevation: 0, // 그림자 깊이
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      width: 80,
+                                      height: 40,
+                                      child: Text(
+                                        "완료",
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    // 색 Switch
+                                    setState(() {
+                                      stateComColor = color_realYellow;
+                                      stateUncomColor = color_whiteYellow;
+                                    });
+                                  },
+                                ),
+                                Container(width: 10),
+                                // 미완료 상태
+                                GestureDetector(
+                                  child: Card(
+                                    shape: RoundedRectangleBorder(
+                                      //모서리를 둥글게 하기 위해 사용
+                                      borderRadius:
+                                          BorderRadius.circular(16.0),
+                                    ),
+                                    color: Color(stateUncomColor),
+                                    elevation: 0, // 그림자 깊이
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      width: 80,
+                                      height: 40,
+                                      child: Text(
+                                        "미완료",
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    setState(() {
+                                      stateComColor = color_whiteYellow;
+                                      stateUncomColor = color_realYellow;
+                                    });
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      Container(
+                        height: 10,
+                      ),
+
+                      // 뒤로가기
+                      Container(
+                        width: getMobileSizeFromPercent(context, 80, true),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                      //모서리를 둥글게
+                                      borderRadius:
+                                          BorderRadius.circular(16)),
+                                  primary: Color(color_mint),
+                                  onPrimary: Colors.black,
+                                  minimumSize: Size(80, 40),
+                                  //width, height
+                                  shadowColor: Colors.transparent),
+                              child: Text(
+                                "수정",
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              onPressed: () => null,
+                            ),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                      //모서리를 둥글게
+                                      borderRadius:
+                                          BorderRadius.circular(16)),
+                                  primary: Color(color_mint),
+                                  onPrimary: Colors.black,
+                                  minimumSize: Size(80, 40),
+                                  shadowColor: Colors.transparent),
+                              child: Text(
+                                "삭제",
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                      //모서리를 둥글게
+                                      borderRadius:
+                                          BorderRadius.circular(16)),
+                                  primary: Color(color_mint),
+                                  onPrimary: Colors.black,
+                                  minimumSize: Size(80, 40),
+                                  shadowColor: Colors.transparent),
+                              child: Text(
+                                "뒤로",
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      Container(
+                        height: 5,
+                      ),
+                    ]))),
       );
 }
