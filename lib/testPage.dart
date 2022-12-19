@@ -16,7 +16,6 @@ class TestPage extends StatelessWidget{
         )
     ),
     child: Scaffold(
-        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.transparent,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(getMobileSizeFromPercent(context, 18, false)),

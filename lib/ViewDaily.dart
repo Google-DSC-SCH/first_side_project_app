@@ -55,7 +55,6 @@ class _ViewDaily extends State<ViewDaily> {
                 fit: BoxFit.fill,
                 image: AssetImage('assets/img/background.png'))),
         child: Scaffold(
-            resizeToAvoidBottomInset: false,
             backgroundColor: Colors.transparent,
             appBar: PreferredSize(
               preferredSize:
