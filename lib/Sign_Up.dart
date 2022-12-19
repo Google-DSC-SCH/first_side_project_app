@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'getMediaQuery.dart';
 
-class TestPage extends StatelessWidget{
+class Sign_Up extends StatelessWidget{
 
     // 위젯간 간격(세로)
   double titleFontSize = 17;
@@ -51,7 +51,7 @@ class TestPage extends StatelessWidget{
                         children: [
                           // 제목
                           Column(
-                            children: [
+                            children: [                              
                               Container(
                                 height: 5,
                               ),
@@ -114,6 +114,37 @@ class TestPage extends StatelessWidget{
                             ],
                           ),
                           Column(
+                            children: [                              
+                              Container(
+                                height: 5,
+                              ),
+                              Card(
+                                shape: RoundedRectangleBorder(
+                                  //모서리를 둥글게 하기 위해 사용
+                                  borderRadius: BorderRadius.circular(16.0),
+                                ),
+                                color: Color(color_mint),
+                                elevation: 0, // 그림자 깊이
+                                child: Container(
+                                    padding: EdgeInsets.all(5),
+                                    width: getMobileSizeFromPercent(
+                                        context, 80, true),
+                                    height: getMobileSizeFromPercent(
+                                        context, 5, false),
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            "비밀번호 확인",
+                                            style: TextStyle(fontSize: 21),
+                                          )
+                                        ],
+                                      ),
+                                    )),
+                              ),
+                            ],
+                          ),
+                          Column(
                             
                             children: [
                               Text("sign in",
@@ -141,7 +172,7 @@ class TestPage extends StatelessWidget{
                                       child: Column(
                                         children: [
                                           Text(
-                                            "login",
+                                            "Sign up",
                                             style: TextStyle(fontSize: 21),
                                           )
                                         ],
