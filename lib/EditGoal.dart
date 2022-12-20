@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'getMediaQuery.dart';
 
-class EditDaily extends StatefulWidget {
+class EditGoal extends StatefulWidget {
   @override
-  State<EditDaily> createState() => _EditDaily();
+  State<EditGoal> createState() => _EditGoal();
 }
 
-class _EditDaily extends State<EditDaily> {
+class _EditGoal extends State<EditGoal> {
   TextEditingController titleController = TextEditingController();
   TextEditingController contentController = TextEditingController();
 

@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 
 // 각 페이지들 import
 import 'testPage.dart';
-import 'ViewDaily.dart';
 import 'Sign_Up.dart';
-import 'CreateDaily.dart';
 import 'Real_Main.dart';
 import 'Achieved_Goal.dart';
+import 'ViewDaily.dart';
+import 'CreateDaily.dart';
+import 'ViewGoal.dart';
+import 'CreateGoal.dart';
 
 void main() {
   runApp(const MyApp());
@@ -83,6 +85,25 @@ class _MyHomePageState extends State<MyHomePage> {
                       MaterialPageRoute(builder: (_) => CreateDaily()));
                 },
                 child: Text("CreateDaily")),
+
+            // View Goal 페이지
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => ViewGoal()));
+                },
+                child: Text("ViewGoal")),
+
+            // Create Goal 페이지
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => CreateGoal()));
+                },
+                child: Text("CreateGoal")),
+
+
+
             ElevatedButton(
                 onPressed: () {
                   Navigator.push(context,
