@@ -82,66 +82,69 @@ class Create_Diary extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Row(
-                          children: [
-                            Card(
-                              shape: RoundedRectangleBorder(
-                                //모서리를 둥글게 하기 위해 사용
-                                borderRadius: BorderRadius.circular(16.0),
-                              ),
-                              color: Color(color_mint),
-                              elevation: 0, // 그림자 깊이
-                              child: GestureDetector(
-                                onTap: () {
-                                  print("완료 버튼 눌림");
-                                },
+                        Container(
+                            width: getMobileSizeFromPercent(context, 80, true),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Card(
+                                  shape: RoundedRectangleBorder(
+                                    //모서리를 둥글게 하기 위해 사용
+                                    borderRadius: BorderRadius.circular(16.0),
+                                  ),
+                                  color: Color(color_mint),
+                                  elevation: 0, // 그림자 깊이
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      print("완료 버튼 눌림");
+                                    },
 
-                                // 로그인 버튼
-                                child: Container(
-                                    alignment: Alignment.center,
-                                    padding: EdgeInsets.all(5),
-                                    width: getMobileSizeFromPercent(
-                                        context, 50, true),
-                                    height: getMobileSizeFromPercent(
-                                        context, 6, false),
-                                    child: Text(
-                                      "완료",
-                                      style: TextStyle(
-                                        fontSize: 25,
-                                      ),
-                                    )),
-                              ),
-                            ),
-                            Card(
-                              shape: RoundedRectangleBorder(
-                                //모서리를 둥글게 하기 위해 사용
-                                borderRadius: BorderRadius.circular(16.0),
-                              ),
-                              color: Color(color_mint),
-                              elevation: 0, // 그림자 깊이
-                              child: GestureDetector(
-                                onTap: () {
-                                  print("취소 버튼 눌림");
-                                },
+                                    // 로그인 버튼
+                                    child: Container(
+                                        alignment: Alignment.center,
+                                        padding: EdgeInsets.all(5),
+                                        width: getMobileSizeFromPercent(
+                                            context, 30, true),
+                                        height: getMobileSizeFromPercent(
+                                            context, 6, false),
+                                        child: Text(
+                                          "완료",
+                                          style: TextStyle(
+                                            fontSize: 25,
+                                          ),
+                                        )),
+                                  ),
+                                ),
+                                Card(
+                                  shape: RoundedRectangleBorder(
+                                    //모서리를 둥글게 하기 위해 사용
+                                    borderRadius: BorderRadius.circular(16.0),
+                                  ),
+                                  color: Color(color_mint),
+                                  elevation: 0, // 그림자 깊이
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      print("취소 버튼 눌림");
+                                    },
 
-                                // 로그인 버튼
-                                child: Container(
-                                    alignment: Alignment.center,
-                                    padding: EdgeInsets.all(5),
-                                    width: getMobileSizeFromPercent(
-                                        context, 50, true),
-                                    height: getMobileSizeFromPercent(
-                                        context, 6, false),
-                                    child: Text(
-                                      "취소",
-                                      style: TextStyle(
-                                        fontSize: 25,
-                                      ),
-                                    )),
-                              ),
-                            ),
-                          ],
-                        )
+                                    // 로그인 버튼
+                                    child: Container(
+                                        alignment: Alignment.center,
+                                        padding: EdgeInsets.all(5),
+                                        width: getMobileSizeFromPercent(
+                                            context, 30, true),
+                                        height: getMobileSizeFromPercent(
+                                            context, 6, false),
+                                        child: Text(
+                                          "취소",
+                                          style: TextStyle(
+                                            fontSize: 25,
+                                          ),
+                                        )),
+                                  ),
+                                ),
+                              ],
+                            )),
                       ],
                     )),
               ]),
