@@ -477,8 +477,7 @@ class _CreateDaily extends State<CreateDaily> {
                                               alertTime.split(":")[1] +
                                               "분",
                                       style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold),
+                                          fontSize: 20),
                                     ),
                                   ),
                                 ),
@@ -595,6 +594,7 @@ class _CreateDaily extends State<CreateDaily> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               ElevatedButton(
+                                // 완료
                                 style: ElevatedButton.styleFrom(
                                     shape: RoundedRectangleBorder(
                                         //모서리를 둥글게
@@ -606,7 +606,8 @@ class _CreateDaily extends State<CreateDaily> {
                                         getMobileSizeFromPercent(
                                             context, 30, true),
                                         40),
-                                    shadowColor: Colors.transparent),
+                                    shadowColor: Colors.transparent,
+                                  elevation: 0,),
                                 child: Text(
                                   "완료",
                                   style: TextStyle(fontSize: 20),
@@ -615,6 +616,7 @@ class _CreateDaily extends State<CreateDaily> {
                                   Navigator.pop(context);
                                 },
                               ),
+                              // 취소
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                     shape: RoundedRectangleBorder(
@@ -627,7 +629,8 @@ class _CreateDaily extends State<CreateDaily> {
                                         getMobileSizeFromPercent(
                                             context, 30, true),
                                         40),
-                                    shadowColor: Colors.transparent),
+                                    shadowColor: Colors.transparent,
+                                  elevation: 0,),
                                 child: Text(
                                   "취소",
                                   style: TextStyle(fontSize: 20),

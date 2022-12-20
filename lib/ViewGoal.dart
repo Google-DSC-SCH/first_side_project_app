@@ -3,12 +3,12 @@ import 'getMediaQuery.dart';
 
 import 'EditDaily.dart';
 
-class ViewDaily extends StatefulWidget {
+class ViewGoal extends StatefulWidget {
   @override
-  State<ViewDaily> createState() => _ViewDaily();
+  State<ViewGoal> createState() => _ViewGoal();
 }
 
-class _ViewDaily extends State<ViewDaily> {
+class _ViewGoal extends State<ViewGoal> {
   String title = "";
   String content = "";
   String repeatDay = "";
