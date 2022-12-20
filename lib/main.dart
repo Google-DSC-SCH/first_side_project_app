@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 // 각 페이지들 import
 import 'testPage.dart';
 import 'ViewDaily.dart';
-<<<<<<< HEAD
 import 'Sign_Up.dart';
-=======
 import 'CreateDaily.dart';
->>>>>>> 9fa02aad1790f7ae5e1fb2727792aa67f8770922
+
 
 void main() {
   runApp(const MyApp());
