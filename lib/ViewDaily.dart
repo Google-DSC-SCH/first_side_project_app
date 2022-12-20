@@ -13,10 +13,10 @@ class _ViewDaily extends State<ViewDaily> {
   String content = "";
   String repeatDay = "";
   String alarmOnOff = "";
-  String alarmTime = "";
+  String alertTime = "";
+  
+  // 완료 여부, 0: 완료, 1:미완료
   int selectedState = 0;
-  int stateComColor = 0;
-  int stateUncomColor = 0;
 
   // 위젯간 간격(세로)
   double titleFontSize = 17;
@@ -38,11 +38,8 @@ class _ViewDaily extends State<ViewDaily> {
         "대충 설명을 하자면 이런 느낌.\n뭔지 알지\n? 몰라도 알아야돼. 라때는\n\n\n\n\ 말이야 이러쿵저러쿵 꼰대 마인드 ON\n 집가고싶다..";
     this.repeatDay = "월, 수, 금";
     this.alarmOnOff = "ON";
-    this.alarmTime = "오후 7:30";
+    this.alertTime = "7:30";
     this.selectedState = 0;
-    this.stateComColor = color_whiteYellow;
-    this.stateUncomColor = color_realYellow;
-
 
     // 서버에서 데이터를 받아옴
 
@@ -184,13 +181,30 @@ class _ViewDaily extends State<ViewDaily> {
                                 Text("알림 ",
                                     style:
                                         TextStyle(fontSize: titleFontSize)),
+                                Container(width: 10,),
                                 Text(this.alarmOnOff,
-                                    style: TextStyle(fontSize: 25)),
+                                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
                               ],
                             ),
                             Text(
-                              this.alarmTime,
-                              style: TextStyle(fontSize: 25),
+                                int.parse(alertTime.split(":")[0]) >= 12
+                                    ? "오후 " +
+                                    (alertTime.split(":")[0] == "12"
+                                        ? 12
+                                        : (int.parse(alertTime
+                                        .split(":")[0]) %
+                                        12))
+                                        .toString() +
+                                    "시 " +
+                                    alertTime.split(":")[1] +
+                                    "분"
+                                    : "오전 " +
+                                    alertTime.split(":")[0] +
+                                    "시 " +
+                                    alertTime.split(":")[1] +
+                                    "분",
+                                style: TextStyle(
+                                    fontSize: 25,),
                               textAlign: TextAlign.center,
                             )
                           ],
@@ -198,7 +212,7 @@ class _ViewDaily extends State<ViewDaily> {
                       ),
                       // 상태
                       Container(
-                        width: getMobileSizeFromPercent(context, 65, true),
+                        width: getMobileSizeFromPercent(context, 80, true),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -212,13 +226,16 @@ class _ViewDaily extends State<ViewDaily> {
                                     shape: RoundedRectangleBorder(
                                       //모서리를 둥글게 하기 위해 사용
                                       borderRadius:
-                                          BorderRadius.circular(16.0),
+                                      BorderRadius.circular(16.0),
                                     ),
-                                    color: Color(stateComColor),
+                                    color: Color(selectedState == 0
+                                        ? color_realYellow
+                                        : color_whiteYellow),
                                     elevation: 0, // 그림자 깊이
                                     child: Container(
                                       alignment: Alignment.center,
-                                      width: 80,
+                                      width: getMobileSizeFromPercent(
+                                          context, 30, true),
                                       height: 40,
                                       child: Text(
                                         "완료",
@@ -231,8 +248,7 @@ class _ViewDaily extends State<ViewDaily> {
                                   onTap: () {
                                     // 색 Switch
                                     setState(() {
-                                      stateComColor = color_realYellow;
-                                      stateUncomColor = color_whiteYellow;
+                                      selectedState = 0;
                                     });
                                   },
                                 ),
@@ -243,13 +259,16 @@ class _ViewDaily extends State<ViewDaily> {
                                     shape: RoundedRectangleBorder(
                                       //모서리를 둥글게 하기 위해 사용
                                       borderRadius:
-                                          BorderRadius.circular(16.0),
+                                      BorderRadius.circular(16.0),
                                     ),
-                                    color: Color(stateUncomColor),
+                                    color: Color(selectedState == 1
+                                        ? color_realYellow
+                                        : color_whiteYellow),
                                     elevation: 0, // 그림자 깊이
                                     child: Container(
                                       alignment: Alignment.center,
-                                      width: 80,
+                                      width: getMobileSizeFromPercent(
+                                          context, 30, true),
                                       height: 40,
                                       child: Text(
                                         "미완료",
@@ -261,8 +280,7 @@ class _ViewDaily extends State<ViewDaily> {
                                   ),
                                   onTap: () {
                                     setState(() {
-                                      stateComColor = color_whiteYellow;
-                                      stateUncomColor = color_realYellow;
+                                      selectedState = 1;
                                     });
                                   },
                                 ),
@@ -292,7 +310,8 @@ class _ViewDaily extends State<ViewDaily> {
                                   onPrimary: Colors.black,
                                   minimumSize: Size(80, 40),
                                   //width, height
-                                  shadowColor: Colors.transparent),
+                                  shadowColor: Colors.transparent,
+                                elevation: 0,),
                               child: Text(
                                 "수정",
                                 style: TextStyle(fontSize: 20),
@@ -308,7 +327,8 @@ class _ViewDaily extends State<ViewDaily> {
                                   primary: Color(color_mint),
                                   onPrimary: Colors.black,
                                   minimumSize: Size(80, 40),
-                                  shadowColor: Colors.transparent),
+                                  shadowColor: Colors.transparent,
+                                elevation: 0,),
                               child: Text(
                                 "삭제",
                                 style: TextStyle(fontSize: 20),
@@ -326,7 +346,9 @@ class _ViewDaily extends State<ViewDaily> {
                                   primary: Color(color_mint),
                                   onPrimary: Colors.black,
                                   minimumSize: Size(80, 40),
-                                  shadowColor: Colors.transparent),
+                                  shadowColor: Colors.transparent,
+                                  elevation: 0,
+                              ),
                               child: Text(
                                 "뒤로",
                                 style: TextStyle(fontSize: 20),
