@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'getMediaQuery.dart';
 
-class CreateDaily extends StatefulWidget {
+class EditDaily extends StatefulWidget {
   @override
-  State<CreateDaily> createState() => _CreateDaily();
+  State<EditDaily> createState() => _EditDaily();
 }
 
-class _CreateDaily extends State<CreateDaily> {
+class _EditDaily extends State<EditDaily> {
   TextEditingController titleController = TextEditingController();
   TextEditingController contentController = TextEditingController();
 
@@ -14,7 +14,7 @@ class _CreateDaily extends State<CreateDaily> {
   int selectedState = 0;
 
   // 요일 상테 텍스트
-  String checkedDayStr = "월수일";
+  String checkedDayStr = "";
 
   // 요일 상태
   List<bool> checkedDayList = [
@@ -52,8 +52,17 @@ class _CreateDaily extends State<CreateDaily> {
     // TODO: implement initState
     super.initState();
 
+    // 제목
+    titleController.text = "제목";
+
+    // 설명
+    contentController.text = "설명";
+
+    // 완료여부
     this.selectedState = 0;
 
+    // 요일 상태 리스트 업데이트
+    checkedDayStr = "월수금일";
     updateCheckedDayList(this.checkedDayStr);
   }
 

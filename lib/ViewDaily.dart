@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'getMediaQuery.dart';
 
+import 'EditDaily.dart';
+
 class ViewDaily extends StatefulWidget {
   @override
   State<ViewDaily> createState() => _ViewDaily();
@@ -40,6 +42,10 @@ class _ViewDaily extends State<ViewDaily> {
     this.selectedState = 0;
     this.stateComColor = color_whiteYellow;
     this.stateUncomColor = color_realYellow;
+
+
+    // 서버에서 데이터를 받아옴
+
   }
 
   @override
@@ -291,7 +297,7 @@ class _ViewDaily extends State<ViewDaily> {
                                 "수정",
                                 style: TextStyle(fontSize: 20),
                               ),
-                              onPressed: () => null,
+                              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EditDaily())),
                             ),
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
