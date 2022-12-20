@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 // 각 페이지들 import
 import 'testPage.dart';
 import 'ViewDaily.dart';
+<<<<<<< HEAD
 import 'Sign_Up.dart';
+=======
+import 'CreateDaily.dart';
+>>>>>>> 9fa02aad1790f7ae5e1fb2727792aa67f8770922
 
 void main() {
   runApp(const MyApp());
@@ -17,6 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        fontFamily: 'HandTyping',
         primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
@@ -65,6 +70,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       context, MaterialPageRoute(builder: (_) => ViewDaily()));
                 },
                 child: Text("ViewDaily")),
+
+            // Create Daily 페이지
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => CreateDaily()));
+                },
+                child: Text("CreateDaily")),
           ],
         ),
       ),
