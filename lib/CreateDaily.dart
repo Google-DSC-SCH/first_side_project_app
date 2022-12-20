@@ -108,8 +108,8 @@ class _CreateDaily extends State<CreateDaily> {
                                       borderRadius:
                                           BorderRadius.all(Radius.circular(16)),
                                     ),
-                                    isDense: true,
-                                    // contentPadding: EdgeInsets.all((getMobileSizeFromPercent(context, 6, false) - 21)/2)
+                                    // 높이 조절
+                                    contentPadding: EdgeInsets.all((getMobileSizeFromPercent(context, 6, false) - 21)/2-1),
                                   ),
                                   style: TextStyle(fontSize: 21),
                                   textAlignVertical: TextAlignVertical.top,
