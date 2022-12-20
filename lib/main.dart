@@ -53,13 +53,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.push(
                       context, MaterialPageRoute(builder: (_) => TestPage()));
                 },
-                child: Text("테스트 페이지 이동")),
+                child: Text("testPage")),
             ElevatedButton(
                 onPressed: () {
                   Navigator.push(
                       context, MaterialPageRoute(builder: (_) => Sign_Up()));
                 },
-                child: Text("테스트 페이지2로 이동")),
+                child: Text("Sign_Up")),
 
             // View Daily 페이지
             ElevatedButton(
