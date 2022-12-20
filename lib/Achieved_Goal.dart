@@ -1,3 +1,4 @@
+import 'package:first_side_project_app/View_Diary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'getMediaQuery.dart';
@@ -88,7 +89,8 @@ class Achieved_Goal extends StatelessWidget {
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (_) => Real_Main()));
+                                                  builder: (_) =>
+                                                      View_Diary()));
                                         },
                                         child: Text(
                                           "토익 850점 넘기",
@@ -106,7 +108,8 @@ class Achieved_Goal extends StatelessWidget {
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (_) => Real_Main()));
+                                                  builder: (_) =>
+                                                      View_Diary()));
                                         },
                                         child: Text(
                                           "데이터베이스 자격증 따기",
@@ -124,7 +127,8 @@ class Achieved_Goal extends StatelessWidget {
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (_) => Real_Main()));
+                                                  builder: (_) =>
+                                                      View_Diary()));
                                         },
                                         child: Text(
                                           "알고리즘 마스터하기",
@@ -142,7 +146,8 @@ class Achieved_Goal extends StatelessWidget {
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (_) => Real_Main()));
+                                                  builder: (_) =>
+                                                      View_Diary()));
                                         },
                                         child: Text(
                                           "앱 배포 프로젝트 마무리",
@@ -160,7 +165,8 @@ class Achieved_Goal extends StatelessWidget {
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (_) => Real_Main()));
+                                                  builder: (_) =>
+                                                      View_Diary()));
                                         },
                                         child: Text(
                                           "매일 영단어 100개 암기",

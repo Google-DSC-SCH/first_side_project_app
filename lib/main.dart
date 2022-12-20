@@ -10,6 +10,7 @@ import 'CreateDaily.dart';
 import 'ViewGoal.dart';
 import 'CreateGoal.dart';
 import 'Create_Diary.dart';
+import 'View_Diary.dart';
 
 void main() {
   runApp(const MyApp());
@@ -93,6 +94,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       MaterialPageRoute(builder: (_) => Create_Diary()));
                 },
                 child: Text("Create_Diary")),
+
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => View_Diary()));
+                },
+                child: Text("View_Diary")),
 
             // View Goal 페이지
             ElevatedButton(
