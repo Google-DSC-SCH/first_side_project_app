@@ -16,9 +16,6 @@ class _CreateDaily extends State<CreateDaily> {
   // 위젯간 간격(세로)
   double titleFontSize = 17;
 
-  // body 높이
-  double bodyHeight = 78;
-
   // 연노랑
   int color_whiteYellow = 0xFFFAF4B7;
 
@@ -92,28 +89,28 @@ class _CreateDaily extends State<CreateDaily> {
                               height: 5,
                             ),
                             Container(
-                                color: Colors.red,
                                 width:
                                     getMobileSizeFromPercent(context, 80, true),
                                 height:
                                     getMobileSizeFromPercent(context, 6, false),
                                 child: TextField(
+                                  // 꾸미기
                                   decoration: InputDecoration(
                                     // 색 변경
                                     filled: true,
                                     fillColor: Color(color_whiteYellow),
                                     // 둘그런 형태
-                                    border: UnderlineInputBorder(
+                                    border: OutlineInputBorder(
                                       borderSide: BorderSide.none,
                                       borderRadius:
                                           BorderRadius.all(Radius.circular(16)),
                                     ),
-                                    // 높이 조절
-                                    contentPadding: EdgeInsets.all((getMobileSizeFromPercent(context, 6, false) - 21)/2-1),
+                                    contentPadding: EdgeInsets.all(5)
                                   ),
+                                  controller: titleController,
                                   style: TextStyle(fontSize: 21),
-                                  textAlignVertical: TextAlignVertical.top,
-                                  maxLines: null,
+                                  textAlignVertical: TextAlignVertical.center,
+                                  maxLines: 10,
                                 )),
                           ],
                         ),
@@ -126,30 +123,30 @@ class _CreateDaily extends State<CreateDaily> {
                             Container(
                               height: 5,
                             ),
-                            Card(
-                              shape: RoundedRectangleBorder(
-                                //모서리를 둥글게 하기 위해 사용
-                                borderRadius: BorderRadius.circular(16.0),
-                              ),
-                              color: Color(color_whiteYellow),
-                              elevation: 0, // 그림자 깊이
-                              child: Container(
-                                  padding: EdgeInsets.all(5),
-                                  width: getMobileSizeFromPercent(
-                                      context, 80, true),
-                                  height: getMobileSizeFromPercent(
-                                      context, 18, false),
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          "",
-                                          style: TextStyle(fontSize: 15),
-                                        ),
-                                      ],
+                            Container(
+                                width:
+                                getMobileSizeFromPercent(context, 80, true),
+                                height:
+                                getMobileSizeFromPercent(context, 18, false),
+                                child: TextField(
+                                  // 꾸미기
+                                  decoration: InputDecoration(
+                                    // 색 변경
+                                    filled: true,
+                                    fillColor: Color(color_whiteYellow),
+                                    // 둘그런 형태
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius:
+                                      BorderRadius.all(Radius.circular(16)),
                                     ),
-                                  )),
-                            ),
+                                    contentPadding: EdgeInsets.all(5)
+                                  ),
+                                  controller: contentController,
+                                  style: TextStyle(fontSize: 21),
+                                  textAlignVertical: TextAlignVertical.center,
+                                  maxLines: 20,
+                                )),
                           ],
                         ),
 
