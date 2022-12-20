@@ -9,6 +9,7 @@ import 'ViewDaily.dart';
 import 'CreateDaily.dart';
 import 'ViewGoal.dart';
 import 'CreateGoal.dart';
+import 'Create_Diary.dart';
 
 void main() {
   runApp(const MyApp());
@@ -86,23 +87,28 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
                 child: Text("CreateDaily")),
 
-            // View Goal 페이지
             ElevatedButton(
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => ViewGoal()));
+                      MaterialPageRoute(builder: (_) => Create_Diary()));
+                },
+                child: Text("Create_Diary")),
+
+            // View Goal 페이지
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => ViewGoal()));
                 },
                 child: Text("ViewGoal")),
 
             // Create Goal 페이지
             ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => CreateGoal()));
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => CreateGoal()));
                 },
                 child: Text("CreateGoal")),
-
-
 
             ElevatedButton(
                 onPressed: () {
