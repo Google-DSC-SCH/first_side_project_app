@@ -14,16 +14,19 @@ class _ViewDaily extends State<ViewDaily> {
   String repeatDay = "";
   String alarmOnOff = "";
   String alertTime = "";
-  
+
   // 완료 여부, 0: 완료, 1:미완료
   int selectedState = 0;
 
   // 위젯간 간격(세로)
   double titleFontSize = 17;
+
   // 연노랑
   int color_whiteYellow = 0xFFFAF4B7;
+
   // 찐노랑
   int color_realYellow = 0xFFFFD966;
+
   // 민트
   int color_mint = 0xFFCDF0EA;
 
@@ -42,7 +45,6 @@ class _ViewDaily extends State<ViewDaily> {
     this.selectedState = 0;
 
     // 서버에서 데이터를 받아옴
-
   }
 
   @override
@@ -86,8 +88,7 @@ class _ViewDaily extends State<ViewDaily> {
                       // 제목
                       Column(
                         children: [
-                          Text("제목",
-                              style: TextStyle(fontSize: titleFontSize)),
+                          Text("제목", style: TextStyle(fontSize: titleFontSize)),
                           Container(
                             height: 5,
                           ),
@@ -100,10 +101,10 @@ class _ViewDaily extends State<ViewDaily> {
                             elevation: 0, // 그림자 깊이
                             child: Container(
                                 padding: EdgeInsets.all(5),
-                                width: getMobileSizeFromPercent(
-                                    context, 80, true),
-                                height: getMobileSizeFromPercent(
-                                    context, 6, false),
+                                width:
+                                    getMobileSizeFromPercent(context, 80, true),
+                                height:
+                                    getMobileSizeFromPercent(context, 6, false),
                                 child: SingleChildScrollView(
                                   child: Column(
                                     children: [
@@ -121,8 +122,7 @@ class _ViewDaily extends State<ViewDaily> {
                       // 설명
                       Column(
                         children: [
-                          Text("설명",
-                              style: TextStyle(fontSize: titleFontSize)),
+                          Text("설명", style: TextStyle(fontSize: titleFontSize)),
                           Container(
                             height: 5,
                           ),
@@ -135,8 +135,8 @@ class _ViewDaily extends State<ViewDaily> {
                             elevation: 0, // 그림자 깊이
                             child: Container(
                                 padding: EdgeInsets.all(5),
-                                width: getMobileSizeFromPercent(
-                                    context, 80, true),
+                                width:
+                                    getMobileSizeFromPercent(context, 80, true),
                                 height: getMobileSizeFromPercent(
                                     context, 18, false),
                                 child: SingleChildScrollView(
@@ -179,32 +179,36 @@ class _ViewDaily extends State<ViewDaily> {
                             Row(
                               children: [
                                 Text("알림 ",
-                                    style:
-                                        TextStyle(fontSize: titleFontSize)),
-                                Container(width: 10,),
+                                    style: TextStyle(fontSize: titleFontSize)),
+                                Container(
+                                  width: 10,
+                                ),
                                 Text(this.alarmOnOff,
-                                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+                                    style: TextStyle(
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold)),
                               ],
                             ),
                             Text(
-                                int.parse(alertTime.split(":")[0]) >= 12
-                                    ? "오후 " +
-                                    (alertTime.split(":")[0] == "12"
-                                        ? 12
-                                        : (int.parse(alertTime
-                                        .split(":")[0]) %
-                                        12))
-                                        .toString() +
-                                    "시 " +
-                                    alertTime.split(":")[1] +
-                                    "분"
-                                    : "오전 " +
-                                    alertTime.split(":")[0] +
-                                    "시 " +
-                                    alertTime.split(":")[1] +
-                                    "분",
-                                style: TextStyle(
-                                    fontSize: 25,),
+                              int.parse(alertTime.split(":")[0]) >= 12
+                                  ? "오후 " +
+                                      (alertTime.split(":")[0] == "12"
+                                              ? 12
+                                              : (int.parse(
+                                                      alertTime.split(":")[0]) %
+                                                  12))
+                                          .toString() +
+                                      "시 " +
+                                      alertTime.split(":")[1] +
+                                      "분"
+                                  : "오전 " +
+                                      alertTime.split(":")[0] +
+                                      "시 " +
+                                      alertTime.split(":")[1] +
+                                      "분",
+                              style: TextStyle(
+                                fontSize: 25,
+                              ),
                               textAlign: TextAlign.center,
                             )
                           ],
@@ -225,8 +229,7 @@ class _ViewDaily extends State<ViewDaily> {
                                   child: Card(
                                     shape: RoundedRectangleBorder(
                                       //모서리를 둥글게 하기 위해 사용
-                                      borderRadius:
-                                      BorderRadius.circular(16.0),
+                                      borderRadius: BorderRadius.circular(16.0),
                                     ),
                                     color: Color(selectedState == 0
                                         ? color_realYellow
@@ -258,8 +261,7 @@ class _ViewDaily extends State<ViewDaily> {
                                   child: Card(
                                     shape: RoundedRectangleBorder(
                                       //모서리를 둥글게 하기 위해 사용
-                                      borderRadius:
-                                      BorderRadius.circular(16.0),
+                                      borderRadius: BorderRadius.circular(16.0),
                                     ),
                                     color: Color(selectedState == 1
                                         ? color_realYellow
@@ -300,35 +302,42 @@ class _ViewDaily extends State<ViewDaily> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+
+                            // 수정
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                      //모서리를 둥글게
-                                      borderRadius:
-                                          BorderRadius.circular(16)),
-                                  primary: Color(color_mint),
-                                  onPrimary: Colors.black,
-                                  minimumSize: Size(80, 40),
-                                  //width, height
-                                  shadowColor: Colors.transparent,
-                                elevation: 0,),
+                                shape: RoundedRectangleBorder(
+                                    //모서리를 둥글게
+                                    borderRadius: BorderRadius.circular(16)),
+                                primary: Color(color_mint),
+                                onPrimary: Colors.black,
+                                minimumSize: Size(80, 40),
+                                //width, height
+                                shadowColor: Colors.transparent,
+                                elevation: 0,
+                              ),
                               child: Text(
                                 "수정",
                                 style: TextStyle(fontSize: 20),
                               ),
-                              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EditDaily())),
+                              onPressed: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          EditDaily())),
                             ),
+                            // 삭제
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                      //모서리를 둥글게
-                                      borderRadius:
-                                          BorderRadius.circular(16)),
-                                  primary: Color(color_mint),
-                                  onPrimary: Colors.black,
-                                  minimumSize: Size(80, 40),
-                                  shadowColor: Colors.transparent,
-                                elevation: 0,),
+                                shape: RoundedRectangleBorder(
+                                    //모서리를 둥글게
+                                    borderRadius: BorderRadius.circular(16)),
+                                primary: Color(color_mint),
+                                onPrimary: Colors.black,
+                                minimumSize: Size(80, 40),
+                                shadowColor: Colors.transparent,
+                                elevation: 0,
+                              ),
                               child: Text(
                                 "삭제",
                                 style: TextStyle(fontSize: 20),
@@ -337,17 +346,17 @@ class _ViewDaily extends State<ViewDaily> {
                                 Navigator.pop(context);
                               },
                             ),
+                            // 뒤로
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                      //모서리를 둥글게
-                                      borderRadius:
-                                          BorderRadius.circular(16)),
-                                  primary: Color(color_mint),
-                                  onPrimary: Colors.black,
-                                  minimumSize: Size(80, 40),
-                                  shadowColor: Colors.transparent,
-                                  elevation: 0,
+                                shape: RoundedRectangleBorder(
+                                    //모서리를 둥글게
+                                    borderRadius: BorderRadius.circular(16)),
+                                primary: Color(color_mint),
+                                onPrimary: Colors.black,
+                                minimumSize: Size(80, 40),
+                                shadowColor: Colors.transparent,
+                                elevation: 0,
                               ),
                               child: Text(
                                 "뒤로",
