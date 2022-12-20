@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'getMediaQuery.dart';
-import 'testPage.dart';
+import 'Real_Main.dart';
 
-class Sign_Up extends StatelessWidget {
+class Achieved_Goal extends StatelessWidget {
   // 위젯간 간격(세로)
   double titleFontSize = 17;
   // 연노랑
@@ -60,6 +60,8 @@ class Sign_Up extends StatelessWidget {
                         // 제목
                         Column(
                           children: [
+                            Text("달성한 목표들",
+                                style: TextStyle(fontSize: titleFontSize)),
                             Container(
                               height: 5,
                             ),
@@ -68,101 +70,62 @@ class Sign_Up extends StatelessWidget {
                                 //모서리를 둥글게 하기 위해 사용
                                 borderRadius: BorderRadius.circular(16.0),
                               ),
-                              color: Color(color_mint),
+                              color: Color(color_whiteYellow),
                               elevation: 0, // 그림자 깊이
                               child: Container(
-                                  padding: EdgeInsets.all(5),
-                                  width: getMobileSizeFromPercent(
-                                      context, 80, true),
-                                  height: getMobileSizeFromPercent(
-                                      context, 6, false),
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                      labelText: '아이디',
-                                      border: InputBorder.none,
+                                padding: EdgeInsets.all(5),
+                                width:
+                                    getMobileSizeFromPercent(context, 80, true),
+                                height: getMobileSizeFromPercent(
+                                    context, 50, false),
+                                child: ListView(
+                                  // scrollDirection: Axis.horizontal,
+                                  padding: EdgeInsets.all(10),
+                                  children: [
+                                    Card(
+                                      child: Text(
+                                        "1번 카드입니다.",
+                                        style: TextStyle(fontSize: 35),
+                                      ),
+                                      color: Colors.white70,
+                                      margin: EdgeInsets.all(20),
                                     ),
-                                  )),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Container(
-                              height: 5,
-                            ),
-                            Card(
-                              shape: RoundedRectangleBorder(
-                                //모서리를 둥글게 하기 위해 사용
-                                borderRadius: BorderRadius.circular(16.0),
+                                    Card(
+                                      child: Text(
+                                        "2번 카드입니다.",
+                                        style: TextStyle(fontSize: 35),
+                                      ),
+                                      color: Colors.white70,
+                                      margin: EdgeInsets.all(20),
+                                    ),
+                                    Card(
+                                      child: Text(
+                                        "3번 카드입니다.",
+                                        style: TextStyle(fontSize: 35),
+                                      ),
+                                      color: Colors.white70,
+                                      margin: EdgeInsets.all(20),
+                                    ),
+                                  ],
+                                ),
                               ),
-                              color: Color(color_mint),
-                              elevation: 0, // 그림자 깊이
-                              child: Container(
-                                  padding: EdgeInsets.all(5),
-                                  width: getMobileSizeFromPercent(
-                                      context, 80, true),
-                                  height: getMobileSizeFromPercent(
-                                      context, 6, false),
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                      labelText: '비밀번호',
-                                      border: InputBorder.none,
-                                    ),
-                                  )),
                             ),
                           ],
                         ),
-                        Column(
-                          children: [
-                            Container(
-                              height: 5,
-                            ),
-                            Card(
-                              shape: RoundedRectangleBorder(
-                                //모서리를 둥글게 하기 위해 사용
-                                borderRadius: BorderRadius.circular(16.0),
-                              ),
-                              color: Color(color_mint),
-                              elevation: 0, // 그림자 깊이
-                              child: Container(
-                                  padding: EdgeInsets.all(5),
-                                  width: getMobileSizeFromPercent(
-                                      context, 80, true),
-                                  height: getMobileSizeFromPercent(
-                                      context, 6, false),
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                      labelText: '비밀번호 확인',
-                                      border: InputBorder.none,
-                                    ),
-                                  )),
-                            ),
-                          ],
-                        ),
-                        Column(children: [
-                          TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => TestPage()));
-                              },
-                              child: Text("뒤로 가기",
-                                  style: TextStyle(fontSize: 17))),
-                        ]),
+
                         Card(
                           shape: RoundedRectangleBorder(
                             //모서리를 둥글게 하기 위해 사용
                             borderRadius: BorderRadius.circular(16.0),
                           ),
-                          color: Color(color_whiteYellow),
+                          color: Color(color_mint),
                           elevation: 0, // 그림자 깊이
                           child: GestureDetector(
                             onTap: () {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (_) => TestPage()));
+                                      builder: (_) => Real_Main()));
                             },
 
                             // 로그인 버튼
@@ -174,7 +137,7 @@ class Sign_Up extends StatelessWidget {
                                 height:
                                     getMobileSizeFromPercent(context, 6, false),
                                 child: Text(
-                                  "login",
+                                  "뒤로 가기",
                                   style: TextStyle(
                                     fontSize: 25,
                                   ),
