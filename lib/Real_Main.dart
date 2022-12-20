@@ -2,6 +2,7 @@ import 'package:first_side_project_app/ViewDaily.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'getMediaQuery.dart';
+import 'AchievementRate.dart';
 
 class Real_Main extends StatelessWidget {
   // 위젯간 간격(세로)
@@ -274,10 +275,16 @@ class Real_Main extends StatelessWidget {
                               child: SingleChildScrollView(
                                 child: Column(
                                   children: [
-                                    Text(
-                                      "달성률 보기",
-                                      style: TextStyle(fontSize: 21),
-                                    )
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (_) =>
+                                                      AchievementRate()));
+                                        },
+                                        child: Text("달성률 보기",
+                                            style: TextStyle(fontSize: 21))),
                                   ],
                                 ),
                               )),
