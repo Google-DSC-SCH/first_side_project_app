@@ -68,12 +68,12 @@ class Achieved_Goal extends StatelessWidget {
                             Card(
                               shape: RoundedRectangleBorder(
                                 //모서리를 둥글게 하기 위해 사용
-                                borderRadius: BorderRadius.circular(16.0),
+                                borderRadius: BorderRadius.circular(50.0),
                               ),
                               color: Color(color_whiteYellow),
                               elevation: 0, // 그림자 깊이
                               child: Container(
-                                padding: EdgeInsets.all(5),
+                                padding: EdgeInsets.all(10),
                                 width:
                                     getMobileSizeFromPercent(context, 80, true),
                                 height: getMobileSizeFromPercent(
@@ -83,28 +83,94 @@ class Achieved_Goal extends StatelessWidget {
                                   padding: EdgeInsets.all(10),
                                   children: [
                                     Card(
-                                      child: Text(
-                                        "1번 카드입니다.",
-                                        style: TextStyle(fontSize: 35),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (_) => Real_Main()));
+                                        },
+                                        child: Text(
+                                          "토익 850점 넘기",
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(fontSize: 30),
+                                        ),
                                       ),
-                                      color: Colors.white70,
-                                      margin: EdgeInsets.all(20),
+                                      color: Color(color_whiteYellow),
+                                      margin: EdgeInsets.all(2),
                                     ),
                                     Card(
-                                      child: Text(
-                                        "2번 카드입니다.",
-                                        style: TextStyle(fontSize: 35),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (_) => Real_Main()));
+                                        },
+                                        child: Text(
+                                          "데이터베이스 자격증 따기",
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(fontSize: 30),
+                                        ),
                                       ),
-                                      color: Colors.white70,
-                                      margin: EdgeInsets.all(20),
+                                      color: Color(color_whiteYellow),
+                                      margin: EdgeInsets.all(2),
                                     ),
                                     Card(
-                                      child: Text(
-                                        "3번 카드입니다.",
-                                        style: TextStyle(fontSize: 35),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (_) => Real_Main()));
+                                        },
+                                        child: Text(
+                                          "알고리즘 마스터하기",
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(fontSize: 30),
+                                        ),
                                       ),
-                                      color: Colors.white70,
-                                      margin: EdgeInsets.all(20),
+                                      color: Color(color_whiteYellow),
+                                      margin: EdgeInsets.all(2),
+                                    ),
+                                    Card(
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (_) => Real_Main()));
+                                        },
+                                        child: Text(
+                                          "앱 배포 프로젝트 마무리",
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(fontSize: 30),
+                                        ),
+                                      ),
+                                      color: Color(color_whiteYellow),
+                                      margin: EdgeInsets.all(2),
+                                    ),
+                                    Card(
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (_) => Real_Main()));
+                                        },
+                                        child: Text(
+                                          "매일 영단어 100개 암기",
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(fontSize: 30),
+                                        ),
+                                      ),
+                                      color: Color(color_whiteYellow),
+                                      margin: EdgeInsets.all(2),
                                     ),
                                   ],
                                 ),
