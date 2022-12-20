@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'getMediaQuery.dart';
+import 'testPage.dart';
 
 class Sign_Up extends StatelessWidget{
 
@@ -67,46 +68,16 @@ class Sign_Up extends StatelessWidget{
                                     width: getMobileSizeFromPercent(
                                         context, 80, true),
                                     height: getMobileSizeFromPercent(
-                                        context, 5, false),
+                                        context, 6, false),
                                     child: SingleChildScrollView(
                                       child: Column(
                                         children: [
-                                          Text(
-                                            "아이디",
-                                            style: TextStyle(fontSize: 21),
-                                          )
-                                        ],
-                                      ),
-                                    )),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              
-                             Container(
-                                height: 5,
-                              ),
-                              Card(
-                                shape: RoundedRectangleBorder(
-                                  //모서리를 둥글게 하기 위해 사용
-                                  borderRadius: BorderRadius.circular(16.0),
-                                ),
-                                color: Color(color_mint),
-                                elevation: 0, // 그림자 깊이
-                                child: Container(
-                                    padding: EdgeInsets.all(5),
-                                    width: getMobileSizeFromPercent(
-                                        context, 80, true),
-                                    height: getMobileSizeFromPercent(
-                                        context, 5, false),
-                                    child: SingleChildScrollView(
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            "비밀번호",
-                                            style: TextStyle(fontSize: 21),
-                                          )
+                                          TextField(                                         
+                                          decoration: InputDecoration(                                          
+                                            labelText: '아이디',
+                                            border: InputBorder.none,
+                                          ),
+                                        )
                                         ],
                                       ),
                                     )),
@@ -130,14 +101,16 @@ class Sign_Up extends StatelessWidget{
                                     width: getMobileSizeFromPercent(
                                         context, 80, true),
                                     height: getMobileSizeFromPercent(
-                                        context, 5, false),
+                                        context, 6, false),
                                     child: SingleChildScrollView(
                                       child: Column(
                                         children: [
-                                          Text(
-                                            "비밀번호 확인",
-                                            style: TextStyle(fontSize: 21),
-                                          )
+                                          TextField(                                         
+                                          decoration: InputDecoration(                                          
+                                            labelText: '비밀번호',
+                                            border: InputBorder.none,
+                                          ),
+                                        )
                                         ],
                                       ),
                                     )),
@@ -145,11 +118,49 @@ class Sign_Up extends StatelessWidget{
                             ],
                           ),
                           Column(
-                            
+                            children: [                              
+                              Container(
+                                height: 5,
+                              ),
+                              Card(
+                                shape: RoundedRectangleBorder(
+                                  //모서리를 둥글게 하기 위해 사용
+                                  borderRadius: BorderRadius.circular(16.0),
+                                ),
+                                color: Color(color_mint),
+                                elevation: 0, // 그림자 깊이
+                                child: Container(
+                                    padding: EdgeInsets.all(5),
+                                    width: getMobileSizeFromPercent(
+                                        context, 80, true),
+                                    height: getMobileSizeFromPercent(
+                                        context, 6, false),
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        children: [
+                                          TextField(                                         
+                                          decoration: InputDecoration(                                          
+                                            labelText: '비밀번호 확인',
+                                            border: InputBorder.none,
+                                          ),
+                                        )
+                                        ],
+                                      ),
+                                    )),
+                              ),
+                            ],
+                          ),
+                          Column(                                                       
                             children: [
-                              Text("sign in",
-                                  style: TextStyle(fontSize: 17))]),
-                                  Column(
+                                 TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context, MaterialPageRoute(builder: (_) => TestPage()));
+                                  },
+                                  child: Text("뒤로 가기",
+                                  style: TextStyle(fontSize: 17))),
+                              ]),
+                                 Column(
                             children: [
                               
                              Container(
@@ -163,18 +174,22 @@ class Sign_Up extends StatelessWidget{
                                 color: Color(color_whiteYellow),
                                 elevation: 0, // 그림자 깊이
                                 child: Container(
-                                    padding: EdgeInsets.all(5),
-                                    width: getMobileSizeFromPercent(
-                                        context, 80, true),
+                                    padding: EdgeInsets.all(5),                                 
                                     height: getMobileSizeFromPercent(
                                         context, 5, false),
                                     child: SingleChildScrollView(
                                       child: Column(
-                                        children: [
-                                          Text(
-                                            "Sign up",
+                                        children: [                                          
+                                           TextButton(
+                                            onPressed: () {
+                                              Navigator.push(
+                                                  context, MaterialPageRoute(builder: (_) => TestPage()));
+                                            },
+                                            child: Text(
+                                            "sign up",
                                             style: TextStyle(fontSize: 21),
-                                          )
+                                          )),
+                                          
                                         ],
                                       ),
                                     )),

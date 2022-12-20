@@ -5,6 +5,7 @@ import 'testPage.dart';
 import 'ViewDaily.dart';
 import 'Sign_Up.dart';
 import 'CreateDaily.dart';
+import 'Real_Main.dart';
 
 
 void main() {
@@ -61,6 +62,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
                 child: Text("Sign_Up")),
 
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => Real_Main()));
+                },
+                child: Text("Real_Main")),
             // View Daily 페이지
             ElevatedButton(
                 onPressed: () {
