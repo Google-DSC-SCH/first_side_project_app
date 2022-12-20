@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'getMediaQuery.dart';
-import 'Login.dart';
 
-class Sign_Up extends StatelessWidget {
+import 'getMediaQuery.dart';
+import 'Sign_Up.dart';
+import 'Real_Main.dart';
+
+class Login extends StatelessWidget {
   // 위젯간 간격(세로)
   double titleFontSize = 17;
   // 연노랑
@@ -51,7 +54,7 @@ class Sign_Up extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    // 제목
+                    // 아이디
                     Column(
                       children: [
                         Container(
@@ -106,40 +109,14 @@ class Sign_Up extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Column(
-                      children: [
-                        Container(
-                          height: 5,
-                        ),
-                        Card(
-                          shape: RoundedRectangleBorder(
-                            //모서리를 둥글게 하기 위해 사용
-                            borderRadius: BorderRadius.circular(16.0),
-                          ),
-                          color: Color(color_mint),
-                          elevation: 0, // 그림자 깊이
-                          child: Container(
-                              padding: EdgeInsets.all(5),
-                              width:
-                                  getMobileSizeFromPercent(context, 80, true),
-                              height:
-                                  getMobileSizeFromPercent(context, 6, false),
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  labelText: '비밀번호 확인',
-                                  border: InputBorder.none,
-                                ),
-                              )),
-                        ),
-                      ],
-                    ),
                     Column(children: [
                       TextButton(
                           onPressed: () {
                             Navigator.push(context,
-                                MaterialPageRoute(builder: (_) => Login()));
+                                MaterialPageRoute(builder: (_) => Sign_Up()));
                           },
-                          child: Text("뒤로 가기", style: TextStyle(fontSize: 17))),
+                          child:
+                              Text("sign up", style: TextStyle(fontSize: 17))),
                     ]),
                     Card(
                       shape: RoundedRectangleBorder(
@@ -151,7 +128,7 @@ class Sign_Up extends StatelessWidget {
                       child: GestureDetector(
                         onTap: () {
                           Navigator.push(context,
-                              MaterialPageRoute(builder: (_) => Login()));
+                              MaterialPageRoute(builder: (_) => Real_Main()));
                         },
 
                         // 로그인 버튼

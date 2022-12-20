@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // 각 페이지들 import
-import 'testPage.dart';
+import 'Login.dart';
 import 'Sign_Up.dart';
 import 'Real_Main.dart';
 import 'Achieved_Goal.dart';
@@ -56,9 +56,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ElevatedButton(
                 onPressed: () {
                   Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => TestPage()));
+                      context, MaterialPageRoute(builder: (_) => Login()));
                 },
-                child: Text("testPage")),
+                child: Text("Login")),
             ElevatedButton(
                 onPressed: () {
                   Navigator.push(
