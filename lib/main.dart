@@ -6,7 +6,7 @@ import 'ViewDaily.dart';
 import 'Sign_Up.dart';
 import 'CreateDaily.dart';
 import 'Real_Main.dart';
-
+import 'Achieved_Goal.dart';
 
 void main() {
   runApp(const MyApp());
@@ -79,10 +79,16 @@ class _MyHomePageState extends State<MyHomePage> {
             // Create Daily 페이지
             ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => CreateDaily()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => CreateDaily()));
                 },
                 child: Text("CreateDaily")),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => Achieved_Goal()));
+                },
+                child: Text("Achieved_Goal")),
           ],
         ),
       ),
