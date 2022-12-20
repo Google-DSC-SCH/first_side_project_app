@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'getMediaQuery.dart';
 
 import 'getMediaQuery.dart';
-
+import 'Sign_Up.dart';
+import 'Real_Main.dart';
 class TestPage extends StatelessWidget{
 
     // 위젯간 간격(세로)
@@ -53,7 +54,7 @@ class TestPage extends StatelessWidget{
                         children: [
                           // 제목
                           Column(
-                            children: [
+                            children: [                              
                               Container(
                                 height: 5,
                               ),
@@ -69,14 +70,16 @@ class TestPage extends StatelessWidget{
                                     width: getMobileSizeFromPercent(
                                         context, 80, true),
                                     height: getMobileSizeFromPercent(
-                                        context, 5, false),
+                                        context, 6, false),
                                     child: SingleChildScrollView(
                                       child: Column(
                                         children: [
-                                          Text(
-                                            "아이디",
-                                            style: TextStyle(fontSize: 21),
-                                          )
+                                          TextField(                                         
+                                          decoration: InputDecoration(                                          
+                                            labelText: '아이디',
+                                            border: InputBorder.none,
+                                          ),
+                                        )
                                         ],
                                       ),
                                     )),
@@ -84,9 +87,8 @@ class TestPage extends StatelessWidget{
                             ],
                           ),
                           Column(
-                            children: [
-                              
-                             Container(
+                            children: [                              
+                              Container(
                                 height: 5,
                               ),
                               Card(
@@ -101,25 +103,32 @@ class TestPage extends StatelessWidget{
                                     width: getMobileSizeFromPercent(
                                         context, 80, true),
                                     height: getMobileSizeFromPercent(
-                                        context, 5, false),
+                                        context, 6, false),
                                     child: SingleChildScrollView(
                                       child: Column(
                                         children: [
-                                          Text(
-                                            "비밀번호",
-                                            style: TextStyle(fontSize: 21),
-                                          )
+                                          TextField(                                         
+                                          decoration: InputDecoration(                                          
+                                            labelText: '비밀번호',
+                                            border: InputBorder.none,
+                                          ),
+                                        )
                                         ],
                                       ),
                                     )),
                               ),
                             ],
                           ),
-                          Column(
-                            
+                          Column(                                                       
                             children: [
-                              Text("sign in",
-                                  style: TextStyle(fontSize: 17))]),
+                                 TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context, MaterialPageRoute(builder: (_) => Sign_Up()));
+                                  },
+                                  child: Text("sign up",
+                                  style: TextStyle(fontSize: 17))),
+                              ]),
                                   Column(
                             children: [
                               
@@ -134,18 +143,22 @@ class TestPage extends StatelessWidget{
                                 color: Color(color_whiteYellow),
                                 elevation: 0, // 그림자 깊이
                                 child: Container(
-                                    padding: EdgeInsets.all(5),
-                                    width: getMobileSizeFromPercent(
-                                        context, 80, true),
+                                    padding: EdgeInsets.all(5),                                 
                                     height: getMobileSizeFromPercent(
                                         context, 5, false),
                                     child: SingleChildScrollView(
                                       child: Column(
-                                        children: [
-                                          Text(
+                                        children: [                                          
+                                           TextButton(
+                                            onPressed: () {
+                                              Navigator.push(
+                                                  context, MaterialPageRoute(builder: (_) => Real_Main()));
+                                            },
+                                            child: Text(
                                             "login",
                                             style: TextStyle(fontSize: 21),
-                                          )
+                                          )),
+                                          
                                         ],
                                       ),
                                     )),
