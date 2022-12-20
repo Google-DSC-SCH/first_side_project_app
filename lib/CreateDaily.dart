@@ -48,34 +48,38 @@ class _CreateDaily extends State<CreateDaily> {
             image: DecorationImage(
                 fit: BoxFit.fill,
                 image: AssetImage('assets/img/background.png'))),
-        child: Scaffold(
-            backgroundColor: Colors.transparent,
-            
-            appBar: PreferredSize(
-              preferredSize:
-                  Size.fromHeight(getMobileSizeFromPercent(context, 18, false)),
-              child: Container(
-                color: Colors.transparent,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      child: Image.asset('assets/img/icon.png'),
-                      height: getMobileSizeFromPercent(context, 10, false),
-                    ),
-                    Container()
-                  ],
+        child: GestureDetector(
+          // 외부 클릭시 키보드 숨기기
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+
+          child: Scaffold(
+              backgroundColor: Colors.transparent,
+              appBar: PreferredSize(
+                preferredSize: Size.fromHeight(
+                    getMobileSizeFromPercent(context, 18, false)),
+                child: Container(
+                  color: Colors.transparent,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Container(
+                        child: Image.asset('assets/img/icon.png'),
+                        height: getMobileSizeFromPercent(context, 10, false),
+                      ),
+                      Container()
+                    ],
+                  ),
                 ),
               ),
-            ),
 
-            // Body
-            body: Container(
-                height: getMobileSizeFromPercent(context, 82, false) -
-                    MediaQuery.of(context).padding.top * 2,
-                width: double.infinity,
-                // 여기서부터 찐 개발 시작
-                child: SingleChildScrollView(
+              // Body
+              body: SingleChildScrollView(
+                child: Container(
+                  height: getMobileSizeFromPercent(context, 82, false) -
+                      MediaQuery.of(context).padding.top * 2,
+                  width: double.infinity,
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -88,18 +92,28 @@ class _CreateDaily extends State<CreateDaily> {
                               height: 5,
                             ),
                             Container(
-                                width: getMobileSizeFromPercent(
-                                    context, 80, true),
-                                // height: getMobileSizeFromPercent(
-                                //     context, 5, false),
+                                color: Colors.red,
+                                width:
+                                    getMobileSizeFromPercent(context, 80, true),
+                                height:
+                                    getMobileSizeFromPercent(context, 6, false),
                                 child: TextField(
-                                  onTap: () {},
                                   decoration: InputDecoration(
-                                      enabledBorder: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(16)),
-                                  )),
+                                    // 색 변경
+                                    filled: true,
+                                    fillColor: Color(color_whiteYellow),
+                                    // 둘그런 형태
+                                    border: UnderlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(16)),
+                                    ),
+                                    isDense: true,
+                                    // contentPadding: EdgeInsets.all((getMobileSizeFromPercent(context, 6, false) - 21)/2)
+                                  ),
                                   style: TextStyle(fontSize: 21),
+                                  textAlignVertical: TextAlignVertical.top,
+                                  maxLines: null,
                                 )),
                           ],
                         ),
@@ -323,6 +337,8 @@ class _CreateDaily extends State<CreateDaily> {
                           height: 5,
                         ),
                       ]),
-                ))),
+                ),
+              )),
+        ),
       );
 }
