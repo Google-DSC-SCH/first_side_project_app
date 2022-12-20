@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'getMediaQuery.dart';
 
-class EditDaily extends StatefulWidget {
+class CreateGoal extends StatefulWidget {
   @override
-  State<EditDaily> createState() => _EditDaily();
+  State<CreateGoal> createState() => _CreateGoal();
 }
 
-class _EditDaily extends State<EditDaily> {
+class _CreateGoal extends State<CreateGoal> {
   TextEditingController titleController = TextEditingController();
   TextEditingController contentController = TextEditingController();
 
@@ -14,7 +14,7 @@ class _EditDaily extends State<EditDaily> {
   int selectedState = 0;
 
   // 요일 상테 텍스트
-  String checkedDayStr = "";
+  String checkedDayStr = "월수일";
 
   // 요일 상태
   List<bool> checkedDayList = [
@@ -52,17 +52,8 @@ class _EditDaily extends State<EditDaily> {
     // TODO: implement initState
     super.initState();
 
-    // 제목
-    titleController.text = "제목";
-
-    // 설명
-    contentController.text = "설명";
-
-    // 완료여부
     this.selectedState = 0;
 
-    // 요일 상태 리스트 업데이트
-    checkedDayStr = "월수금일";
     updateCheckedDayList(this.checkedDayStr);
   }
 
@@ -163,7 +154,7 @@ class _EditDaily extends State<EditDaily> {
                                       // 색 변경
                                       filled: true,
                                       fillColor: Color(color_whiteYellow),
-                                      // 둘그런 형태
+                                      // 둥그런 형태
                                       border: OutlineInputBorder(
                                         borderSide: BorderSide.none,
                                         borderRadius: BorderRadius.all(
@@ -602,8 +593,8 @@ class _EditDaily extends State<EditDaily> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              // 완료
                               ElevatedButton(
+                                // 완료
                                 style: ElevatedButton.styleFrom(
                                     shape: RoundedRectangleBorder(
                                         //모서리를 둥글게

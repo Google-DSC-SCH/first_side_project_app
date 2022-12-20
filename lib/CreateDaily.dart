@@ -477,8 +477,7 @@ class _CreateDaily extends State<CreateDaily> {
                                               alertTime.split(":")[1] +
                                               "분",
                                       style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold),
+                                          fontSize: 20),
                                     ),
                                   ),
                                 ),
