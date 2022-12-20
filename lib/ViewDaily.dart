@@ -31,11 +31,9 @@ class _ViewDaily extends State<ViewDaily> {
     // TODO: implement initState
     super.initState();
 
-    this.title = "제목입니다.";
+    this.title = "제목입\n니\n다.";
     this.content =
-
-        "대충 설명을 하자면 이런 느낌.\n뭔지 알지? 몰라도 알아야돼. 라때는 말이야 이러쿵저러쿵 꼰대 마인드 ON\n 집가고싶다..";
-        "대충 설명을 하자면 이런 느낌.\n뭔지 알지? 몰라도 \n\n\n\n\n\n\n\n\n\n\n알아야돼. 라때는 말이야 이러쿵저러쿵 꼰대 마인드 ON\n 집가고싶다..";
+        "대충 설명을 하자면 이런 느낌.\n뭔지 알지\n? 몰라도 알아야돼. 라때는\n\n\n\n\ 말이야 이러쿵저러쿵 꼰대 마인드 ON\n 집가고싶다..";
     this.repeatDay = "월, 수, 금";
     this.alarmOnOff = "ON";
     this.alarmTime = "오후 7:30";
