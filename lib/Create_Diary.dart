@@ -1,3 +1,4 @@
+import 'package:first_side_project_app/View_Diary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'getMediaQuery.dart';
@@ -73,12 +74,28 @@ class Create_Diary extends StatelessWidget {
                               color: Color(color_whiteYellow),
                               elevation: 0, // 그림자 깊이
                               child: Container(
-                                padding: EdgeInsets.all(10),
-                                width:
-                                    getMobileSizeFromPercent(context, 80, true),
-                                height: getMobileSizeFromPercent(
-                                    context, 50, false),
-                              ),
+                                  padding: EdgeInsets.all(10),
+                                  width: getMobileSizeFromPercent(
+                                      context, 80, true),
+                                  height: getMobileSizeFromPercent(
+                                      context, 50, false),
+                                  child: TextField(
+                                    // 꾸미기
+                                    decoration: InputDecoration(
+                                        // 색 변경
+                                        filled: true,
+                                        fillColor: Color(color_whiteYellow),
+                                        // 둘그런 형태
+                                        border: OutlineInputBorder(
+                                          borderSide: BorderSide.none,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(16)),
+                                        ),
+                                        contentPadding: EdgeInsets.all(5)),
+                                    style: TextStyle(fontSize: 15),
+                                    textAlignVertical: TextAlignVertical.center,
+                                    maxLines: 20,
+                                  )),
                             ),
                           ],
                         ),
@@ -96,7 +113,10 @@ class Create_Diary extends StatelessWidget {
                                   elevation: 0, // 그림자 깊이
                                   child: GestureDetector(
                                     onTap: () {
-                                      print("완료 버튼 눌림");
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) => View_Diary()));
                                     },
 
                                     // 로그인 버튼
@@ -124,7 +144,10 @@ class Create_Diary extends StatelessWidget {
                                   elevation: 0, // 그림자 깊이
                                   child: GestureDetector(
                                     onTap: () {
-                                      print("취소 버튼 눌림");
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) => View_Diary()));
                                     },
 
                                     // 로그인 버튼
