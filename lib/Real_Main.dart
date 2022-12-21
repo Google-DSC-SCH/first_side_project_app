@@ -62,6 +62,7 @@ class Real_Main extends StatelessWidget {
                   child: SizedBox(
                     width: 48,
                     child: FloatingActionButton(
+                      heroTag: "btn1",
                       onPressed: (() => print("")),
                       child: Icon(Icons.arrow_circle_left, size: 38),
                     ),
@@ -73,6 +74,7 @@ class Real_Main extends StatelessWidget {
                   child: SizedBox(
                     width: 48,
                     child: FloatingActionButton(
+                      heroTag: "btn2",
                       onPressed: (() => print("")),
                       child: Icon(Icons.arrow_circle_right, size: 38),
                     ),
