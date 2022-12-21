@@ -27,24 +27,20 @@ class _AchievementRate extends State<AchievementRate> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    int year = DateTime
-        .now()
-        .year;
-    int month = DateTime
-        .now()
-        .month;
-    int day = DateTime
-        .now()
-        .day;
+    int year = DateTime.now().year;
+    int month = DateTime.now().month;
+    int day = DateTime.now().day;
     today = year.toString() +
         (month < 10 ? "0" + month.toString() : month.toString()) +
         (day < 10 ? "0" + day.toString() : day.toString());
 
     // 랜덤으로 넣어줌
     for (int i = 0; i < 100; i++) {
-          int randDay = Random().nextInt(getMaxDay(today.substring(0, 6)));
-      dailyList.add(DailyObj(Random().nextInt(6), "202212" +
-          (randDay < 10 ? "0" + randDay.toString() : randDay.toString()),
+      int randDay = Random().nextInt(getMaxDay(today.substring(0, 6)));
+      dailyList.add(DailyObj(
+          Random().nextInt(6),
+          "202212" +
+              (randDay < 10 ? "0" + randDay.toString() : randDay.toString()),
           (Random().nextInt(2) == 0 ? "ON" : "OFF")));
       print(dailyList[i].date);
       print(dailyList[i].status);
@@ -54,13 +50,9 @@ class _AchievementRate extends State<AchievementRate> {
   }
 
   @override
-  Widget build(BuildContext context) =>
-      Container(
+  Widget build(BuildContext context) => Container(
         // 상태바 높이만큼 띄우기
-        margin: EdgeInsets.only(top: MediaQuery
-            .of(context)
-            .padding
-            .top),
+        margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
         // 배경 이미지 적용
         decoration: BoxDecoration(
             image: DecorationImage(
@@ -70,7 +62,7 @@ class _AchievementRate extends State<AchievementRate> {
             backgroundColor: Colors.transparent,
             appBar: PreferredSize(
               preferredSize:
-              Size.fromHeight(getMobileSizeFromPercent(context, 18, false)),
+                  Size.fromHeight(getMobileSizeFromPercent(context, 18, false)),
               child: Container(
                 color: Colors.transparent,
                 child: Column(
@@ -88,10 +80,7 @@ class _AchievementRate extends State<AchievementRate> {
             // Body
             body: Container(
                 height: getMobileSizeFromPercent(context, 82, false) -
-                    MediaQuery
-                        .of(context)
-                        .padding
-                        .top * 2,
+                    MediaQuery.of(context).padding.top * 2,
                 width: double.infinity,
                 // 여기서부터 찐 개발 시작
                 child: Column(
@@ -107,26 +96,60 @@ class _AchievementRate extends State<AchievementRate> {
                           Container(
                             padding: EdgeInsets.all(3),
                             width: getMobileSizeFromPercent(context, 80, true),
-                            height:
-                            getMobileSizeFromPercent(context, 5, false),
+                            height: getMobileSizeFromPercent(context, 5, false),
                             child: GridView.count(
                               crossAxisCount: 7,
                               crossAxisSpacing: 5,
                               children: [
-                                Text("월", textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: 25,),),
-                                Text("화", textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: 25,),),
-                                Text("수", textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: 25,),),
-                                Text("목", textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: 25,),),
-                                Text("금", textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: 25,),),
-                                Text("토", textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: 25,),),
-                                Text("일", textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: 25,),),
+                                Text(
+                                  "월",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 25,
+                                  ),
+                                ),
+                                Text(
+                                  "화",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 25,
+                                  ),
+                                ),
+                                Text(
+                                  "수",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 25,
+                                  ),
+                                ),
+                                Text(
+                                  "목",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 25,
+                                  ),
+                                ),
+                                Text(
+                                  "금",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 25,
+                                  ),
+                                ),
+                                Text(
+                                  "토",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 25,
+                                  ),
+                                ),
+                                Text(
+                                  "일",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 25,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -136,29 +159,27 @@ class _AchievementRate extends State<AchievementRate> {
                             padding: EdgeInsets.all(1.5),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(16),
-                                border: Border.all(
-                                    color: Colors.black, width: 3)
-                            ),
+                                border:
+                                    Border.all(color: Colors.black, width: 3)),
                             // color: Colors.yellow,
                             width: getMobileSizeFromPercent(context, 80, true),
                             height:
-                            getMobileSizeFromPercent(context, 40, false),
+                                getMobileSizeFromPercent(context, 40, false),
                             child: GridView.builder(
                                 itemCount: 30,
                                 gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 7,
-                                    crossAxisSpacing: 3,
-                                    mainAxisSpacing: 3),
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 7,
+                                        crossAxisSpacing: 3,
+                                        mainAxisSpacing: 3),
                                 itemBuilder:
                                     (BuildContext context, int index) =>
-                                    Container(
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(
-                                                10),
-                                            color: Colors.blue
-                                        ),
-                                        child: Text("aa"))),
+                                        Container(
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                color: Colors.blue),
+                                            child: Text("aa"))),
                           )
                         ],
                       ),
