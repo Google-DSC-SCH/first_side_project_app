@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 // 각 페이지들 import
 import 'Login.dart';
@@ -12,7 +14,13 @@ import 'CreateGoal.dart';
 import 'Create_Diary.dart';
 import 'View_Diary.dart';
 
-void main() {
+Future<void> main() async {
+  // 초기화 허용
+  WidgetsFlutterBinding.ensureInitialized();
+  // 파이어베잇스 추가
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 

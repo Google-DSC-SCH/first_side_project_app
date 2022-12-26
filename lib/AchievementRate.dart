@@ -156,8 +156,7 @@ class _AchievementRate extends State<AchievementRate> {
 
             // floatig button
             floatingActionButtonLocation:
-            FloatingActionButtonLocation.centerDocked,
-
+                FloatingActionButtonLocation.centerDocked,
             floatingActionButton: Stack(
               children: <Widget>[
                 Positioned(
@@ -196,13 +195,16 @@ class _AchievementRate extends State<AchievementRate> {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-
                       // 요일_달력
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           // 날짜
-                          Text(today.substring(0,4) + " - " + today.substring(4,6), style: TextStyle(fontSize: 30)),
+                          Text(
+                              today.substring(0, 4) +
+                                  " - " +
+                                  today.substring(4, 6),
+                              style: TextStyle(fontSize: 30)),
 
                           Container(),
 
@@ -317,7 +319,9 @@ class _AchievementRate extends State<AchievementRate> {
                                     )),
                           ),
 
-                          Container(height: 20,),
+                          Container(
+                            height: 20,
+                          ),
 
                           // 색당 달성률 정보
                           Container(
@@ -337,7 +341,8 @@ class _AchievementRate extends State<AchievementRate> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text("0 %", style: TextStyle(fontSize: 20)),
+                                          Text("0 %",
+                                              style: TextStyle(fontSize: 20)),
                                           Container(
                                               width: (getMobileSizeFromPercent(
                                                           context, 80, true) -
@@ -356,7 +361,10 @@ class _AchievementRate extends State<AchievementRate> {
                                       ),
                                     ),
 
-                                    Container(width: getMobileSizeFromPercent(context, 10, true),),
+                                    Container(
+                                      width: getMobileSizeFromPercent(
+                                          context, 10, true),
+                                    ),
 
                                     // ~49%
                                     Container(
@@ -366,7 +374,8 @@ class _AchievementRate extends State<AchievementRate> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text("~49 %", style: TextStyle(fontSize: 20)),
+                                          Text("~49 %",
+                                              style: TextStyle(fontSize: 20)),
                                           Container(
                                               width: (getMobileSizeFromPercent(
                                                           context, 80, true) -
@@ -404,7 +413,8 @@ class _AchievementRate extends State<AchievementRate> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text("~99 %", style: TextStyle(fontSize: 20)),
+                                          Text("~99 %",
+                                              style: TextStyle(fontSize: 20)),
                                           Container(
                                               width: (getMobileSizeFromPercent(
                                                           context, 80, true) -
@@ -423,7 +433,10 @@ class _AchievementRate extends State<AchievementRate> {
                                       ),
                                     ),
 
-                                    Container(width: getMobileSizeFromPercent(context, 10, true),),
+                                    Container(
+                                      width: getMobileSizeFromPercent(
+                                          context, 10, true),
+                                    ),
 
                                     // 100%
                                     Container(
@@ -433,7 +446,8 @@ class _AchievementRate extends State<AchievementRate> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text("100 %",  style: TextStyle(fontSize: 20)),
+                                          Text("100 %",
+                                              style: TextStyle(fontSize: 20)),
                                           Container(
                                               width: (getMobileSizeFromPercent(
                                                           context, 80, true) -
@@ -484,7 +498,11 @@ class _AchievementRate extends State<AchievementRate> {
                                 style: TextStyle(fontSize: 20),
                               ),
                               onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>Achieved_Goal()));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            Achieved_Goal()));
                               },
                             ),
                             // 취소
