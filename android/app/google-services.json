@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "472047160751",
+    "project_id": "gdsc-sch-first-side-project",
+    "storage_bucket": "gdsc-sch-first-side-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:472047160751:android:af3e7085ba00c3e4f1f35a",
+        "android_client_info": {
+          "package_name": "com.example.first_side_project_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "472047160751-ntpsstorkbbsk0ggplm84700sfv5egrv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJ4OsKgrrpwIAIpTpWgfZgyqJt1GDvlQ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "472047160751-ntpsstorkbbsk0ggplm84700sfv5egrv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
