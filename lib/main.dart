@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:get/get.dart';
 import 'firebase_options.dart';
+import 'Notification_controller.dart';
 
 // 각 페이지들 import
 import 'Login.dart';
@@ -29,12 +31,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         fontFamily: 'HandTyping',
         primarySwatch: Colors.blue,
       ),
+      initialBinding: BindingsBuilder.put(()=>NotificationController(), permanent: true),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
