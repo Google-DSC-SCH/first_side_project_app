@@ -52,122 +52,109 @@ class Sign_Up extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     // 제목
-                    Column(
-                      children: [
-                        Container(
-                          height: 5,
-                        ),
-                        Card(
-                          shape: RoundedRectangleBorder(
-                            //모서리를 둥글게 하기 위해 사용
-                            borderRadius: BorderRadius.circular(16.0),
-                          ),
-                          color: Color(color_mint),
-                          elevation: 0, // 그림자 깊이
-                          child: Container(
-                              padding: EdgeInsets.all(5),
-                              width:
-                                  getMobileSizeFromPercent(context, 80, true),
-                              height:
-                                  getMobileSizeFromPercent(context, 6, false),
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  labelText: '아이디',
-                                  border: InputBorder.none,
-                                ),
-                              )),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Container(
-                          height: 5,
-                        ),
-                        Card(
-                          shape: RoundedRectangleBorder(
-                            //모서리를 둥글게 하기 위해 사용
-                            borderRadius: BorderRadius.circular(16.0),
-                          ),
-                          color: Color(color_mint),
-                          elevation: 0, // 그림자 깊이
-                          child: Container(
-                              padding: EdgeInsets.all(5),
-                              width:
-                                  getMobileSizeFromPercent(context, 80, true),
-                              height:
-                                  getMobileSizeFromPercent(context, 6, false),
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  labelText: '비밀번호',
-                                  border: InputBorder.none,
-                                ),
-                              )),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Container(
-                          height: 5,
-                        ),
-                        Card(
-                          shape: RoundedRectangleBorder(
-                            //모서리를 둥글게 하기 위해 사용
-                            borderRadius: BorderRadius.circular(16.0),
-                          ),
-                          color: Color(color_mint),
-                          elevation: 0, // 그림자 깊이
-                          child: Container(
-                              padding: EdgeInsets.all(5),
-                              width:
-                                  getMobileSizeFromPercent(context, 80, true),
-                              height:
-                                  getMobileSizeFromPercent(context, 6, false),
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  labelText: '비밀번호 확인',
-                                  border: InputBorder.none,
-                                ),
-                              )),
-                        ),
-                      ],
-                    ),
                     Column(children: [
+                      Container(
+                        height: 5,
+                      ),
+                      Card(
+                        shape: RoundedRectangleBorder(
+                          //모서리를 둥글게 하기 위해 사용
+                          borderRadius: BorderRadius.circular(16.0),
+                        ),
+                        color: Color(color_mint),
+                        elevation: 0, // 그림자 깊이
+                        child: Container(
+                            padding: EdgeInsets.all(5),
+                            width: getMobileSizeFromPercent(context, 80, true),
+                            height: getMobileSizeFromPercent(context, 6, false),
+                            child: TextField(
+                              decoration: InputDecoration(
+                                labelText: '아이디',
+                                border: InputBorder.none,
+                              ),
+                            )),
+                      ),
+                      Container(
+                        height: 35,
+                      ),
+                      Card(
+                        shape: RoundedRectangleBorder(
+                          //모서리를 둥글게 하기 위해 사용
+                          borderRadius: BorderRadius.circular(16.0),
+                        ),
+                        color: Color(color_mint),
+                        elevation: 0, // 그림자 깊이
+                        child: Container(
+                            padding: EdgeInsets.all(5),
+                            width: getMobileSizeFromPercent(context, 80, true),
+                            height: getMobileSizeFromPercent(context, 6, false),
+                            child: TextField(
+                              decoration: InputDecoration(
+                                labelText: '비밀번호',
+                                border: InputBorder.none,
+                              ),
+                            )),
+                      ),
+                      Container(
+                        height: 35,
+                      ),
+                      Card(
+                        shape: RoundedRectangleBorder(
+                          //모서리를 둥글게 하기 위해 사용
+                          borderRadius: BorderRadius.circular(16.0),
+                        ),
+                        color: Color(color_mint),
+                        elevation: 0, // 그림자 깊이
+                        child: Container(
+                            padding: EdgeInsets.all(5),
+                            width: getMobileSizeFromPercent(context, 80, true),
+                            height: getMobileSizeFromPercent(context, 6, false),
+                            child: TextField(
+                              decoration: InputDecoration(
+                                labelText: '비밀번호 확인',
+                                border: InputBorder.none,
+                              ),
+                            )),
+                      ),
                       TextButton(
                           onPressed: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (_) => Login()));
                           },
                           child: Text("뒤로 가기", style: TextStyle(fontSize: 17))),
-                    ]),
-                    Card(
-                      shape: RoundedRectangleBorder(
-                        //모서리를 둥글게 하기 위해 사용
-                        borderRadius: BorderRadius.circular(16.0),
+                      Container(
+                        height: 30,
                       ),
-                      color: Color(color_whiteYellow),
-                      elevation: 0, // 그림자 깊이
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (_) => Login()));
-                        },
+                      Card(
+                        shape: RoundedRectangleBorder(
+                          //모서리를 둥글게 하기 위해 사용
+                          borderRadius: BorderRadius.circular(16.0),
+                        ),
+                        color: Color(color_whiteYellow),
+                        elevation: 0, // 그림자 깊이
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (_) => Login()));
+                          },
 
-                        // 로그인 버튼
-                        child: Container(
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.all(5),
-                            width: getMobileSizeFromPercent(context, 50, true),
-                            height: getMobileSizeFromPercent(context, 6, false),
-                            child: Text(
-                              "login",
-                              style: TextStyle(
-                                fontSize: 25,
-                              ),
-                            )),
+                          // 로그인 버튼
+                          child: Container(
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.all(5),
+                              width:
+                                  getMobileSizeFromPercent(context, 50, true),
+                              height:
+                                  getMobileSizeFromPercent(context, 6, false),
+                              child: Text(
+                                "login",
+                                style: TextStyle(
+                                  fontSize: 25,
+                                ),
+                              )),
+                        ),
                       ),
-                    ),
+                    ]),
                   ],
                 ))),
       );
