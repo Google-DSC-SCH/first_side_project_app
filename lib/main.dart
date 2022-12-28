@@ -55,89 +55,90 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            // 화면 이동 버튼, 새로운 페이지 만들때마다 복사해서 사용
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => Login()));
-                },
-                child: Text("Login")),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => Sign_Up()));
-                },
-                child: Text("Sign_Up")),
-
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => Real_Main()));
-                },
-                child: Text("Real_Main")),
-            // View Daily 페이지
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => ViewDaily()));
-                },
-                child: Text("ViewDaily")),
-
-            // Create Daily 페이지
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => CreateDaily()));
-                },
-                child: Text("CreateDaily")),
-
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => Create_Diary()));
-                },
-                child: Text("Create_Diary")),
-
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => View_Diary()));
-                },
-                child: Text("View_Diary")),
-
-            // View Goal 페이지
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => ViewGoal()));
-                },
-                child: Text("ViewGoal")),
-
-            // Create Goal 페이지
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => CreateGoal()));
-                },
-                child: Text("CreateGoal")),
-
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => Achieved_Goal()));
-                },
-                child: Text("Achieved_Goal")),
-          ],
-        ),
-      ),
-    );
+    return Real_Main();
+    //   Scaffold(
+    //   appBar: AppBar(
+    //     title: Text(widget.title),
+    //   ),
+    //   body: Center(
+    //     child: Column(
+    //       mainAxisAlignment: MainAxisAlignment.center,
+    //       children: <Widget>[
+    //         // 화면 이동 버튼, 새로운 페이지 만들때마다 복사해서 사용
+    //         ElevatedButton(
+    //             onPressed: () {
+    //               Navigator.push(
+    //                   context, MaterialPageRoute(builder: (_) => Login()));
+    //             },
+    //             child: Text("Login")),
+    //         ElevatedButton(
+    //             onPressed: () {
+    //               Navigator.push(
+    //                   context, MaterialPageRoute(builder: (_) => Sign_Up()));
+    //             },
+    //             child: Text("Sign_Up")),
+    //
+    //         ElevatedButton(
+    //             onPressed: () {
+    //               Navigator.push(
+    //                   context, MaterialPageRoute(builder: (_) => Real_Main()));
+    //             },
+    //             child: Text("Real_Main")),
+    //         // View Daily 페이지
+    //         ElevatedButton(
+    //             onPressed: () {
+    //               Navigator.push(
+    //                   context, MaterialPageRoute(builder: (_) => ViewDaily()));
+    //             },
+    //             child: Text("ViewDaily")),
+    //
+    //         // Create Daily 페이지
+    //         ElevatedButton(
+    //             onPressed: () {
+    //               Navigator.push(context,
+    //                   MaterialPageRoute(builder: (_) => CreateDaily()));
+    //             },
+    //             child: Text("CreateDaily")),
+    //
+    //         ElevatedButton(
+    //             onPressed: () {
+    //               Navigator.push(context,
+    //                   MaterialPageRoute(builder: (_) => Create_Diary()));
+    //             },
+    //             child: Text("Create_Diary")),
+    //
+    //         ElevatedButton(
+    //             onPressed: () {
+    //               Navigator.push(
+    //                   context, MaterialPageRoute(builder: (_) => View_Diary()));
+    //             },
+    //             child: Text("View_Diary")),
+    //
+    //         // View Goal 페이지
+    //         ElevatedButton(
+    //             onPressed: () {
+    //               Navigator.push(
+    //                   context, MaterialPageRoute(builder: (_) => ViewGoal()));
+    //             },
+    //             child: Text("ViewGoal")),
+    //
+    //         // Create Goal 페이지
+    //         ElevatedButton(
+    //             onPressed: () {
+    //               Navigator.push(
+    //                   context, MaterialPageRoute(builder: (_) => CreateGoal()));
+    //             },
+    //             child: Text("CreateGoal")),
+    //
+    //         ElevatedButton(
+    //             onPressed: () {
+    //               Navigator.push(context,
+    //                   MaterialPageRoute(builder: (_) => Achieved_Goal()));
+    //             },
+    //             child: Text("Achieved_Goal")),
+    //       ],
+    //     ),
+    //   ),
+    // );
   }
 }
