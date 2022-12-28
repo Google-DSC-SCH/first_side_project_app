@@ -31,6 +31,7 @@ class NotificationController extends GetxController {
   void _getToken() async{
     String? token= await messaging.getToken();
     try{
+      print("토큰입니당");
       print(token);
     } catch(e) {}
   }
