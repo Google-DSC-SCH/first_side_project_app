@@ -52,7 +52,6 @@ class Create_Diary extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    // 제목
                     Column(
                       children: [
                         Text("후기 작성",

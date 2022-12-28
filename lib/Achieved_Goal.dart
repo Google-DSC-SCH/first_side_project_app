@@ -52,7 +52,6 @@ class Achieved_Goal extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    // 제목
                     Column(
                       children: [
                         Text("달성한 목표들",
@@ -172,7 +171,6 @@ class Achieved_Goal extends StatelessWidget {
                         ),
                       ],
                     ),
-
                     Card(
                       shape: RoundedRectangleBorder(
                         //모서리를 둥글게 하기 위해 사용
@@ -185,8 +183,6 @@ class Achieved_Goal extends StatelessWidget {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (_) => Real_Main()));
                         },
-
-                        // 로그인 버튼
                         child: Container(
                             alignment: Alignment.center,
                             padding: EdgeInsets.all(5),
