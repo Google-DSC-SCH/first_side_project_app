@@ -53,7 +53,7 @@ class _AchievementRate extends State<AchievementRate> {
 
     // 랜덤으로 daily 넣어줌
     for (int i = 0; i < 100; i++) {
-      int randDay = Random().nextInt(getMaxDay(today.substring(0, 6)));
+      int randDay = Random().nextInt(getMaxDay(today.substring(0, 6))+1);
       dailyList.add(DailyObj(
           Random().nextInt(6),
           "202212" +
@@ -67,8 +67,6 @@ class _AchievementRate extends State<AchievementRate> {
       int achevedCnt = 0;
       // 날짜별 요소 갯수와, 달성된 요소 개수 구함
       for (DailyObj daily in dailyList) {
-        // print(daily.date);
-        // print(today.substring(0,6));
         if (daily.date ==
             today.substring(0, 6) +
                 (i < 10 ? "0" + i.toString() : i.toString())) {
@@ -82,7 +80,7 @@ class _AchievementRate extends State<AchievementRate> {
     }
 
     // 요일에 따라 빈칸 넣어줌
-    String startWeek = getDayOfWeek(today);
+    String startWeek = getDayOfWeek(today.substring(0,6)+"01");
     switch (startWeek) {
       case "월":
         break;
@@ -280,12 +278,11 @@ class _AchievementRate extends State<AchievementRate> {
                             width: getMobileSizeFromPercent(context, 80, true),
                             height:
                                 ((getMobileSizeFromPercent(context, 80, true) -
-                                                    12) /
-                                                7 +
-                                            2) *
-                                        (dayAchieve.length / 7).ceil() -
-                                    2,
+                                                    12) / 7 + 2) *
+                                        (dayAchieve.length / 7).ceil(),
                             child: GridView.builder(
+                              // 스크롤 사용 안함
+                              physics: NeverScrollableScrollPhysics(),
                                 itemCount: dayAchieve.length,
                                 gridDelegate:
                                     SliverGridDelegateWithFixedCrossAxisCount(
