@@ -1,6 +1,6 @@
 import 'package:first_side_project_app/View_Diary.dart';
 import 'package:flutter/material.dart';
-import 'getMediaQuery.dart';
+import 'BaseFile.dart';
 
 import 'EditDaily.dart';
 import 'EditGoal.dart';

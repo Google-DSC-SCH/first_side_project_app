@@ -1,8 +1,8 @@
 import 'package:first_side_project_app/View_Diary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'getMediaQuery.dart';
-import 'Real_Main.dart';
+import 'BaseFile.dart';
+import 'MainPage.dart';
 
 class Create_Diary extends StatelessWidget {
   // 위젯간 간격(세로)

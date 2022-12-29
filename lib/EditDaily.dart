@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'getMediaQuery.dart';
+import 'BaseFile.dart';
 
 class EditDaily extends StatefulWidget {
   @override
