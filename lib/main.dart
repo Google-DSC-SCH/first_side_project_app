@@ -7,7 +7,7 @@ import 'Notification_controller.dart';
 // 각 페이지들 import
 import 'Login.dart';
 import 'Sign_Up.dart';
-import 'Real_Main.dart';
+import 'MainPage.dart';
 import 'Achieved_Goal.dart';
 import 'ViewDaily.dart';
 import 'CreateDaily.dart';
@@ -55,7 +55,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Real_Main();
+    return MainPage();
     //   Scaffold(
     //   appBar: AppBar(
     //     title: Text(widget.title),

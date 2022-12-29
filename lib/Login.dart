@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'getMediaQuery.dart';
+import 'BaseFile.dart';
 
-import 'getMediaQuery.dart';
+import 'BaseFile.dart';
 import 'Sign_Up.dart';
-import 'Real_Main.dart';
+import 'MainPage.dart';
 
 class Login extends StatelessWidget {
   // 위젯간 간격(세로)
@@ -115,7 +115,7 @@ class Login extends StatelessWidget {
                         child: GestureDetector(
                           onTap: () {
                             Navigator.push(context,
-                                MaterialPageRoute(builder: (_) => Real_Main()));
+                                MaterialPageRoute(builder: (_) => MainPage()));
                           },
 
                           // 로그인 버튼

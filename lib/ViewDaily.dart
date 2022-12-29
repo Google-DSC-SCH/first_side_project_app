@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'getMediaQuery.dart';
+import 'BaseFile.dart';
 
 import 'EditDaily.dart';
 

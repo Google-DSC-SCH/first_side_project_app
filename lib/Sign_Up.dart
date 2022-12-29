@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'getMediaQuery.dart';
+import 'BaseFile.dart';
 import 'Login.dart';
 
 class Sign_Up extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:first_side_project_app/Achieved_Goal.dart';
 import 'package:flutter/material.dart';
-import 'getMediaQuery.dart';
+import 'BaseFile.dart';
 import 'dart:math';
 
 import 'EditDaily.dart';
@@ -15,15 +15,6 @@ class _AchievementRate extends State<AchievementRate> {
   int maxDay = 0; // 해당 달에 몇일까지 있나
   List<DailyObj> dailyList = [];
   List<double> dayAchieve = [];
-
-  // 연노랑
-  int color_whiteYellow = 0xFFFAF4B7;
-
-  // 찐노랑
-  int color_realYellow = 0xFFFFD966;
-
-  // 민트
-  int color_mint = 0xFFCDF0EA;
 
   // 0% 색깔
   int color_rate0 = 0xFFCDF0EA;
@@ -42,18 +33,12 @@ class _AchievementRate extends State<AchievementRate> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    int year = DateTime.now().year;
-    int month = DateTime.now().month;
-    int day = DateTime.now().day;
-    today = year.toString() +
-        (month < 10 ? "0" + month.toString() : month.toString()) +
-        (day < 10 ? "0" + day.toString() : day.toString());
+    today = getToday();
     maxDay = getMaxDay(today.substring(0, 6));
-    print("오늘 날짜: " + today);
 
     // 랜덤으로 daily 넣어줌
     for (int i = 0; i < 100; i++) {
-      int randDay = Random().nextInt(getMaxDay(today.substring(0, 6))+1);
+      int randDay = Random().nextInt(maxDay+1);
       dailyList.add(DailyObj(
           Random().nextInt(6),
           "202212" +
