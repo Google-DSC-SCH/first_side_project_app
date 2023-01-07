@@ -58,7 +58,7 @@ class _CreateGoal extends State<CreateGoal> {
                 fit: BoxFit.fill,
                 image: AssetImage('assets/img/background.png'))),
         child: GestureDetector(
-          // 외부 클릭시 키보드 숨기기
+          /// 외부 클릭시 키보드 숨기기
           onTap: () {
             FocusScope.of(context).unfocus();
           },

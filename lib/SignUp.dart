@@ -1,17 +1,17 @@
-import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'BaseFile.dart';
+import 'Login.dart';
 
-import 'BaseFile.dart';
-import 'SignUp.dart';
-import 'MainPage.dart';
-import 'main.dart';
+// API 통신
+import 'package:dio/dio.dart';
 
-class Login extends StatelessWidget {
+class SignUp extends StatelessWidget {
+  // 위젯간 간격(세로)
+  double titleFontSize = 17;
+
   TextEditingController idController = TextEditingController();
   TextEditingController pwController = TextEditingController();
+  TextEditingController pwcController = TextEditingController();
 
   @override
   Widget build(BuildContext context) => Container(
@@ -47,7 +47,7 @@ class Login extends StatelessWidget {
                 ),
               ),
 
-              /// Body
+              // Body
               body: SingleChildScrollView(
                 child: Container(
                     height: getMobileSizeFromPercent(context, 82, false) -
@@ -79,8 +79,6 @@ class Login extends StatelessWidget {
                                 ),
                               )),
                         ),
-
-                        /// 공백
                         Container(
                           height: 35,
                         ),
@@ -107,34 +105,45 @@ class Login extends StatelessWidget {
                                 ),
                               )),
                         ),
+                        Container(
+                          height: 35,
+                        ),
 
-                        /// 회원 가입
+                        /// 비밀번호 확인
+                        Card(
+                          shape: RoundedRectangleBorder(
+                            //모서리를 둥글게 하기 위해 사용
+                            borderRadius: BorderRadius.circular(16.0),
+                          ),
+                          color: Color(color_mint),
+                          elevation: 0, // 그림자 깊이
+                          child: Container(
+                              padding: EdgeInsets.all(5),
+                              width:
+                                  getMobileSizeFromPercent(context, 80, true),
+                              height:
+                                  getMobileSizeFromPercent(context, 6, false),
+                              child: TextField(
+                                controller: pwcController,
+                                decoration: InputDecoration(
+                                  hintText: '비밀번호 확인',
+                                  border: InputBorder.none,
+                                ),
+                              )),
+                        ),
+
+                        /// 뒤로 가기
                         TextButton(
-                            onPressed: () async {
-                              // Navigator.push(context,
-                              //     MaterialPageRoute(builder: (_) => SignUp()));
-                              // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-                              print("알림시작");
-                              const AndroidNotificationDetails androidNotificationDetails =
-                              AndroidNotificationDetails('your channel id', 'your channel name',
-                                  channelDescription: 'your channel description',
-                                  importance: Importance.max,
-                                  priority: Priority.high,
-                                  ticker: 'ticker');
-                              const NotificationDetails notificationDetails =
-                              NotificationDetails(android: androidNotificationDetails);
-                              await flutterLocalNotificationsPlugin.show(
-                                  0, 'plain title', 'plain body', notificationDetails,
-                                  payload: 'item x');
-                              print("알림 끝");
+                            onPressed: () {
+                              Navigator.pop(context);
                             },
-                            child: Text("sign up",
-                                style: TextStyle(fontSize: 17))),
+                            child:
+                                Text("뒤로 가기", style: TextStyle(fontSize: 17))),
                         Container(
                           height: 30,
                         ),
 
-                        /// 로그인 버튼
+                        /// 회원가입 버튼
                         Card(
                           shape: RoundedRectangleBorder(
                             //모서리를 둥글게 하기 위해 사용
@@ -142,33 +151,29 @@ class Login extends StatelessWidget {
                           ),
                           color: Color(color_whiteYellow),
                           elevation: 0, // 그림자 깊이
-                          // 버튼
                           child: GestureDetector(
+                            // 터치 메소드
                             onTap: () async {
-                              if (await login(idController.text, pwController.text) == 0) {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => MainPage())).then((value) => logout());
-                              }
-                              else{
+                              if (await postSignUp(idController.text, pwController.text, pwcController.text) == 0) {
+                                Navigator.pop(context);
+                              } else {
                                 showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(16.0)),
-                                      title: Text("오류", textAlign: TextAlign.center,),
-                                      content: Text("아이디 또는 비밀번호가 잘못되었습니다.", textAlign: TextAlign.center,),
-                                      actions: <Widget>[
-                                        new TextButton(
-                                          child: new Text("확인"),
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                        ),
-                                      ],
-                                    ));
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(16.0)),
+                                          title: Text("오류", textAlign: TextAlign.center,),
+                                          content: Text("잘못된 정보입니다.", textAlign: TextAlign.center,),
+                                          actions: <Widget>[
+                                            new TextButton(
+                                              child: new Text("확인"),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                          ],
+                                        ));
                               }
                             },
                             child: Container(
@@ -179,7 +184,7 @@ class Login extends StatelessWidget {
                                 height:
                                     getMobileSizeFromPercent(context, 6, false),
                                 child: Text(
-                                  "login",
+                                  "sign up",
                                   style: TextStyle(
                                     fontSize: 25,
                                   ),
@@ -192,39 +197,26 @@ class Login extends StatelessWidget {
         ),
       );
 
-  /// 로그인 메소드
-  Future<int> login(String id, String pw) async {
-    String postURI = hostURI + 'api/auth/signin';
+  /// 회원가입 메소드
+  Future<int> postSignUp(String id, String pw1, String pw2) async {
+    if(pw1 != pw2){
+      return -1;
+    }
+    String postURI = hostURI + 'api/auth/signup';
     Map body = {
       'username': id,
-      'password': pw,
+      'password': pw1,
+      'role': ['ROLE_ADMIN']
     };
     Dio dio = Dio();
     try {
       var response = await dio.post(postURI, data: body);
-      token = response.data['accessToken'];
-      refreshToken = response.data['refreshToken'];
+      print('====================');
+      print('sucess signUp');
       return 0;
     } catch (e) {
-      print(e);
-      print("ERR");
-      return -1;
-    }
-  }
-
-  /// 로그아웃 메소드
-  Future<int> logout() async {
-    String postURI = hostURI + 'api/auth/signout';
-    Dio dio = Dio();
-    try {
-      // var response = await dio.post(postURI);
-      // token = response.data['accessToken'];
-      // refreshToken = response.data['refreshToken'];
-      print("sucessLogout");
-      return 0;
-    } catch (e) {
-      print(e);
-      print("logout Err");
+      print('====================');
+      print('signUpErr');
       return -1;
     }
   }

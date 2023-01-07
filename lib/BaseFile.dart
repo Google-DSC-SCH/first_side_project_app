@@ -1,5 +1,10 @@
 import 'package:flutter/cupertino.dart';
 
+/// API
+String hostURI = 'http://ec2-3-39-219-81.ap-northeast-2.compute.amazonaws.com:9999/';
+String token = '';
+String refreshToken = '';
+
 /// 컬러
 // 연노랑
 int color_whiteYellow = 0xFFFAF4B7;
@@ -28,6 +33,7 @@ double getMobileSizeFromPercent(BuildContext context, int percent, bool isWidth)
   }
 }
 
+/// 오늘 날짜 반환
 String getToday(){
   int year = DateTime.now().year;
   int month = DateTime.now().month;

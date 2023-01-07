@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:first_side_project_app/Achieved_Goal.dart';
 import 'package:flutter/material.dart';
 import 'BaseFile.dart';
@@ -6,14 +7,20 @@ import 'dart:math';
 import 'EditDaily.dart';
 
 class AchievementRate extends StatefulWidget {
+  int dailyNum = 0;
+
+  AchievementRate(int num) {
+    this.dailyNum = num;
+  }
+
   @override
-  State<AchievementRate> createState() => _AchievementRate();
+  State<AchievementRate> createState() => _AchievementRate(dailyNum);
 }
 
 class _AchievementRate extends State<AchievementRate> {
   String today = "";
   int maxDay = 0; // 해당 달에 몇일까지 있나
-  List<DailyObj> dailyList = [];
+  int dailyNum = 0; //daily 갯수
   List<double> dayAchieve = [];
 
   // 0% 색깔
@@ -28,6 +35,10 @@ class _AchievementRate extends State<AchievementRate> {
   // 100% 색깔
   int color_rate100 = 0xFFB1AFFF;
 
+  _AchievementRate(int num) {
+    this.dailyNum = num;
+  }
+
   // 페이지 나타날때 동작
   @override
   void initState() {
@@ -36,36 +47,8 @@ class _AchievementRate extends State<AchievementRate> {
     today = getToday();
     maxDay = getMaxDay(today.substring(0, 6));
 
-    // 랜덤으로 daily 넣어줌
-    for (int i = 0; i < 100; i++) {
-      int randDay = Random().nextInt(maxDay+1);
-      dailyList.add(DailyObj(
-          Random().nextInt(6),
-          "202212" +
-              (randDay < 10 ? "0" + randDay.toString() : randDay.toString()),
-          (Random().nextInt(2) == 0 ? "ON" : "OFF")));
-    }
-
-    // daily 정보를 토대로 일별 달성률 리스트 작성
-    for (int i = 1; i <= maxDay; i++) {
-      int totalCount = 0;
-      int achevedCnt = 0;
-      // 날짜별 요소 갯수와, 달성된 요소 개수 구함
-      for (DailyObj daily in dailyList) {
-        if (daily.date ==
-            today.substring(0, 6) +
-                (i < 10 ? "0" + i.toString() : i.toString())) {
-          totalCount += 1;
-          if (daily.status == "ON") {
-            achevedCnt += 1;
-          }
-        }
-      }
-      dayAchieve.add(totalCount != 0 ? achevedCnt / totalCount * 100 : -1);
-    }
-
     // 요일에 따라 빈칸 넣어줌
-    String startWeek = getDayOfWeek(today.substring(0,6)+"01");
+    String startWeek = getDayOfWeek(today.substring(0, 6) + "01");
     switch (startWeek) {
       case "월":
         break;
@@ -107,6 +90,7 @@ class _AchievementRate extends State<AchievementRate> {
     }
 
     // 서버에서 데이터를 받아옴
+    getAchievementRate();
   }
 
   @override
@@ -138,36 +122,36 @@ class _AchievementRate extends State<AchievementRate> {
             ),
 
             // floatig button
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerDocked,
-            floatingActionButton: Stack(
-              children: <Widget>[
-                Positioned(
-                  left: 10,
-                  top: getMobileSizeFromPercent(context, 50, false),
-                  child: SizedBox(
-                    width: 40,
-                    child: FloatingActionButton(
-                      heroTag: "btn1",
-                      onPressed: (() => print("")),
-                      child: Icon(Icons.arrow_circle_left, size: 38),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  right: 10,
-                  top: getMobileSizeFromPercent(context, 50, false),
-                  child: SizedBox(
-                    width: 40,
-                    child: FloatingActionButton(
-                      heroTag: "btn2",
-                      onPressed: (() => print("")),
-                      child: Icon(Icons.arrow_circle_right, size: 38),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            // floatingActionButtonLocation:
+            //     FloatingActionButtonLocation.centerDocked,
+            // floatingActionButton: Stack(
+            //   children: <Widget>[
+            //     Positioned(
+            //       left: 10,
+            //       top: getMobileSizeFromPercent(context, 50, false),
+            //       child: SizedBox(
+            //         width: 40,
+            //         child: FloatingActionButton(
+            //           heroTag: "btn1",
+            //           onPressed: (() => print("")),
+            //           child: Icon(Icons.arrow_circle_left, size: 38),
+            //         ),
+            //       ),
+            //     ),
+            //     Positioned(
+            //       right: 10,
+            //       top: getMobileSizeFromPercent(context, 50, false),
+            //       child: SizedBox(
+            //         width: 40,
+            //         child: FloatingActionButton(
+            //           heroTag: "btn2",
+            //           onPressed: (() => print("")),
+            //           child: Icon(Icons.arrow_circle_right, size: 38),
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
 
             // Body
             body: Container(
@@ -263,11 +247,13 @@ class _AchievementRate extends State<AchievementRate> {
                             width: getMobileSizeFromPercent(context, 80, true),
                             height:
                                 ((getMobileSizeFromPercent(context, 80, true) -
-                                                    12) / 7 + 2) *
-                                        (dayAchieve.length / 7).ceil(),
+                                                12) /
+                                            7 +
+                                        2) *
+                                    (dayAchieve.length / 7).ceil(),
                             child: GridView.builder(
-                              // 스크롤 사용 안함
-                              physics: NeverScrollableScrollPhysics(),
+                                // 스크롤 사용 안함
+                                physics: NeverScrollableScrollPhysics(),
                                 itemCount: dayAchieve.length,
                                 gridDelegate:
                                     SliverGridDelegateWithFixedCrossAxisCount(
@@ -484,7 +470,7 @@ class _AchievementRate extends State<AchievementRate> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (BuildContext context) =>
-                                            Achieved_Goal()));
+                                            AchievedGoal()));
                               },
                             ),
                             // 취소
@@ -512,6 +498,43 @@ class _AchievementRate extends State<AchievementRate> {
                       ),
                     ]))),
       );
+
+  /// 정보 받아옴
+  Future<int> getAchievementRate() async {
+    String getARPURI = hostURI +
+        'api/users/calender/' +
+        DateTime.now().year.toString() +
+        "-" +
+        getToday().substring(4, 6);
+
+    Dio dio = Dio();
+    dio.options.headers['jwt-auth-token'] = token;
+    dio.options.headers['jwt-auth-refresh-token'] = refreshToken;
+    try {
+      var res = await dio.get(getARPURI);
+      for (int i = 1; i < maxDay + 1; i++) {
+        String day = i < 10 ? '0' + i.toString() : i.toString();
+        int cnt = 0;
+        for (String keyDay in res.data['calenderResponseList'].keys.toList()) {
+          if (keyDay.substring(8, 10) == day) {
+            cnt += res.data['calenderResponseList'][keyDay].length as int;
+          }
+        }
+        setState(() {
+          dayAchieve.add(cnt / dailyNum * 100);
+        });
+      }
+      print(dayAchieve);
+
+      print("====================");
+      print("sucess getAchievementRate");
+      return 0;
+    } catch (e) {
+      print("====================");
+      print("getAchievementRate Err");
+    }
+    return -1;
+  }
 }
 
 // 날짜 요일 반환

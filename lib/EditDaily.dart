@@ -1,17 +1,23 @@
+import 'package:dio/dio.dart';
+import 'package:first_side_project_app/ViewDaily.dart';
 import 'package:flutter/material.dart';
 import 'BaseFile.dart';
 
 class EditDaily extends StatefulWidget {
+  int dailyId = -1;
+  EditDaily(int id){
+    this.dailyId = id;
+  }
   @override
-  State<EditDaily> createState() => _EditDaily();
+  State<EditDaily> createState() => _EditDaily(dailyId);
 }
 
 class _EditDaily extends State<EditDaily> {
   TextEditingController titleController = TextEditingController();
   TextEditingController contentController = TextEditingController();
 
-  // 완료: 0, 미완료: 1
-  int selectedState = 0;
+  // dailyID
+  int dayilyId = -1;
 
   // 요일 상테 텍스트
   String checkedDayStr = "";
@@ -32,19 +38,13 @@ class _EditDaily extends State<EditDaily> {
 
   // 알림 시간
   String alertTime = "13:00";
-  String? selectedTime;
 
   // 위젯간 간격(세로)
   double titleFontSize = 17;
 
-  // 연노랑
-  int color_whiteYellow = 0xFFFAF4B7;
-
-  // 찐노랑
-  int color_realYellow = 0xFFFFD966;
-
-  // 민트
-  int color_mint = 0xFFCDF0EA;
+  _EditDaily(int id){
+    this.dayilyId = id;
+  }
 
   // 페이지 나타날때 동작
   @override
@@ -53,17 +53,15 @@ class _EditDaily extends State<EditDaily> {
     super.initState();
 
     // 제목
-    titleController.text = "제목";
+    titleController.text = "";
 
     // 설명
-    contentController.text = "설명";
-
-    // 완료여부
-    this.selectedState = 0;
+    contentController.text = "";
 
     // 요일 상태 리스트 업데이트
-    checkedDayStr = "월수금일";
-    updateCheckedDayList(this.checkedDayStr);
+    checkedDayStr = "";
+
+    getDailyEdit(dayilyId);
   }
 
   @override
@@ -512,86 +510,6 @@ class _EditDaily extends State<EditDaily> {
                           ),
                         ),
 
-                        // 상태
-                        Container(
-                          width: getMobileSizeFromPercent(context, 80, true),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("상태",
-                                  style: TextStyle(fontSize: titleFontSize)),
-                              Row(
-                                children: [
-                                  // 완료 상태
-                                  GestureDetector(
-                                    child: Card(
-                                      shape: RoundedRectangleBorder(
-                                        //모서리를 둥글게 하기 위해 사용
-                                        borderRadius:
-                                            BorderRadius.circular(16.0),
-                                      ),
-                                      color: Color(selectedState == 0
-                                          ? color_realYellow
-                                          : color_whiteYellow),
-                                      elevation: 0, // 그림자 깊이
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        width: getMobileSizeFromPercent(
-                                            context, 30, true),
-                                        height: 40,
-                                        child: Text(
-                                          "완료",
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    onTap: () {
-                                      // 색 Switch
-                                      setState(() {
-                                        selectedState = 0;
-                                      });
-                                    },
-                                  ),
-                                  Container(width: 10),
-                                  // 미완료 상태
-                                  GestureDetector(
-                                    child: Card(
-                                      shape: RoundedRectangleBorder(
-                                        //모서리를 둥글게 하기 위해 사용
-                                        borderRadius:
-                                            BorderRadius.circular(16.0),
-                                      ),
-                                      color: Color(selectedState == 1
-                                          ? color_realYellow
-                                          : color_whiteYellow),
-                                      elevation: 0, // 그림자 깊이
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        width: getMobileSizeFromPercent(
-                                            context, 30, true),
-                                        height: 40,
-                                        child: Text(
-                                          "미완료",
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    onTap: () {
-                                      setState(() {
-                                        selectedState = 1;
-                                      });
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-
                         Container(
                           height: 10,
                         ),
@@ -621,8 +539,12 @@ class _EditDaily extends State<EditDaily> {
                                   "완료",
                                   style: TextStyle(fontSize: 20),
                                 ),
-                                onPressed: () {
-                                  Navigator.pop(context);
+                                onPressed: () async {
+                                  if(await editDaily()==0){
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
+                                    Navigator.push(context, MaterialPageRoute(builder: (_)=>ViewDaily(dayilyId)));
+                                  }
                                 },
                               ),
                               // 취소
@@ -689,5 +611,70 @@ class _EditDaily extends State<EditDaily> {
       checkedDayList[6] = true;
     else
       checkedDayList[6] = false;
+  }
+
+  /// 정보 받아옴
+  Future<int> getDailyEdit(int id) async {
+    String getDailyURI = hostURI +
+        'api/daily/' +
+        dayilyId.toString() +
+        "/" +
+        DateTime.now().year.toString() +
+        "-" +
+        getToday().substring(4, 6) +
+        "-" +
+        getToday().substring(6,8);
+
+    Dio dio = Dio();
+    dio.options.headers['jwt-auth-token'] = token;
+    dio.options.headers['jwt-auth-refresh-token'] = refreshToken;
+    try {
+      var res = await dio.get(getDailyURI);
+      setState(() {
+        titleController.text = res.data['title'];
+        updateCheckedDayList(res.data['alertDates']);
+        contentController.text = res.data['content'];
+        this.alertTime = res.data['alertTime'];
+        this.alertState = res.data['alertStatus'];
+      });
+      print("====================");
+      print("sucess getDailyEdit");
+    } catch (e) {
+      print("====================");
+      print("getDailyEdit Err");
+    }
+    return -1;
+  }
+
+  /// 수정
+  Future<int> editDaily() async {
+    // checkedDayStr 갱신
+    List dayList = ["월","화","수","목","금","토","일"];
+    for(int i = 0; i < dayList.length; i++){
+      if(checkedDayList[i]){
+        checkedDayStr += dayList[i];
+      }
+    }
+    String createDailyURI = hostURI + 'api/daily/' + dayilyId.toString();
+    Map body = {
+      'title': titleController.text.toString(),
+      'content':contentController.text.toString(),
+      'alertStatus' : alertState,
+      'alertTime' : alertTime.toString(),
+      'alertDates' : checkedDayStr.toString(),
+    };
+    Dio dio = Dio();
+    dio.options.headers['jwt-auth-token'] = token;
+    dio.options.headers['jwt-auth-refresh-token'] = refreshToken;
+    try {
+      var response = await dio.put(createDailyURI, data: body);
+      print('====================');
+      print('sucess editDaily');
+      return 0;
+    } catch (e) {
+      print('====================');
+      print('editDailyErr');
+      return -1;
+    }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:first_side_project_app/View_Diary.dart';
 import 'package:flutter/material.dart';
 import 'BaseFile.dart';
@@ -6,11 +7,16 @@ import 'EditDaily.dart';
 import 'EditGoal.dart';
 
 class ViewGoal extends StatefulWidget {
+  int goalId = 0;
+  ViewGoal(int id){
+    this.goalId = goalId;
+  }
   @override
-  State<ViewGoal> createState() => _ViewGoal();
+  State<ViewGoal> createState() => _ViewGoal(goalId);
 }
 
 class _ViewGoal extends State<ViewGoal> {
+  int goalId = 0;
   String title = "";
   String content = "";
   String duoDay = "";
@@ -23,28 +29,16 @@ class _ViewGoal extends State<ViewGoal> {
   // 위젯간 간격(세로)
   double titleFontSize = 17;
 
-  // 연노랑
-  int color_whiteYellow = 0xFFFAF4B7;
-
-  // 찐노랑
-  int color_realYellow = 0xFFFFD966;
-
-  // 민트
-  int color_mint = 0xFFCDF0EA;
+  _ViewGoal(int id){
+    this.goalId = id;
+  }
 
   // 페이지 나타날때 동작
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
-    this.title = "제목입\n니\n다.";
-    this.content =
-        "대충 설명을 하자면 이런 느낌.\n뭔지 알지\n? 몰라도 알아야돼. 라때는\n\n\n\n\ 말이야 이러쿵저러쿵 꼰대 마인드 ON\n 집가고싶다..";
-    this.duoDay = "20221230";
-    this.alarmOnOff = "ON";
-    this.alertTime = "7:30";
-    this.selectedState = 0;
+    getGoal(goalId);
 
     // 서버에서 데이터를 받아옴
   }
@@ -163,15 +157,15 @@ class _ViewGoal extends State<ViewGoal> {
                           children: [
                             Text("목표기간",
                                 style: TextStyle(fontSize: titleFontSize)),
-                            Text(
-                              this.duoDay.substring(0, 4) +
-                                  "-" +
-                                  this.duoDay.substring(4, 6) +
-                                  "-" +
-                                  this.duoDay.substring(6, 8),
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 25),
-                            )
+                            // Text(
+                            //   this.duoDay.substring(0, 4) +
+                            //       "-" +
+                            //       this.duoDay.substring(4, 6) +
+                            //       "-" +
+                            //       this.duoDay.substring(6, 8),
+                            //   textAlign: TextAlign.center,
+                            //   style: TextStyle(fontSize: 25),
+                            // )
                           ],
                         ),
                       ),
@@ -195,23 +189,7 @@ class _ViewGoal extends State<ViewGoal> {
                                         fontWeight: FontWeight.bold)),
                               ],
                             ),
-                            Text(
-                              int.parse(alertTime.split(":")[0]) >= 12
-                                  ? "오후 " +
-                                      (alertTime.split(":")[0] == "12"
-                                              ? 12
-                                              : (int.parse(
-                                                      alertTime.split(":")[0]) %
-                                                  12))
-                                          .toString() +
-                                      "시 " +
-                                      alertTime.split(":")[1] +
-                                      "분"
-                                  : "오전 " +
-                                      alertTime.split(":")[0] +
-                                      "시 " +
-                                      alertTime.split(":")[1] +
-                                      "분",
+                            Text(alertTime,
                               style: TextStyle(
                                 fontSize: 25,
                               ),
@@ -398,4 +376,38 @@ class _ViewGoal extends State<ViewGoal> {
                       ),
                     ]))),
       );
+
+  /// 정보 받아옴
+  Future<int> getGoal(int id) async {
+    String getDailyURI = hostURI +
+        'api/daily/' +
+        goalId.toString();
+
+    Dio dio = Dio();
+    dio.options.headers['jwt-auth-token'] = token;
+    dio.options.headers['jwt-auth-refresh-token'] = refreshToken;
+    try {
+      var res = await dio.get(getDailyURI);
+      print(res);
+      // setState(() {
+      //   this.title = res.data['title'];
+      //   this.content = res.data['content'];
+      //   this.alertTime = res.data['alertTime'];
+      //   this.alarmOnOff = res.data['alertStatus'];
+      //   this.duoDay = res.data['endDate'];
+      //
+      //   if (res.data['goalStatus'] == "ON") {
+      //     this.selectedState = 0;
+      //   } else {
+      //     this.selectedState = 1;
+      //   }
+      // });
+      print("====================");
+      print("sucess getView");
+    } catch (e) {
+      print("====================");
+      print("getView Err");
+    }
+    return -1;
+  }
 }

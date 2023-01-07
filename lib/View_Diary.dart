@@ -136,11 +136,7 @@ class View_Diary extends StatelessWidget {
                               "뒤로",
                               style: TextStyle(fontSize: 20),
                             ),
-                            onPressed: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        Achieved_Goal())),
+                            onPressed: () => Navigator.pop(context)
                           ),
                         ],
                       ),
