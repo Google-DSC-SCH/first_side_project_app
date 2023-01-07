@@ -9,6 +9,9 @@ import 'SignUp.dart';
 import 'MainPage.dart';
 import 'main.dart';
 
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
+
 class Login extends StatelessWidget {
   TextEditingController idController = TextEditingController();
   TextEditingController pwController = TextEditingController();
@@ -111,22 +114,9 @@ class Login extends StatelessWidget {
                         /// 회원 가입
                         TextButton(
                             onPressed: () async {
-                              // Navigator.push(context,
-                              //     MaterialPageRoute(builder: (_) => SignUp()));
-                              // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-                              print("알림시작");
-                              const AndroidNotificationDetails androidNotificationDetails =
-                              AndroidNotificationDetails('your channel id', 'your channel name',
-                                  channelDescription: 'your channel description',
-                                  importance: Importance.max,
-                                  priority: Priority.high,
-                                  ticker: 'ticker');
-                              const NotificationDetails notificationDetails =
-                              NotificationDetails(android: androidNotificationDetails);
-                              await flutterLocalNotificationsPlugin.show(
-                                  0, 'plain title', 'plain body', notificationDetails,
-                                  payload: 'item x');
-                              print("알림 끝");
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (_) => SignUp()));
+                              FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
                             },
                             child: Text("sign up",
                                 style: TextStyle(fontSize: 17))),
@@ -204,10 +194,10 @@ class Login extends StatelessWidget {
       var response = await dio.post(postURI, data: body);
       token = response.data['accessToken'];
       refreshToken = response.data['refreshToken'];
+      print("sucess Login");
       return 0;
     } catch (e) {
-      print(e);
-      print("ERR");
+      print("loginErr");
       return -1;
     }
   }

@@ -375,7 +375,11 @@ class _ViewDaily extends State<ViewDaily> {
                                 "뒤로",
                                 style: TextStyle(fontSize: 20),
                               ),
-                              onPressed: () => Navigator.pop(context),
+                              onPressed: (){
+                                Navigator.pop(context);
+                                Navigator.pop(context);
+                                Navigator.push(context,MaterialPageRoute(builder: (_)=>MainPage()));
+  } 
                             ),
                           ],
                         ),
@@ -475,7 +479,6 @@ class _ViewDaily extends State<ViewDaily> {
     } else {
       body = {'dailyStatusChange': 'OFF'};
     }
-    print(patchDailyURI);
 
     Dio dio = Dio();
     dio.options.headers['jwt-auth-token'] = token;
@@ -483,6 +486,7 @@ class _ViewDaily extends State<ViewDaily> {
     try {
       var res =
           await dio.patch(patchDailyURI, data: body);
+      print("====================");
       print('success patchDailyState');
       return 0;
     } catch (e) {

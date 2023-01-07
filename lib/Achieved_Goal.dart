@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:first_side_project_app/ViewGoal.dart';
 import 'package:first_side_project_app/View_Diary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -89,7 +90,7 @@ class _AchievedGoal extends State<AchievedGoal> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (_) => View_Diary()));
+                                            builder: (_) => ViewGoal(goalList[index].goalId)));
                                   },
                                   child: Text(
                                     goalList[index].title,

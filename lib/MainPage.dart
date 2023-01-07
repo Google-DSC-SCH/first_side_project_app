@@ -30,11 +30,8 @@ class Real_Main extends State<MainPage> {
     super.initState();
     date = getToday();
 
-    goalList.add(Goal('test fdfdfdf dfdfdfd fdfdfdf', '2023-02-23', 11));
-    dailyList.add(Daily('test afsdf  dfas ssd sdf', 2, '월화수목금토일', "ON"));
-
     setState(() {
-      // getMain(getToday());
+      getMain(getToday());
     });
   }
 
@@ -154,7 +151,8 @@ class Real_Main extends State<MainPage> {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (_) => ViewGoal(11)));
+                                              builder: (_) => ViewGoal(
+                                                  goalList[index].goalId)));
                                     },
                                     child: Row(
                                       crossAxisAlignment:
@@ -233,8 +231,6 @@ class Real_Main extends State<MainPage> {
                                       children: [
                                         // 타이틀
                                         Expanded(
-                                          // color:Colors.red,
-                                          // width: getMobileSizeFromPercent(context, 35, true),
                                           child: Text(
                                             dailyList[index].title,
                                             overflow: TextOverflow.ellipsis,
@@ -259,18 +255,24 @@ class Real_Main extends State<MainPage> {
                                             Switch(
                                               value: dailyList[index].statue ==
                                                   "ON",
-                                              onChanged: (value) {
-                                                print(value);
-                                                if (value) {
-                                                  setState(() {
-                                                    dailyList[index].statue =
-                                                        "ON";
-                                                  });
-                                                } else {
-                                                  setState(() {
-                                                    dailyList[index].statue =
-                                                        "OFF";
-                                                  });
+                                              onChanged: (value) async {
+                                                if (await patchDailyState(
+                                                        dailyList[index]
+                                                            .dailyId,
+                                                        dailyList[index]
+                                                            .statue) ==
+                                                    0) {
+                                                  if (value) {
+                                                    setState(() {
+                                                      dailyList[index].statue =
+                                                          "ON";
+                                                    });
+                                                  } else {
+                                                    setState(() {
+                                                      dailyList[index].statue =
+                                                          "OFF";
+                                                    });
+                                                  }
                                                 }
                                               },
                                               activeColor: Color(0xFFB1AFFF),
@@ -328,44 +330,88 @@ class Real_Main extends State<MainPage> {
 
   /// main 정보 받아옴
   Future<void> getMain(String today) async {
-    String getMainURI =
-        hostURI + 'api/main/' + today.substring(0, 4) + '-' + '02';
-    print(getMainURI);
-    // '-02';
-    // +DateTime.now().month.toString();
+    String getMainURI = hostURI + 'api/main/';
     Dio dio = Dio();
     dio.options.headers['jwt-auth-token'] = token;
     dio.options.headers['jwt-auth-refresh-token'] = refreshToken;
     try {
       var res = await dio.get(getMainURI);
 
-      // goal List 추가
-      List<dynamic> keyList = res.data['goalResponseList'].keys.toList();
-      keyList.sort();
-      print(res.data['goalResponseList']);
-      for (var key in keyList) {
-        for (var goal in res.data['goalResponseList'][key]) {
-          bool canRegi = true;
-          // 기존 항목에 같은 객체 있나 검사
-          print(goal);
+      // // goal List 추가
+      for (Map goal in res.data['goalResponseList']['goal']) {
+        setState(() {
+          goalList.add(Goal(goal['title'], goal['end_date'], goal['goal_id']));
+        });
+      }
+
+      // 이번주 첫날 마지막날
+      var now = DateTime.now();
+      
+      // 모든 알림 제거
+      cancelNotification();
+
+      // daily List 추가
+      for (Map daily in res.data['dailyResponseList']['daily']) {
+        setState(() {
+          dailyList.add(Daily(daily['title'], daily['daily_id'],
+              daily['alert_dates'], daily['daily_status']));
+        });
+
+        // 알림 추가
+        for (String day in daily['alert_dates'].split('')) {
+          var firstTime =
+              DateTime(now.year, now.month, now.day - (now.weekday - 1));
+          int addNum = 0;
+          switch (day) {
+            case "월":
+              firstTime =
+                  DateTime(now.year, now.month, now.day - (now.weekday - 1));
+              break;
+            case "화":
+              firstTime = DateTime(
+                  now.year, now.month, now.day - (now.weekday - 1) + 1);
+              addNum = 1;
+              break;
+            case "수":
+              firstTime = DateTime(
+                  now.year, now.month, now.day - (now.weekday - 1) + 2);
+              addNum = 2;
+              break;
+            case "목":
+              firstTime = DateTime(
+                  now.year, now.month, now.day - (now.weekday - 1) + 3);
+              addNum = 3;
+              break;
+            case "금":
+              firstTime = DateTime(
+                  now.year, now.month, now.day - (now.weekday - 1) + 4);
+              addNum = 4;
+              break;
+            case "토":
+              firstTime = DateTime(
+                  now.year, now.month, now.day - (now.weekday - 1) + 5);
+              addNum = 5;
+              break;
+            case "일":
+              firstTime = DateTime(
+                  now.year, now.month, now.day - (now.weekday - 1) + 6);
+              addNum = 6;
+              break;
+          }
+          registerMessage(
+              notificationId: daily['daily_id'] * 7 + addNum,
+              year: firstTime.year,
+              month: firstTime.month,
+              day: firstTime.day,
+              hour: int.parse(daily['alert_time'].substring(0, 2)),
+              minutes: int.parse(
+                daily['alert_time'].substring(3, 5),
+              ),
+              message: daily['title']);
+          print('addAlert: ' + firstTime.toString());
         }
       }
 
-      // daily List 추가
-      // for (var i in res.data['dailyResponseList']['daily']) {
-      //   bool canRegi = true;
-      //   // 기존 항목에 같은 객체 있나 검사
-      //   for (var j in dailyList){
-      //     if (i['daily_id'] == j.dailyId){
-      //       canRegi = false;
-      //     }
-      //   }
-      //   if(canRegi){
-      //   setState(() {
-      //       dailyList.add(Daily(i['title'], i['daily_id']));
-      //     });
-      //   }
-      // }
       print("====================");
       print('sucess getMainData');
     } catch (e) {
@@ -375,7 +421,38 @@ class Real_Main extends State<MainPage> {
   }
 }
 
-/// 단기목표
+/// 단기목표 상태 변경
+Future<int> patchDailyState(int dailyId, String changeState) async {
+  String patchDailyURI = hostURI +
+      'api/daily/' +
+      dailyId.toString() +
+      "/" +
+      DateTime.now().year.toString() +
+      "-" +
+      getToday().substring(4, 6) +
+      "-" +
+      getToday().substring(6, 8) +
+      '/status';
+
+  late Map body;
+  body = {'dailyStatusChange': changeState == "ON" ? "OFF" : "ON"};
+
+  Dio dio = Dio();
+  dio.options.headers['jwt-auth-token'] = token;
+  dio.options.headers['jwt-auth-refresh-token'] = refreshToken;
+  try {
+    var res = await dio.patch(patchDailyURI, data: body);
+    print("====================");
+    print('success patchDailyState');
+    return 0;
+  } catch (e) {
+    print("====================");
+    print('fetchDailyStatusErr');
+  }
+  return -1;
+}
+
+/// 장기목표
 class Goal {
   String title = '';
   String endDate = '';
@@ -388,6 +465,7 @@ class Goal {
   }
 }
 
+/// 단기목표
 class Daily {
   String title = '';
   int dailyId = -1;
