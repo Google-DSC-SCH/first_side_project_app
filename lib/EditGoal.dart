@@ -398,8 +398,8 @@ class _EditGoal extends State<EditGoal> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
+                              /// 완료 버튼
                               ElevatedButton(
-                                // 완료
                                 style: ElevatedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
                                       //모서리를 둥글게
@@ -426,9 +426,28 @@ class _EditGoal extends State<EditGoal> {
                                         MaterialPageRoute(
                                             builder: (_) => ViewGoal(goalId)));
                                   }
+                                  else {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(16.0)),
+                                          title: Text("오류", textAlign: TextAlign.center,),
+                                          content: Text("수정을 실패했습니다.", textAlign: TextAlign.center,),
+                                          actions: <Widget>[
+                                            new TextButton(
+                                              child: new Text("확인"),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                          ],
+                                        ));
+                                  }
                                 },
                               ),
-                              // 취소
+                              /// 취소 버튼
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
@@ -497,6 +516,9 @@ class _EditGoal extends State<EditGoal> {
 
   /// 수정
   Future<int> editGoal() async {
+    if(titleController.text==""){
+      return -1;
+    }
     String editGoalURI = hostURI + 'api/goal/' + goalId.toString();
     Map body = {
       'title': titleController.text.toString(),

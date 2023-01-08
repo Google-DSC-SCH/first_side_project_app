@@ -28,15 +28,6 @@ class _CreateGoal extends State<CreateGoal> {
   // 위젯간 간격(세로)
   double titleFontSize = 17;
 
-  // 연노랑
-  int color_whiteYellow = 0xFFFAF4B7;
-
-  // 찐노랑
-  int color_realYellow = 0xFFFFD966;
-
-  // 민트
-  int color_mint = 0xFFCDF0EA;
-
   // 페이지 나타날때 동작
   @override
   void initState() {
@@ -124,7 +115,7 @@ class _CreateGoal extends State<CreateGoal> {
                           ],
                         ),
 
-                        // 설명
+                        /// 설명
                         Column(
                           children: [
                             Text("설명",
@@ -158,7 +149,7 @@ class _CreateGoal extends State<CreateGoal> {
                           ],
                         ),
 
-                        // 목표 기간
+                        /// 목표 기간
                         Container(
                           width: getMobileSizeFromPercent(context, 80, true),
                           child: Row(
@@ -210,7 +201,7 @@ class _CreateGoal extends State<CreateGoal> {
                           ),
                         ),
 
-                        // 알림
+                        /// 알림
                         Container(
                           width: getMobileSizeFromPercent(context, 80, true),
                           child: Row(
@@ -389,14 +380,14 @@ class _CreateGoal extends State<CreateGoal> {
                           height: 10,
                         ),
 
-                        // 뒤로가기
+                        // 하단 라인
                         Container(
                           width: getMobileSizeFromPercent(context, 80, true),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
+                                /// 완료 버튼
                               ElevatedButton(
-                                // 완료
                                 style: ElevatedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
                                       //모서리를 둥글게
@@ -420,6 +411,24 @@ class _CreateGoal extends State<CreateGoal> {
                                   Navigator.pop(context);
                                   Navigator.push(context, MaterialPageRoute(builder: (_)=>MainPage()));
                                     
+                                  }else {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(16.0)),
+                                          title: Text("오류", textAlign: TextAlign.center,),
+                                          content: Text("등록 실패했습니다.", textAlign: TextAlign.center,),
+                                          actions: <Widget>[
+                                            new TextButton(
+                                              child: new Text("확인"),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                          ],
+                                        ));
                                   }
                                 },
                               ),
@@ -459,6 +468,10 @@ class _CreateGoal extends State<CreateGoal> {
 
   /// 수정
   Future<int> createGoal() async {
+    if(titleController.text == ""){
+      return -1;
+    }
+
     String createGoalURI = hostURI + 'api/goal/';
     Map body = {
       'title': titleController.text.toString(),

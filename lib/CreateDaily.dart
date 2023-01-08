@@ -505,8 +505,8 @@ class _CreateDaily extends State<CreateDaily> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
+                              /// 완료 버튼
                               ElevatedButton(
-                                // 완료
                                 style: ElevatedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
                                       //모서리를 둥글게
@@ -530,6 +530,24 @@ class _CreateDaily extends State<CreateDaily> {
                                     Navigator.pop(context);
                                     Navigator.pop(context);
                                     Navigator.push(context,MaterialPageRoute(builder: (_)=>MainPage()));
+                                  }else {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(16.0)),
+                                          title: Text("오류", textAlign: TextAlign.center,),
+                                          content: Text("등록 실패했습니다.", textAlign: TextAlign.center,),
+                                          actions: <Widget>[
+                                            new TextButton(
+                                              child: new Text("확인"),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                          ],
+                                        ));
                                   }
                                 },
                               ),
@@ -601,6 +619,11 @@ class _CreateDaily extends State<CreateDaily> {
 
   /// daily 추가
   Future<int> createDaily() async {
+    // 제목 입력 안하면
+    if(titleController.text == ""){
+      return -1;
+    }
+    
     // checkedDayStr 갱신
     List dayList = ["월","화","수","목","금","토","일"];
     for(int i = 0; i < dayList.length; i++){

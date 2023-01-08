@@ -51,7 +51,27 @@ class _ViewDaily extends State<ViewDaily> {
     this.selectedState = 0;
 
     // 서버에서 데이터를 받아옴
-    getDaily(dailyId);
+    getDaily(dailyId).then((value){
+      if(value != 0){
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius:
+                  BorderRadius.circular(16.0)),
+              title: Text("오류", textAlign: TextAlign.center,),
+              content: Text("정보를 받아오지 못했습니다.", textAlign: TextAlign.center,),
+              actions: <Widget>[
+                new TextButton(
+                  child: new Text("확인"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ));
+      }
+    });
   }
 
   @override
@@ -260,7 +280,27 @@ class _ViewDaily extends State<ViewDaily> {
                                     // 색 Switch
                                     setState(() {
                                       selectedState = 0;
-                                      patchDailyState(0);
+                                      patchDailyState(0).then((value){
+                                        if(value != 0){
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) => AlertDialog(
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                    BorderRadius.circular(16.0)),
+                                                title: Text("오류", textAlign: TextAlign.center,),
+                                                content: Text("전송 실패했습니다.", textAlign: TextAlign.center,),
+                                                actions: <Widget>[
+                                                  new TextButton(
+                                                    child: new Text("확인"),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                  ),
+                                                ],
+                                              ));
+                                        }
+                                      });
                                     });
                                   },
                                 ),
@@ -292,7 +332,27 @@ class _ViewDaily extends State<ViewDaily> {
                                   onTap: () {
                                     setState(() {
                                       selectedState = 1;
-                                      patchDailyState(1);
+                                      patchDailyState(1).then((value){
+                                        if(value != 0){
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) => AlertDialog(
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                    BorderRadius.circular(16.0)),
+                                                title: Text("오류", textAlign: TextAlign.center,),
+                                                content: Text("전송 실패했습니다.", textAlign: TextAlign.center,),
+                                                actions: <Widget>[
+                                                  new TextButton(
+                                                    child: new Text("확인"),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                  ),
+                                                ],
+                                              ));
+                                        }
+                                      });
                                     });
                                   },
                                 ),

@@ -98,6 +98,7 @@ class SignUp extends StatelessWidget {
                               height:
                                   getMobileSizeFromPercent(context, 6, false),
                               child: TextField(
+                                obscureText:true,
                                 controller: pwController,
                                 decoration: InputDecoration(
                                   hintText: '비밀번호',
@@ -124,6 +125,7 @@ class SignUp extends StatelessWidget {
                               height:
                                   getMobileSizeFromPercent(context, 6, false),
                               child: TextField(
+                                obscureText:true,
                                 controller: pwcController,
                                 decoration: InputDecoration(
                                   hintText: '비밀번호 확인',

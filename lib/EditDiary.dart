@@ -123,6 +123,24 @@ class EditDiary extends StatelessWidget {
                                       Navigator.pop(context);
                                       Navigator.push(context, MaterialPageRoute(builder:(_)=> View_Diary(goalId)));
 
+                                      }else {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) => AlertDialog(
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                  BorderRadius.circular(16.0)),
+                                              title: Text("오류", textAlign: TextAlign.center,),
+                                              content: Text("수정을 실패했습니다.", textAlign: TextAlign.center,),
+                                              actions: <Widget>[
+                                                new TextButton(
+                                                  child: new Text("확인"),
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                ),
+                                              ],
+                                            ));
                                       }
                                     },
                                     child: Container(

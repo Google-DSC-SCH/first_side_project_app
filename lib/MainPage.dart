@@ -31,7 +31,27 @@ class Real_Main extends State<MainPage> {
     date = getToday();
 
     setState(() {
-      getMain(getToday());
+      getMain(getToday()).then((value){
+        if(value != 0){
+          showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius:
+                    BorderRadius.circular(16.0)),
+                title: Text("오류", textAlign: TextAlign.center,),
+                content: Text("정보를 받아오지 못했습니다.", textAlign: TextAlign.center,),
+                actions: <Widget>[
+                  new TextButton(
+                    child: new Text("확인"),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ));
+        }
+      });
     });
   }
 
@@ -278,6 +298,24 @@ class Real_Main extends State<MainPage> {
                                                         "OFF";
                                                   });
                                                 }
+                                              }else {
+                                                showDialog(
+                                                    context: context,
+                                                    builder: (context) => AlertDialog(
+                                                      shape: RoundedRectangleBorder(
+                                                          borderRadius:
+                                                          BorderRadius.circular(16.0)),
+                                                      title: Text("오류", textAlign: TextAlign.center,),
+                                                      content: Text("정보 전송을 실패했습니다.", textAlign: TextAlign.center,),
+                                                      actions: <Widget>[
+                                                        new TextButton(
+                                                          child: new Text("확인"),
+                                                          onPressed: () {
+                                                            Navigator.pop(context);
+                                                          },
+                                                        ),
+                                                      ],
+                                                    ));
                                               }
                                             },
                                             activeColor: Color(0xFFB1AFFF),
@@ -333,7 +371,7 @@ class Real_Main extends State<MainPage> {
       );
 
   /// main 정보 받아옴
-  Future<void> getMain(String today) async {
+  Future<int> getMain(String today) async {
     String getMainURI = hostURI + 'api/main/';
     Dio dio = Dio();
     dio.options.headers['jwt-auth-token'] = token;
@@ -439,11 +477,13 @@ class Real_Main extends State<MainPage> {
 
       print("====================");
       print('sucess getMainData');
+      return 0;
     } catch (e) {
       print("====================");
       print("getMainDataErr");
       print(e);
     }
+    return -1;
   }
 }
 

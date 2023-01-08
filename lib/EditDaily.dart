@@ -544,6 +544,24 @@ class _EditDaily extends State<EditDaily> {
                                     Navigator.pop(context);
                                     Navigator.pop(context);
                                     Navigator.push(context, MaterialPageRoute(builder: (_)=>ViewDaily(dayilyId)));
+                                  }else {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(16.0)),
+                                          title: Text("오류", textAlign: TextAlign.center,),
+                                          content: Text("수정을 실패했습니다.", textAlign: TextAlign.center,),
+                                          actions: <Widget>[
+                                            new TextButton(
+                                              child: new Text("확인"),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                          ],
+                                        ));
                                   }
                                 },
                               ),
@@ -648,6 +666,9 @@ class _EditDaily extends State<EditDaily> {
 
   /// 수정
   Future<int> editDaily() async {
+    if(titleController.text == ""){
+      return -1;
+    }
     // checkedDayStr 갱신
     List dayList = ["월","화","수","목","금","토","일"];
     for(int i = 0; i < dayList.length; i++){

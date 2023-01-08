@@ -21,7 +21,27 @@ class _AchievedGoal extends State<AchievedGoal> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getAchievedGoal();
+    getAchievedGoal().then((value){
+      if(value != 0){
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius:
+                  BorderRadius.circular(16.0)),
+              title: Text("오류", textAlign: TextAlign.center,),
+              content: Text("정보를 받아오지 못했습니다.", textAlign: TextAlign.center,),
+              actions: <Widget>[
+                new TextButton(
+                  child: new Text("확인"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ));
+      }
+    });
   }
 
   @override

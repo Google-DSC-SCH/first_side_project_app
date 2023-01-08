@@ -92,7 +92,7 @@ Future<void> initializeNotification() async {
     requestSoundPermission: false,
   );
   const AndroidInitializationSettings initializationSettingsAndroid =
-      AndroidInitializationSettings('noti_icon');
+      AndroidInitializationSettings('icon');
 
   const InitializationSettings initializationSettings = InitializationSettings(
     android: initializationSettingsAndroid,
