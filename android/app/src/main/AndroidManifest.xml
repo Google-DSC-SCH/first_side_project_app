@@ -1,31 +1,67 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.first_side_project_app">
-   <application
-        android:label="first_side_project_app"
+
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    //위치정보 확인함
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    //wifi 연결을 확인함
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    //wifi 체인지를 확인함
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    //네트웍이 연결된것을 확인할수 있게함
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    //부팅완료를 확인할수있게함
+    <uses-permission android:name="android.permission.INTERNET" />
+    // 인터넷을 사용함
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    // 외장메모리 사용
+    <uses-permission android:name="android.permission.RECODER_AUDIO" />
+    //녹음이 가능하게 함
+    <uses-permission android:name="android.permission.SET_TIME_ZONE" />
+    //타임존 지정
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    //알람
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    //알림
+
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    //백그라운드 위치
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+    //알림 정책
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    //알림 정책
+
+
+
+    <application
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:label="오늘도 내일도">
         <activity
             android:name=".MainActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:exported="true"
+            android:hardwareAccelerated="true"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
-            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-            android:hardwareAccelerated="true"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            android:showWhenLocked="true"
+            android:turnScreenOn="true">
             <!-- Specifies an Android theme to apply to this Activity as soon as
                  the Android process has started. This theme is visible to the user
                  while the Flutter UI initializes. After that, this theme continues
                  to determine the Window background behind the Flutter UI. -->
             <meta-data
-              android:name="io.flutter.embedding.android.NormalTheme"
-              android:resource="@style/NormalTheme"
-              />
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme" />
             <meta-data
                 android:name="com.google.firebase.messaging.default_notification_channel_id"
                 android:value="high_importance_channel" />
+
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.
@@ -33,5 +69,10 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+
     </application>
+
+
+
 </manifest>

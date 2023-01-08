@@ -1,144 +1,170 @@
+import 'package:first_side_project_app/MainPage.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:get/get.dart';
-import 'firebase_options.dart';
-import 'Notification_controller.dart';
+import 'package:flutter_app_badger/flutter_app_badger.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_native_timezone/flutter_native_timezone.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 // 각 페이지들 import
 import 'Login.dart';
-import 'Sign_Up.dart';
-import 'MainPage.dart';
-import 'Achieved_Goal.dart';
-import 'ViewDaily.dart';
-import 'CreateDaily.dart';
-import 'ViewGoal.dart';
-import 'CreateGoal.dart';
-import 'Create_Diary.dart';
-import 'View_Diary.dart';
+
+/// 플러그인 생성
+late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
 Future<void> main() async {
-  // 초기화 허용
-  WidgetsFlutterBinding.ensureInitialized();
-  // 파이어베잇스 추가
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         fontFamily: 'HandTyping',
         primarySwatch: Colors.blue,
       ),
-      initialBinding: BindingsBuilder.put(()=>NotificationController(), permanent: true),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
+  /// 옵저버 추가
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance!.addObserver(this);
+    _init();
+  }
+
+  /// 옵저버 제거
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    WidgetsBinding.instance!.removeObserver(this);
+    super.dispose();
+  }
+
+  /// 앱 실행될때 뱃지 초기화
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      FlutterAppBadger.removeBadge();
+    }
+  }
+
+  /// 빌드
   @override
   Widget build(BuildContext context) {
-    return MainPage();
-    //   Scaffold(
-    //   appBar: AppBar(
-    //     title: Text(widget.title),
-    //   ),
-    //   body: Center(
-    //     child: Column(
-    //       mainAxisAlignment: MainAxisAlignment.center,
-    //       children: <Widget>[
-    //         // 화면 이동 버튼, 새로운 페이지 만들때마다 복사해서 사용
-    //         ElevatedButton(
-    //             onPressed: () {
-    //               Navigator.push(
-    //                   context, MaterialPageRoute(builder: (_) => Login()));
-    //             },
-    //             child: Text("Login")),
-    //         ElevatedButton(
-    //             onPressed: () {
-    //               Navigator.push(
-    //                   context, MaterialPageRoute(builder: (_) => Sign_Up()));
-    //             },
-    //             child: Text("Sign_Up")),
-    //
-    //         ElevatedButton(
-    //             onPressed: () {
-    //               Navigator.push(
-    //                   context, MaterialPageRoute(builder: (_) => Real_Main()));
-    //             },
-    //             child: Text("Real_Main")),
-    //         // View Daily 페이지
-    //         ElevatedButton(
-    //             onPressed: () {
-    //               Navigator.push(
-    //                   context, MaterialPageRoute(builder: (_) => ViewDaily()));
-    //             },
-    //             child: Text("ViewDaily")),
-    //
-    //         // Create Daily 페이지
-    //         ElevatedButton(
-    //             onPressed: () {
-    //               Navigator.push(context,
-    //                   MaterialPageRoute(builder: (_) => CreateDaily()));
-    //             },
-    //             child: Text("CreateDaily")),
-    //
-    //         ElevatedButton(
-    //             onPressed: () {
-    //               Navigator.push(context,
-    //                   MaterialPageRoute(builder: (_) => Create_Diary()));
-    //             },
-    //             child: Text("Create_Diary")),
-    //
-    //         ElevatedButton(
-    //             onPressed: () {
-    //               Navigator.push(
-    //                   context, MaterialPageRoute(builder: (_) => View_Diary()));
-    //             },
-    //             child: Text("View_Diary")),
-    //
-    //         // View Goal 페이지
-    //         ElevatedButton(
-    //             onPressed: () {
-    //               Navigator.push(
-    //                   context, MaterialPageRoute(builder: (_) => ViewGoal()));
-    //             },
-    //             child: Text("ViewGoal")),
-    //
-    //         // Create Goal 페이지
-    //         ElevatedButton(
-    //             onPressed: () {
-    //               Navigator.push(
-    //                   context, MaterialPageRoute(builder: (_) => CreateGoal()));
-    //             },
-    //             child: Text("CreateGoal")),
-    //
-    //         ElevatedButton(
-    //             onPressed: () {
-    //               Navigator.push(context,
-    //                   MaterialPageRoute(builder: (_) => Achieved_Goal()));
-    //             },
-    //             child: Text("Achieved_Goal")),
-    //       ],
-    //     ),
-    //   ),
-    // );
+    requestPermissions();
+    return Login();
   }
+}
+
+/// local notification 초기화
+Future<void> _init() async {
+  await configureLocalTimeZone();
+  await initializeNotification();
+}
+
+/// 로컬 시간 설정
+Future<void> configureLocalTimeZone() async {
+  tz.initializeTimeZones();
+  final String? timeZoneName = await FlutterNativeTimezone.getLocalTimezone();
+  tz.setLocalLocation(tz.getLocation(timeZoneName!));
+}
+
+/// 알림 초기화
+Future<void> initializeNotification() async {
+  const DarwinInitializationSettings initializationSettingsIOS =
+      DarwinInitializationSettings(
+    requestAlertPermission: false,
+    requestBadgePermission: false,
+    requestSoundPermission: false,
+  );
+  const AndroidInitializationSettings initializationSettingsAndroid =
+      AndroidInitializationSettings('icon');
+
+  const InitializationSettings initializationSettings = InitializationSettings(
+    android: initializationSettingsAndroid,
+    iOS: initializationSettingsIOS,
+  );
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+}
+
+/// 메시지 등록 취소
+Future<void> cancelNotification() async {
+  await flutterLocalNotificationsPlugin.cancelAll();
+}
+
+/// 권한 요청
+Future<void> requestPermissions() async {
+  await flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<
+          IOSFlutterLocalNotificationsPlugin>()
+      ?.requestPermissions(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
+}
+
+/// 메시지 등록
+Future<void> registerMessage({
+  required int notificationId,
+  required int year,
+  required int month,
+  required int day,
+  required int hour,
+  required int minutes,
+  required message,
+  required String target
+}) async {
+  // 시간 초기화
+  final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+  // 시간 설정
+  tz.TZDateTime scheduledDate = tz.TZDateTime(
+    tz.local,
+    year,
+    month,
+    day,
+    hour,
+    minutes,
+  );
+
+  await flutterLocalNotificationsPlugin.zonedSchedule(
+    notificationId,
+    '오늘도 내일도',
+    message,
+    scheduledDate,
+    NotificationDetails(
+      android: AndroidNotificationDetails(
+        'channel id',
+        'channel name',
+        importance: Importance.max,
+        priority: Priority.high,
+        ongoing: true,
+        styleInformation: BigTextStyleInformation("알림: " + message),
+        // icon: 'noti_icon',
+      ),
+      iOS: const DarwinNotificationDetails(
+        badgeNumber: 1,
+      ),
+    ),
+    androidAllowWhileIdle: true,
+    uiLocalNotificationDateInterpretation:
+        UILocalNotificationDateInterpretation.absoluteTime,
+
+    matchDateTimeComponents: target=="daily"?DateTimeComponents.dayOfWeekAndTime:DateTimeComponents.time,
+
+  );
 }

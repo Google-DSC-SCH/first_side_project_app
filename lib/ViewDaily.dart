@@ -1,19 +1,30 @@
+import 'package:dio/dio.dart';
+import 'package:first_side_project_app/MainPage.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'BaseFile.dart';
 
 import 'EditDaily.dart';
 
 class ViewDaily extends StatefulWidget {
+  int id = -1;
+
+  ViewDaily(int id) {
+    this.id = id;
+  }
+
   @override
-  State<ViewDaily> createState() => _ViewDaily();
+  State<ViewDaily> createState() => _ViewDaily(id);
 }
 
 class _ViewDaily extends State<ViewDaily> {
+  int dailyId = -1;
+
   String title = "";
   String content = "";
   String repeatDay = "";
   String alarmOnOff = "";
-  String alertTime = "";
+  String alertTime = "13:10";
 
   // 완료 여부, 0: 완료, 1:미완료
   int selectedState = 0;
@@ -21,14 +32,10 @@ class _ViewDaily extends State<ViewDaily> {
   // 위젯간 간격(세로)
   double titleFontSize = 17;
 
-  // 연노랑
-  int color_whiteYellow = 0xFFFAF4B7;
-
-  // 찐노랑
-  int color_realYellow = 0xFFFFD966;
-
-  // 민트
-  int color_mint = 0xFFCDF0EA;
+  // id 받아옴
+  _ViewDaily(int id) {
+    this.dailyId = id;
+  }
 
   // 페이지 나타날때 동작
   @override
@@ -36,15 +43,36 @@ class _ViewDaily extends State<ViewDaily> {
     // TODO: implement initState
     super.initState();
 
-    this.title = "제목입\n니\n다.";
-    this.content =
-        "대충 설명을 하자면 이런 느낌.\n뭔지 알지\n? 몰라도 알아야돼. 라때는\n\n\n\n\ 말이야 이러쿵저러쿵 꼰대 마인드 ON\n 집가고싶다..";
-    this.repeatDay = "월, 수, 금";
-    this.alarmOnOff = "ON";
-    this.alertTime = "7:30";
+    this.title = "";
+    this.content = "";
+    this.repeatDay = "";
+    this.alarmOnOff = "";
+    this.alertTime = "";
     this.selectedState = 0;
 
     // 서버에서 데이터를 받아옴
+    getDaily(dailyId).then((value){
+      if(value != 0){
+        print(value);
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius:
+                  BorderRadius.circular(16.0)),
+              title: Text("오류", textAlign: TextAlign.center,),
+              content: Text("정보를 받아오지 못했습니다.", textAlign: TextAlign.center,),
+              actions: <Widget>[
+                new TextButton(
+                  child: new Text("확인"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ));
+      }
+    });
   }
 
   @override
@@ -190,22 +218,23 @@ class _ViewDaily extends State<ViewDaily> {
                               ],
                             ),
                             Text(
-                              int.parse(alertTime.split(":")[0]) >= 12
-                                  ? "오후 " +
-                                      (alertTime.split(":")[0] == "12"
-                                              ? 12
-                                              : (int.parse(
-                                                      alertTime.split(":")[0]) %
-                                                  12))
-                                          .toString() +
-                                      "시 " +
-                                      alertTime.split(":")[1] +
-                                      "분"
-                                  : "오전 " +
-                                      alertTime.split(":")[0] +
-                                      "시 " +
-                                      alertTime.split(":")[1] +
-                                      "분",
+                              this.alertTime,
+                              // int.parse(alertTime.split(":")[0]) >= 12
+                              //     ? "오후 " +
+                              //     (alertTime.split(":")[0] == "12"
+                              //         ? 12
+                              //         : (int.parse(
+                              //         alertTime.split(":")[0]) %
+                              //         12))
+                              //         .toString() +
+                              //     "시 " +
+                              //     alertTime.split(":")[1] +
+                              //     "분"
+                              //     : "오전 " +
+                              //     alertTime.split(":")[0] +
+                              //     "시 " +
+                              //     alertTime.split(":")[1] +
+                              //     "분",
                               style: TextStyle(
                                 fontSize: 25,
                               ),
@@ -214,7 +243,7 @@ class _ViewDaily extends State<ViewDaily> {
                           ],
                         ),
                       ),
-                      // 상태
+                      /// 상태
                       Container(
                         width: getMobileSizeFromPercent(context, 80, true),
                         child: Row(
@@ -252,6 +281,27 @@ class _ViewDaily extends State<ViewDaily> {
                                     // 색 Switch
                                     setState(() {
                                       selectedState = 0;
+                                      patchDailyState(0).then((value){
+                                        if(value != 0){
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) => AlertDialog(
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                    BorderRadius.circular(16.0)),
+                                                title: Text("오류", textAlign: TextAlign.center,),
+                                                content: Text("전송 실패했습니다.", textAlign: TextAlign.center,),
+                                                actions: <Widget>[
+                                                  new TextButton(
+                                                    child: new Text("확인"),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                  ),
+                                                ],
+                                              ));
+                                        }
+                                      });
                                     });
                                   },
                                 ),
@@ -283,6 +333,27 @@ class _ViewDaily extends State<ViewDaily> {
                                   onTap: () {
                                     setState(() {
                                       selectedState = 1;
+                                      patchDailyState(1).then((value){
+                                        if(value != 0){
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) => AlertDialog(
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                    BorderRadius.circular(16.0)),
+                                                title: Text("오류", textAlign: TextAlign.center,),
+                                                content: Text("전송 실패했습니다.", textAlign: TextAlign.center,),
+                                                actions: <Widget>[
+                                                  new TextButton(
+                                                    child: new Text("확인"),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                  ),
+                                                ],
+                                              ));
+                                        }
+                                      });
                                     });
                                   },
                                 ),
@@ -296,13 +367,12 @@ class _ViewDaily extends State<ViewDaily> {
                         height: 10,
                       ),
 
-                      // 뒤로가기
+                      /// 뒤로가기
                       Container(
                         width: getMobileSizeFromPercent(context, 80, true),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-
                             // 수정
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
@@ -324,9 +394,9 @@ class _ViewDaily extends State<ViewDaily> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (BuildContext context) =>
-                                          EditDaily())),
+                                          EditDaily(dailyId))),
                             ),
-                            // 삭제
+                            // /
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
@@ -342,8 +412,12 @@ class _ViewDaily extends State<ViewDaily> {
                                 "삭제",
                                 style: TextStyle(fontSize: 20),
                               ),
-                              onPressed: () {
-                                Navigator.pop(context);
+                              onPressed: () async {
+                                if(await deleteDaily() == 0){
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                  Navigator.push(context, MaterialPageRoute(builder: (_)=>MainPage()));
+                                }
                               },
                             ),
                             // 뒤로
@@ -362,7 +436,11 @@ class _ViewDaily extends State<ViewDaily> {
                                 "뒤로",
                                 style: TextStyle(fontSize: 20),
                               ),
-                              onPressed: () => Navigator.pop(context),
+                              onPressed: (){
+                                Navigator.pop(context);
+                                Navigator.pop(context);
+                                Navigator.push(context,MaterialPageRoute(builder: (_)=>MainPage()));
+  } 
                             ),
                           ],
                         ),
@@ -373,4 +451,133 @@ class _ViewDaily extends State<ViewDaily> {
                       ),
                     ]))),
       );
+
+  /// 정보 받아옴
+  Future<int> getDaily(int id) async {
+    String getDailyURI = hostURI +
+        'api/daily/' +
+        dailyId.toString() +
+        "/" +
+        DateTime.now().year.toString() +
+        "-" +
+        getToday().substring(4, 6) +
+        "-" +
+        getToday().substring(6,8);
+
+    Dio dio = Dio();
+    dio.options.headers['jwt-auth-token'] = token;
+    dio.options.headers['jwt-auth-refresh-token'] = refreshToken;
+    try {
+      var res = await dio.get(getDailyURI);
+      setState(() {
+        this.title = res.data['title'];
+        this.repeatDay = res.data['alertDates'];
+        this.content = res.data['content'];
+        this.alertTime = res.data['alertTime'];
+        this.alarmOnOff = res.data['alertStatus'];
+        if (res.data['dailyStatus'] == "ON") {
+          this.selectedState = 0;
+        } else {
+          this.selectedState = 1;
+        }
+      });
+      print("====================");
+      print("sucess getDaily");
+      return 0;
+    } catch (e) {
+      print("====================");
+      print("getDaily Err");
+      await createDailyStatus(id);
+      await getDaily(id);
+    }
+    return -1;
+  }
+
+  /// status 생성
+  Future<int> createDailyStatus(int id) async {
+    String getDailyURI = hostURI +
+        'api/daily/' +
+        dailyId.toString() +
+        "/" +
+        DateTime.now().year.toString() +
+        "-" +
+        getToday().substring(4, 6) +
+        "-" +
+        getToday().substring(6,8);
+
+    Map body = {'dailyStatus' : 'OFF'};
+
+    Dio dio = Dio();
+    dio.options.headers['jwt-auth-token'] = token;
+    dio.options.headers['jwt-auth-refresh-token'] = refreshToken;
+    try {
+      var res = await dio.post(getDailyURI, data: body);
+
+      print("====================");
+      print("sucess createDailyDates");
+    } catch (e) {
+      print("====================");
+      print("createDailyDates Err");
+    }
+    return -1;
+  }
+
+  /// 상태 변경
+  Future<int> patchDailyState(int changeState) async {
+    String patchDailyURI = hostURI +
+        'api/daily/' +
+        dailyId.toString() +
+        "/" +
+        DateTime.now().year.toString() +
+        "-" +
+        getToday().substring(4, 6) +
+        "-" +
+        getToday().substring(6,8) +
+        '/status';
+
+    late Map body;
+    if (changeState == 0) {
+      body = {'dailyStatusChange': 'ON'};
+    } else {
+      body = {'dailyStatusChange': 'OFF'};
+    }
+
+    Dio dio = Dio();
+    dio.options.headers['jwt-auth-token'] = token;
+    dio.options.headers['jwt-auth-refresh-token'] = refreshToken;
+    try {
+      var res =
+          await dio.patch(patchDailyURI, data: body);
+      print("====================");
+      print('success patchDailyState');
+      return 0;
+    } catch (e) {
+      print("====================");
+      print('fetchDailyStatusErr');
+    }
+    return -1;
+  }
+
+  /// 삭제
+  Future<int> deleteDaily() async {
+    String deleteDaily = hostURI +
+        'api/daily/' +
+        dailyId.toString();
+
+    print(deleteDaily);
+
+    Dio dio = Dio();
+    dio.options.headers['jwt-auth-token'] = token;
+    dio.options.headers['jwt-auth-refresh-token'] = refreshToken;
+    try {
+      var res =
+          await dio.delete(deleteDaily);
+      print('success deleteDaily');
+      return 0;
+    } catch (e) {
+      print("====================");
+      print('deleteDailyErr');
+    }
+    return -1;
+  }
 }

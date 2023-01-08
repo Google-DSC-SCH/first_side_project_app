@@ -1,18 +1,48 @@
+import 'package:dio/dio.dart';
+import 'package:first_side_project_app/ViewGoal.dart';
 import 'package:first_side_project_app/View_Diary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'BaseFile.dart';
 import 'MainPage.dart';
 
-class Achieved_Goal extends StatelessWidget {
+class AchievedGoal extends StatefulWidget{
+  @override
+  State<AchievedGoal> createState()=>_AchievedGoal();
+}
+
+class _AchievedGoal extends State<AchievedGoal> {
   // 위젯간 간격(세로)
   double titleFontSize = 17;
-  // 연노랑
-  int color_whiteYellow = 0xFFFAF4B7;
-  // 찐노랑
-  int color_realYellow = 0xFFFFD966;
-  // 민트
-  int color_mint = 0xFFCDF0EA;
+
+  List goalList = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getAchievedGoal().then((value){
+      if(value != 0){
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius:
+                  BorderRadius.circular(16.0)),
+              title: Text("오류", textAlign: TextAlign.center,),
+              content: Text("정보를 받아오지 못했습니다.", textAlign: TextAlign.center,),
+              actions: <Widget>[
+                new TextButton(
+                  child: new Text("확인"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ));
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) => Container(
@@ -71,101 +101,27 @@ class Achieved_Goal extends StatelessWidget {
                             width: getMobileSizeFromPercent(context, 80, true),
                             height:
                                 getMobileSizeFromPercent(context, 50, false),
-                            child: ListView(
-                              // scrollDirection: Axis.horizontal,
+                            child: ListView.builder(
+                              itemCount: goalList.length,
                               padding: EdgeInsets.all(10),
-                              children: [
-                                Card(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (_) => View_Diary()));
-                                    },
-                                    child: Text(
-                                      "토익 850점 넘기",
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(fontSize: 30),
-                                    ),
+                              itemBuilder: (context, index) => Card(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) => ViewGoal(goalList[index].goalId)));
+                                  },
+                                  child: Text(
+                                    goalList[index].title,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(fontSize: 30),
                                   ),
-                                  color: Color(color_whiteYellow),
-                                  margin: EdgeInsets.all(2),
                                 ),
-                                Card(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (_) => View_Diary()));
-                                    },
-                                    child: Text(
-                                      "데이터베이스 자격증 따기",
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(fontSize: 30),
-                                    ),
-                                  ),
-                                  color: Color(color_whiteYellow),
-                                  margin: EdgeInsets.all(2),
-                                ),
-                                Card(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (_) => View_Diary()));
-                                    },
-                                    child: Text(
-                                      "알고리즘 마스터하기",
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(fontSize: 30),
-                                    ),
-                                  ),
-                                  color: Color(color_whiteYellow),
-                                  margin: EdgeInsets.all(2),
-                                ),
-                                Card(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (_) => View_Diary()));
-                                    },
-                                    child: Text(
-                                      "앱 배포 프로젝트 마무리",
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(fontSize: 30),
-                                    ),
-                                  ),
-                                  color: Color(color_whiteYellow),
-                                  margin: EdgeInsets.all(2),
-                                ),
-                                Card(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (_) => View_Diary()));
-                                    },
-                                    child: Text(
-                                      "매일 영단어 100개 암기",
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(fontSize: 30),
-                                    ),
-                                  ),
-                                  color: Color(color_whiteYellow),
-                                  margin: EdgeInsets.all(2),
-                                ),
-                              ],
+                                color: Color(color_whiteYellow),
+                                margin: EdgeInsets.all(2),
+                              ),
                             ),
                           ),
                         ),
@@ -180,8 +136,7 @@ class Achieved_Goal extends StatelessWidget {
                       elevation: 0, // 그림자 깊이
                       child: GestureDetector(
                         onTap: () {
-                          // Navigator.push(context,
-                          //     MaterialPageRoute(builder: (_) => Real_Main()));
+                          Navigator.pop(context);
                         },
                         child: Container(
                             alignment: Alignment.center,
@@ -199,4 +154,41 @@ class Achieved_Goal extends StatelessWidget {
                   ],
                 ))),
       );
+
+  /// 정보 받아옴
+  Future<int> getAchievedGoal() async {
+    String getURI = hostURI +
+        'api/users/goals';
+
+    Dio dio = Dio();
+    dio.options.headers['jwt-auth-token'] = token;
+    dio.options.headers['jwt-auth-refresh-token'] = refreshToken;
+    try {
+      var res = await dio.get(getURI);
+      for(Map goal in res.data["goalResList"]){
+        setState(() {
+          goalList.add(Goal(goal['goalId'], goal['title']));
+        });
+        print(goal);
+      }
+
+      print("====================");
+      print("sucess getAchievedGoal");
+      return 0;
+    } catch (e) {
+      print("====================");
+      print("getAchievedGoal Err");
+    }
+    return -1;
+  }
+}
+
+class Goal{
+  int goalId = 0;
+  String title = "";
+
+  Goal(int id, String title){
+    this.goalId = id;
+    this.title = title;
+  }
 }

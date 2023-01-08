@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+import 'package:first_side_project_app/MainPage.dart';
 import 'package:first_side_project_app/View_Diary.dart';
 import 'package:flutter/material.dart';
 import 'BaseFile.dart';
@@ -6,11 +8,18 @@ import 'EditDaily.dart';
 import 'EditGoal.dart';
 
 class ViewGoal extends StatefulWidget {
+  int goalId = 0;
+
+  ViewGoal(int id) {
+    this.goalId = id;
+  }
+
   @override
-  State<ViewGoal> createState() => _ViewGoal();
+  State<ViewGoal> createState() => _ViewGoal(goalId);
 }
 
 class _ViewGoal extends State<ViewGoal> {
+  int goalId = -1;
   String title = "";
   String content = "";
   String duoDay = "";
@@ -23,28 +32,36 @@ class _ViewGoal extends State<ViewGoal> {
   // 위젯간 간격(세로)
   double titleFontSize = 17;
 
-  // 연노랑
-  int color_whiteYellow = 0xFFFAF4B7;
-
-  // 찐노랑
-  int color_realYellow = 0xFFFFD966;
-
-  // 민트
-  int color_mint = 0xFFCDF0EA;
+  _ViewGoal(int id) {
+    this.goalId = id;
+  }
 
   // 페이지 나타날때 동작
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
-    this.title = "제목입\n니\n다.";
-    this.content =
-        "대충 설명을 하자면 이런 느낌.\n뭔지 알지\n? 몰라도 알아야돼. 라때는\n\n\n\n\ 말이야 이러쿵저러쿵 꼰대 마인드 ON\n 집가고싶다..";
-    this.duoDay = "20221230";
-    this.alarmOnOff = "ON";
-    this.alertTime = "7:30";
-    this.selectedState = 0;
+    getGoal(goalId).then((value){
+      if(value != 0){
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius:
+                  BorderRadius.circular(16.0)),
+              title: Text("오류", textAlign: TextAlign.center,),
+              content: Text("정보를 받아오지 못했습니다.", textAlign: TextAlign.center,),
+              actions: <Widget>[
+                new TextButton(
+                  child: new Text("확인"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ));
+      }
+    });
 
     // 서버에서 데이터를 받아옴
   }
@@ -164,11 +181,7 @@ class _ViewGoal extends State<ViewGoal> {
                             Text("목표기간",
                                 style: TextStyle(fontSize: titleFontSize)),
                             Text(
-                              this.duoDay.substring(0, 4) +
-                                  "-" +
-                                  this.duoDay.substring(4, 6) +
-                                  "-" +
-                                  this.duoDay.substring(6, 8),
+                              this.duoDay,
                               textAlign: TextAlign.center,
                               style: TextStyle(fontSize: 25),
                             )
@@ -196,22 +209,7 @@ class _ViewGoal extends State<ViewGoal> {
                               ],
                             ),
                             Text(
-                              int.parse(alertTime.split(":")[0]) >= 12
-                                  ? "오후 " +
-                                      (alertTime.split(":")[0] == "12"
-                                              ? 12
-                                              : (int.parse(
-                                                      alertTime.split(":")[0]) %
-                                                  12))
-                                          .toString() +
-                                      "시 " +
-                                      alertTime.split(":")[1] +
-                                      "분"
-                                  : "오전 " +
-                                      alertTime.split(":")[0] +
-                                      "시 " +
-                                      alertTime.split(":")[1] +
-                                      "분",
+                              alertTime,
                               style: TextStyle(
                                 fontSize: 25,
                               ),
@@ -220,7 +218,8 @@ class _ViewGoal extends State<ViewGoal> {
                           ],
                         ),
                       ),
-                      // 상태
+
+                      /// 상태
                       Container(
                         width: getMobileSizeFromPercent(context, 80, true),
                         child: Row(
@@ -254,10 +253,31 @@ class _ViewGoal extends State<ViewGoal> {
                                       ),
                                     ),
                                   ),
-                                  onTap: () {
+                                  onTap: () async {
                                     // 색 Switch
                                     setState(() {
                                       selectedState = 0;
+                                      patchGoalState(selectedState).then((value){
+                                        if(value != 0){
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) => AlertDialog(
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                    BorderRadius.circular(16.0)),
+                                                title: Text("오류", textAlign: TextAlign.center,),
+                                                content: Text("전송 실패했습니다.", textAlign: TextAlign.center,),
+                                                actions: <Widget>[
+                                                  new TextButton(
+                                                    child: new Text("확인"),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                  ),
+                                                ],
+                                              ));
+                                        }
+                                      });
                                     });
                                   },
                                 ),
@@ -286,9 +306,30 @@ class _ViewGoal extends State<ViewGoal> {
                                       ),
                                     ),
                                   ),
-                                  onTap: () {
+                                  onTap: () async {
                                     setState(() {
                                       selectedState = 1;
+                                      patchGoalState(selectedState).then((value){
+                                        if(value != 0){
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) => AlertDialog(
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                    BorderRadius.circular(16.0)),
+                                                title: Text("오류", textAlign: TextAlign.center,),
+                                                content: Text("전송 실패했습니다.", textAlign: TextAlign.center,),
+                                                actions: <Widget>[
+                                                  new TextButton(
+                                                    child: new Text("확인"),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                  ),
+                                                ],
+                                              ));
+                                        }
+                                      });
                                     });
                                   },
                                 ),
@@ -315,7 +356,8 @@ class _ViewGoal extends State<ViewGoal> {
                                     borderRadius: BorderRadius.circular(16)),
                                 primary: Color(color_mint),
                                 onPrimary: Colors.black,
-                                minimumSize: Size(selectedState==0 ? 60:80, 40),
+                                minimumSize:
+                                    Size(selectedState == 0 ? 60 : 80, 40),
                                 //width, height
                                 shadowColor: Colors.transparent,
                                 elevation: 0,
@@ -328,7 +370,7 @@ class _ViewGoal extends State<ViewGoal> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (BuildContext context) =>
-                                          EditGoal())),
+                                          EditGoal(goalId))),
                             ),
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
@@ -337,7 +379,8 @@ class _ViewGoal extends State<ViewGoal> {
                                     borderRadius: BorderRadius.circular(16)),
                                 primary: Color(color_mint),
                                 onPrimary: Colors.black,
-                                minimumSize: Size(selectedState==0 ? 60:80, 40),
+                                minimumSize:
+                                    Size(selectedState == 0 ? 60 : 80, 40),
                                 shadowColor: Colors.transparent,
                                 elevation: 0,
                               ),
@@ -345,19 +388,24 @@ class _ViewGoal extends State<ViewGoal> {
                                 "삭제",
                                 style: TextStyle(fontSize: 20),
                               ),
-                              onPressed: () {
-                                Navigator.pop(context);
+                              onPressed: () async {
+                                if (await deleteGoal() == 0) {
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                  Navigator.push(context, MaterialPageRoute(builder: (_)=>MainPage()));
+                                }
                               },
                             ),
 
                             // 일기 페이지 이동
-                            if(selectedState == 0)
+                            if (selectedState == 0)
                               Container(
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                     shape: RoundedRectangleBorder(
-                                      //모서리를 둥글게
-                                        borderRadius: BorderRadius.circular(16)),
+                                        //모서리를 둥글게
+                                        borderRadius:
+                                            BorderRadius.circular(16)),
                                     primary: Color(color_mint),
                                     onPrimary: Colors.black,
                                     minimumSize: Size(60, 40),
@@ -368,7 +416,11 @@ class _ViewGoal extends State<ViewGoal> {
                                     "일기",
                                     style: TextStyle(fontSize: 20),
                                   ),
-                                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>View_Diary())),
+                                  onPressed: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              View_Diary(goalId))),
                                 ),
                               ),
 
@@ -379,7 +431,8 @@ class _ViewGoal extends State<ViewGoal> {
                                     borderRadius: BorderRadius.circular(16)),
                                 primary: Color(color_mint),
                                 onPrimary: Colors.black,
-                                minimumSize: Size(selectedState==0 ? 60:80, 40),
+                                minimumSize:
+                                    Size(selectedState == 0 ? 60 : 80, 40),
                                 shadowColor: Colors.transparent,
                                 elevation: 0,
                               ),
@@ -387,7 +440,14 @@ class _ViewGoal extends State<ViewGoal> {
                                 "뒤로",
                                 style: TextStyle(fontSize: 20),
                               ),
-                              onPressed: () => Navigator.pop(context),
+                              onPressed: () {
+                                Navigator.pop(context);
+                                Navigator.pop(context);
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => MainPage()));
+                              },
                             ),
                           ],
                         ),
@@ -398,4 +458,82 @@ class _ViewGoal extends State<ViewGoal> {
                       ),
                     ]))),
       );
+
+  /// 정보 받아옴
+  Future<int> getGoal(int id) async {
+    String getDailyURI = hostURI + 'api/goal/' + goalId.toString();
+
+    Dio dio = Dio();
+    dio.options.headers['jwt-auth-token'] = token;
+    dio.options.headers['jwt-auth-refresh-token'] = refreshToken;
+    try {
+      var res = await dio.get(getDailyURI);
+      setState(() {
+        this.title = res.data['title'];
+        this.content = res.data['content'];
+        this.alertTime = res.data['alertTime'];
+        this.alarmOnOff = res.data['alertStatus'];
+        this.duoDay = res.data['endDate'];
+
+        if (res.data['goalStatus'] == "ON") {
+          this.selectedState = 0;
+        } else {
+          this.selectedState = 1;
+        }
+      });
+      print("====================");
+      print("sucess getViewGoal");
+      return 0;
+    } catch (e) {
+      print("====================");
+      print("getViewGoal Err");
+    }
+    return -1;
+  }
+
+  /// 상태 변경
+  Future<int> patchGoalState(int changeState) async {
+    String patchDailyURI =
+        hostURI + 'api/goal/' + goalId.toString() + '/status';
+
+    late Map body;
+    if (changeState == 0) {
+      body = {'goalStatusChange': 'ON'};
+    } else {
+      body = {'goalStatusChange': 'OFF'};
+    }
+
+    Dio dio = Dio();
+    dio.options.headers['jwt-auth-token'] = token;
+    dio.options.headers['jwt-auth-refresh-token'] = refreshToken;
+    try {
+      var res = await dio.patch(patchDailyURI, data: body);
+      print("====================");
+      print('success patchGoalState');
+      return 0;
+    } catch (e) {
+      print("====================");
+      print('patchGoalState');
+    }
+    return -1;
+  }
+
+  /// 삭제
+  Future<int> deleteGoal() async {
+    String deleteGoal = hostURI + 'api/goal/' + goalId.toString();
+
+    Dio dio = Dio();
+    dio.options.headers['jwt-auth-token'] = token;
+    dio.options.headers['jwt-auth-refresh-token'] = refreshToken;
+    try {
+      var res = await dio.delete(deleteGoal);
+      print("====================");
+      print('success deleteGoal');
+      return 0;
+    } catch (e) {
+      print("====================");
+      print('deleteGoal Err');
+    }
+    return -1;
+  }
 }

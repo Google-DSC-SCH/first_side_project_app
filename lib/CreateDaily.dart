@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+import 'package:first_side_project_app/MainPage.dart';
 import 'package:flutter/material.dart';
 import 'BaseFile.dart';
 
@@ -10,11 +12,8 @@ class _CreateDaily extends State<CreateDaily> {
   TextEditingController titleController = TextEditingController();
   TextEditingController contentController = TextEditingController();
 
-  // 완료: 0, 미완료: 1
-  int selectedState = 0;
-
   // 요일 상테 텍스트
-  String checkedDayStr = "월수일";
+  String checkedDayStr = "";
 
   // 요일 상태
   List<bool> checkedDayList = [
@@ -31,28 +30,17 @@ class _CreateDaily extends State<CreateDaily> {
   String alertState = "OFF";
 
   // 알림 시간
-  String alertTime = "13:00";
+  String alertTime = "09:00";
   String? selectedTime;
 
   // 위젯간 간격(세로)
   double titleFontSize = 17;
-
-  // 연노랑
-  int color_whiteYellow = 0xFFFAF4B7;
-
-  // 찐노랑
-  int color_realYellow = 0xFFFFD966;
-
-  // 민트
-  int color_mint = 0xFFCDF0EA;
 
   // 페이지 나타날때 동작
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
-    this.selectedState = 0;
 
     updateCheckedDayList(this.checkedDayStr);
   }
@@ -476,8 +464,7 @@ class _CreateDaily extends State<CreateDaily> {
                                               "시 " +
                                               alertTime.split(":")[1] +
                                               "분",
-                                      style: TextStyle(
-                                          fontSize: 20),
+                                      style: TextStyle(fontSize: 20),
                                     ),
                                   ),
                                 ),
@@ -506,81 +493,6 @@ class _CreateDaily extends State<CreateDaily> {
                         // 상태
                         Container(
                           width: getMobileSizeFromPercent(context, 80, true),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("상태",
-                                  style: TextStyle(fontSize: titleFontSize)),
-                              Row(
-                                children: [
-                                  // 완료 상태
-                                  GestureDetector(
-                                    child: Card(
-                                      shape: RoundedRectangleBorder(
-                                        //모서리를 둥글게 하기 위해 사용
-                                        borderRadius:
-                                            BorderRadius.circular(16.0),
-                                      ),
-                                      color: Color(selectedState == 0
-                                          ? color_realYellow
-                                          : color_whiteYellow),
-                                      elevation: 0, // 그림자 깊이
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        width: getMobileSizeFromPercent(
-                                            context, 30, true),
-                                        height: 40,
-                                        child: Text(
-                                          "완료",
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    onTap: () {
-                                      // 색 Switch
-                                      setState(() {
-                                        selectedState = 0;
-                                      });
-                                    },
-                                  ),
-                                  Container(width: 10),
-                                  // 미완료 상태
-                                  GestureDetector(
-                                    child: Card(
-                                      shape: RoundedRectangleBorder(
-                                        //모서리를 둥글게 하기 위해 사용
-                                        borderRadius:
-                                            BorderRadius.circular(16.0),
-                                      ),
-                                      color: Color(selectedState == 1
-                                          ? color_realYellow
-                                          : color_whiteYellow),
-                                      elevation: 0, // 그림자 깊이
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        width: getMobileSizeFromPercent(
-                                            context, 30, true),
-                                        height: 40,
-                                        child: Text(
-                                          "미완료",
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    onTap: () {
-                                      setState(() {
-                                        selectedState = 1;
-                                      });
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
                         ),
 
                         Container(
@@ -593,44 +505,67 @@ class _CreateDaily extends State<CreateDaily> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
+                              /// 완료 버튼
                               ElevatedButton(
-                                // 완료
                                 style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                        //모서리를 둥글게
-                                        borderRadius:
-                                            BorderRadius.circular(16)),
-                                    primary: Color(color_mint),
-                                    onPrimary: Colors.black,
-                                    minimumSize: Size(
-                                        getMobileSizeFromPercent(
-                                            context, 30, true),
-                                        40),
-                                    shadowColor: Colors.transparent,
-                                  elevation: 0,),
+                                  shape: RoundedRectangleBorder(
+                                      //모서리를 둥글게
+                                      borderRadius: BorderRadius.circular(16)),
+                                  primary: Color(color_mint),
+                                  onPrimary: Colors.black,
+                                  minimumSize: Size(
+                                      getMobileSizeFromPercent(
+                                          context, 30, true),
+                                      40),
+                                  shadowColor: Colors.transparent,
+                                  elevation: 0,
+                                ),
                                 child: Text(
                                   "완료",
                                   style: TextStyle(fontSize: 20),
                                 ),
-                                onPressed: () {
-                                  Navigator.pop(context);
+                                onPressed: () async {
+                                  if(await createDaily() ==0){
+                                    print("완료됨");
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
+                                    Navigator.push(context,MaterialPageRoute(builder: (_)=>MainPage()));
+                                  }else {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(16.0)),
+                                          title: Text("오류", textAlign: TextAlign.center,),
+                                          content: Text("등록 실패했습니다.", textAlign: TextAlign.center,),
+                                          actions: <Widget>[
+                                            new TextButton(
+                                              child: new Text("확인"),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                          ],
+                                        ));
+                                  }
                                 },
                               ),
                               // 취소
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                        //모서리를 둥글게
-                                        borderRadius:
-                                            BorderRadius.circular(16)),
-                                    primary: Color(color_mint),
-                                    onPrimary: Colors.black,
-                                    minimumSize: Size(
-                                        getMobileSizeFromPercent(
-                                            context, 30, true),
-                                        40),
-                                    shadowColor: Colors.transparent,
-                                  elevation: 0,),
+                                  shape: RoundedRectangleBorder(
+                                      //모서리를 둥글게
+                                      borderRadius: BorderRadius.circular(16)),
+                                  primary: Color(color_mint),
+                                  onPrimary: Colors.black,
+                                  minimumSize: Size(
+                                      getMobileSizeFromPercent(
+                                          context, 30, true),
+                                      40),
+                                  shadowColor: Colors.transparent,
+                                  elevation: 0,
+                                ),
                                 child: Text(
                                   "취소",
                                   style: TextStyle(fontSize: 20),
@@ -680,5 +615,42 @@ class _CreateDaily extends State<CreateDaily> {
       checkedDayList[6] = true;
     else
       checkedDayList[6] = false;
+  }
+
+  /// daily 추가
+  Future<int> createDaily() async {
+    // 제목 입력 안하면
+    if(titleController.text == ""){
+      return -1;
+    }
+    
+    // checkedDayStr 갱신
+    List dayList = ["월","화","수","목","금","토","일"];
+    for(int i = 0; i < dayList.length; i++){
+      if(checkedDayList[i]){
+        checkedDayStr += dayList[i];
+      }
+    }
+    String createDailyURI = hostURI + 'api/daily';
+    Map body = {
+      'title': titleController.text.toString(),
+      'content':contentController.text.toString(),
+      'alertStatus' : alertState,
+      'alertTime' : alertTime.toString(),
+      'alertDates' : checkedDayStr.toString()
+    };
+    Dio dio = Dio();
+    dio.options.headers['jwt-auth-token'] = token;
+    dio.options.headers['jwt-auth-refresh-token'] = refreshToken;
+    try {
+      var response = await dio.post(createDailyURI, data: body);
+      print('====================');
+      print('sucess createDaily');
+      return 0;
+    } catch (e) {
+      print('====================');
+      print('createDailyErr');
+      return -1;
+    }
   }
 }

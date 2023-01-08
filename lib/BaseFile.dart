@@ -1,5 +1,10 @@
 import 'package:flutter/cupertino.dart';
 
+/// API
+String hostURI = 'http://ec2-3-39-219-81.ap-northeast-2.compute.amazonaws.com:9999/';
+String token = '';
+String refreshToken = '';
+
 /// 컬러
 // 연노랑
 int color_whiteYellow = 0xFFFAF4B7;
@@ -14,7 +19,7 @@ double titleFontSize = 20;
 // 서브 타이틀 폰트 사이즈
 double subTitleFontSize = 14;
 // 리스트 항목 타이틀 폰트 사이즈
-double listTitleFontSize = 25;
+double listTitleFontSize = 30;
 // 버튼 텍스트 크기
 double btnTitleFontSize = 20;
 
@@ -28,6 +33,7 @@ double getMobileSizeFromPercent(BuildContext context, int percent, bool isWidth)
   }
 }
 
+/// 오늘 날짜 반환
 String getToday(){
   int year = DateTime.now().year;
   int month = DateTime.now().month;
