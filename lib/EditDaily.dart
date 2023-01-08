@@ -657,6 +657,7 @@ class _EditDaily extends State<EditDaily> {
       });
       print("====================");
       print("sucess getDailyEdit");
+      return 0;
     } catch (e) {
       print("====================");
       print("getDailyEdit Err");

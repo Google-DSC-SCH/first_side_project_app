@@ -53,6 +53,7 @@ class _ViewDaily extends State<ViewDaily> {
     // 서버에서 데이터를 받아옴
     getDaily(dailyId).then((value){
       if(value != 0){
+        print(value);
         showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -482,6 +483,7 @@ class _ViewDaily extends State<ViewDaily> {
       });
       print("====================");
       print("sucess getDaily");
+      return 0;
     } catch (e) {
       print("====================");
       print("getDaily Err");

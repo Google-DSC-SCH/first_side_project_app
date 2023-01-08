@@ -31,25 +31,30 @@ class Real_Main extends State<MainPage> {
     date = getToday();
 
     setState(() {
-      getMain(getToday()).then((value){
-        if(value != 0){
+      getMain(getToday()).then((value) {
+        if (value != 0) {
           showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius:
-                    BorderRadius.circular(16.0)),
-                title: Text("오류", textAlign: TextAlign.center,),
-                content: Text("정보를 받아오지 못했습니다.", textAlign: TextAlign.center,),
-                actions: <Widget>[
-                  new TextButton(
-                    child: new Text("확인"),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ],
-              ));
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16.0)),
+                    title: Text(
+                      "오류",
+                      textAlign: TextAlign.center,
+                    ),
+                    content: Text(
+                      "정보를 받아오지 못했습니다.",
+                      textAlign: TextAlign.center,
+                    ),
+                    actions: <Widget>[
+                      new TextButton(
+                        child: new Text("확인"),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                  ));
         }
       });
     });
@@ -251,17 +256,19 @@ class Real_Main extends State<MainPage> {
                                       children: [
                                         // 타이틀
                                         Container(
-                                          color:Color(color_whiteYellow),
-                                          width:getMobileSizeFromPercent(context, 57, true),
+                                          color: Color(color_whiteYellow),
+                                          width: getMobileSizeFromPercent(
+                                              context, 57, true),
                                           child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
-
                                               Text(
                                                 dailyList[index].title,
                                                 overflow: TextOverflow.ellipsis,
                                                 style: TextStyle(
-                                                    fontSize: listTitleFontSize),
+                                                    fontSize:
+                                                        listTitleFontSize),
                                               ),
                                               Text(
                                                 dailyList[index].alertDate,
@@ -269,21 +276,21 @@ class Real_Main extends State<MainPage> {
                                                 overflow: TextOverflow.ellipsis,
                                                 style: TextStyle(
                                                     fontSize:
-                                                    listTitleFontSize - 10),
+                                                        listTitleFontSize - 10),
                                               ),
                                             ],
                                           ),
                                         ),
                                         // 요일, 상태
                                         Container(
-                                          width: getMobileSizeFromPercent(context, 13, true),
+                                          width: getMobileSizeFromPercent(
+                                              context, 13, true),
                                           child: Switch(
-                                            value: dailyList[index].statue ==
-                                                "ON",
+                                            value:
+                                                dailyList[index].statue == "ON",
                                             onChanged: (value) async {
                                               if (await patchDailyState(
-                                                      dailyList[index]
-                                                          .dailyId,
+                                                      dailyList[index].dailyId,
                                                       dailyList[index]
                                                           .statue) ==
                                                   0) {
@@ -298,24 +305,37 @@ class Real_Main extends State<MainPage> {
                                                         "OFF";
                                                   });
                                                 }
-                                              }else {
+                                              } else {
                                                 showDialog(
                                                     context: context,
-                                                    builder: (context) => AlertDialog(
-                                                      shape: RoundedRectangleBorder(
-                                                          borderRadius:
-                                                          BorderRadius.circular(16.0)),
-                                                      title: Text("오류", textAlign: TextAlign.center,),
-                                                      content: Text("정보 전송을 실패했습니다.", textAlign: TextAlign.center,),
-                                                      actions: <Widget>[
-                                                        new TextButton(
-                                                          child: new Text("확인"),
-                                                          onPressed: () {
-                                                            Navigator.pop(context);
-                                                          },
-                                                        ),
-                                                      ],
-                                                    ));
+                                                    builder: (context) =>
+                                                        AlertDialog(
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          16.0)),
+                                                          title: Text(
+                                                            "오류",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                          ),
+                                                          content: Text(
+                                                            "정보 전송을 실패했습니다.",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                          ),
+                                                          actions: <Widget>[
+                                                            new TextButton(
+                                                              child: new Text(
+                                                                  "확인"),
+                                                              onPressed: () {
+                                                                Navigator.pop(
+                                                                    context);
+                                                              },
+                                                            ),
+                                                          ],
+                                                        ));
                                               }
                                             },
                                             activeColor: Color(0xFFB1AFFF),
@@ -338,7 +358,7 @@ class Real_Main extends State<MainPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              // 달성률 펭지로 이동
+                                // 달성률 펭지로 이동
                                 builder: (_) =>
                                     AchievementRate(dailyList.length)));
                       },
@@ -385,9 +405,12 @@ class Real_Main extends State<MainPage> {
       // // goal List 추가
       for (Map goal in res.data['goalResponseList']['goal']) {
         setState(() {
-          goalList.add(Goal(goal['title'], goal['end_date'], goal['goal_id']));
+          if (goal['goal_status'] == "OFF") {
+            goalList
+                .add(Goal(goal['title'], goal['end_date'], goal['goal_id']));
+          }
         });
-        if(goal['alert_status']=="ON"){
+        if (goal['alert_status'] == "ON") {
           List ls = goal['alert_time'].split(':');
           print(ls);
           registerMessage(
