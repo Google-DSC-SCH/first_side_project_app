@@ -65,8 +65,8 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   /// 빌드
   @override
   Widget build(BuildContext context) {
+    requestPermissions();
     return Login();
-    // return ViewGoal(11);
   }
 }
 
@@ -127,6 +127,7 @@ Future<void> registerMessage({
   required int hour,
   required int minutes,
   required message,
+  required String target
 }) async {
   // 시간 초기화
   final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
@@ -162,7 +163,8 @@ Future<void> registerMessage({
     androidAllowWhileIdle: true,
     uiLocalNotificationDateInterpretation:
         UILocalNotificationDateInterpretation.absoluteTime,
-    matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
+
+    matchDateTimeComponents: target=="daily"?DateTimeComponents.dayOfWeekAndTime:DateTimeComponents.time,
 
   );
 }

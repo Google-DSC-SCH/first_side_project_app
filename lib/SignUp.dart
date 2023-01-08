@@ -144,38 +144,38 @@ class SignUp extends StatelessWidget {
                         ),
 
                         /// 회원가입 버튼
-                        Card(
-                          shape: RoundedRectangleBorder(
-                            //모서리를 둥글게 하기 위해 사용
-                            borderRadius: BorderRadius.circular(16.0),
-                          ),
-                          color: Color(color_whiteYellow),
-                          elevation: 0, // 그림자 깊이
-                          child: GestureDetector(
-                            // 터치 메소드
-                            onTap: () async {
-                              if (await postSignUp(idController.text, pwController.text, pwcController.text) == 0) {
-                                Navigator.pop(context);
-                              } else {
-                                showDialog(
-                                    context: context,
-                                    builder: (context) => AlertDialog(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(16.0)),
-                                          title: Text("오류", textAlign: TextAlign.center,),
-                                          content: Text("잘못된 정보입니다.", textAlign: TextAlign.center,),
-                                          actions: <Widget>[
-                                            new TextButton(
-                                              child: new Text("확인"),
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                            ),
-                                          ],
-                                        ));
-                              }
-                            },
+                        GestureDetector(
+                          // 터치 메소드
+                          onTap: () async {
+                            if (await postSignUp(idController.text, pwController.text, pwcController.text) == 0) {
+                              Navigator.pop(context);
+                            } else {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                        BorderRadius.circular(16.0)),
+                                    title: Text("오류", textAlign: TextAlign.center,),
+                                    content: Text("잘못된 정보입니다.", textAlign: TextAlign.center,),
+                                    actions: <Widget>[
+                                      new TextButton(
+                                        child: new Text("확인"),
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                    ],
+                                  ));
+                            }
+                          },
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              //모서리를 둥글게 하기 위해 사용
+                              borderRadius: BorderRadius.circular(16.0),
+                            ),
+                            color: Color(color_whiteYellow),
+                            elevation: 0, // 그림자 깊이
                             child: Container(
                                 alignment: Alignment.center,
                                 padding: EdgeInsets.all(5),
