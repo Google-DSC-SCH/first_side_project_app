@@ -1,4 +1,4 @@
-package com.example.first_side_project_app
+package com.gdsc.sch.goal_tracker
 
 import io.flutter.embedding.android.FlutterActivity
 
