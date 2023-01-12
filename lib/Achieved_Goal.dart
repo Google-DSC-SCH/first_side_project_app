@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'BaseFile.dart';
 import 'MainPage.dart';
 
-class AchievedGoal extends StatefulWidget{
+class AchievedGoal extends StatefulWidget {
   @override
-  State<AchievedGoal> createState()=>_AchievedGoal();
+  State<AchievedGoal> createState() => _AchievedGoal();
 }
 
 class _AchievedGoal extends State<AchievedGoal> {
@@ -21,27 +21,7 @@ class _AchievedGoal extends State<AchievedGoal> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getAchievedGoal().then((value){
-      if(value != 0){
-        showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              shape: RoundedRectangleBorder(
-                  borderRadius:
-                  BorderRadius.circular(16.0)),
-              title: Text("오류", textAlign: TextAlign.center,),
-              content: Text("정보를 받아오지 못했습니다.", textAlign: TextAlign.center,),
-              actions: <Widget>[
-                new TextButton(
-                  child: new Text("확인"),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            ));
-      }
-    });
+    getAchievedGoal();
   }
 
   @override
@@ -108,9 +88,11 @@ class _AchievedGoal extends State<AchievedGoal> {
                                 child: GestureDetector(
                                   onTap: () {
                                     Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (_) => ViewGoal(goalList[index].goalId)));
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (_) => ViewGoal(
+                                                    goalList[index].goalId)))
+                                        .then((value) => getAchievedGoal());
                                   },
                                   child: Text(
                                     goalList[index].title,
@@ -157,15 +139,17 @@ class _AchievedGoal extends State<AchievedGoal> {
 
   /// 정보 받아옴
   Future<int> getAchievedGoal() async {
-    String getURI = hostURI +
-        'api/users/goals';
+    String getURI = hostURI + 'api/users/goals';
 
     Dio dio = Dio();
     dio.options.headers['jwt-auth-token'] = token;
     dio.options.headers['jwt-auth-refresh-token'] = refreshToken;
     try {
+      setState(() {
+        goalList.clear();
+      });
       var res = await dio.get(getURI);
-      for(Map goal in res.data["goalResList"]){
+      for (Map goal in res.data["goalResList"]) {
         setState(() {
           goalList.add(Goal(goal['goalId'], goal['title']));
         });
@@ -178,16 +162,38 @@ class _AchievedGoal extends State<AchievedGoal> {
     } catch (e) {
       print("====================");
       print("getAchievedGoal Err");
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16.0)),
+                title: Text(
+                  "오류",
+                  textAlign: TextAlign.center,
+                ),
+                content: Text(
+                  "정보를 받아오지 못했습니다.",
+                  textAlign: TextAlign.center,
+                ),
+                actions: <Widget>[
+                  new TextButton(
+                    child: new Text("확인"),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ));
     }
     return -1;
   }
 }
 
-class Goal{
+class Goal {
   int goalId = 0;
   String title = "";
 
-  Goal(int id, String title){
+  Goal(int id, String title) {
     this.goalId = id;
     this.title = title;
   }

@@ -1,9 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gdsc.sch.goal_tracker">
 
-
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    //위치정보 확인함
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     //wifi 연결을 확인함
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
@@ -14,19 +11,17 @@
     //부팅완료를 확인할수있게함
     <uses-permission android:name="android.permission.INTERNET" />
     // 인터넷을 사용함
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    // 외장메모리 사용
-    <uses-permission android:name="android.permission.RECODER_AUDIO" />
-    //녹음이 가능하게 함
     <uses-permission android:name="android.permission.SET_TIME_ZONE" />
     //타임존 지정
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     //알람
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     //알림
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    //알림 포그라운드 사용
+    <uses-permission android:name="android.permission.VIBRATE" />
+    //진동
 
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-    //백그라운드 위치
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
     //알림 정책
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />

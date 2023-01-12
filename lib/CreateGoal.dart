@@ -408,8 +408,6 @@ class _CreateGoal extends State<CreateGoal> {
                                 onPressed: () async {
                                   if(await createGoal() == 0){
                                   Navigator.pop(context);
-                                  Navigator.pop(context);
-                                  Navigator.push(context, MaterialPageRoute(builder: (_)=>MainPage()));
                                     
                                   }else {
                                     showDialog(

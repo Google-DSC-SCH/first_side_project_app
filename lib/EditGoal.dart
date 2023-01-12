@@ -420,11 +420,6 @@ class _EditGoal extends State<EditGoal> {
                                 onPressed: () async {
                                   if (await editGoal() == 0) {
                                     Navigator.pop(context);
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (_) => ViewGoal(goalId)));
                                   }
                                   else {
                                     showDialog(

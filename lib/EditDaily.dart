@@ -542,8 +542,6 @@ class _EditDaily extends State<EditDaily> {
                                 onPressed: () async {
                                   if(await editDaily()==0){
                                     Navigator.pop(context);
-                                    Navigator.pop(context);
-                                    Navigator.push(context, MaterialPageRoute(builder: (_)=>ViewDaily(dayilyId)));
                                   }else {
                                     showDialog(
                                         context: context,
