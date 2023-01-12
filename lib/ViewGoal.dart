@@ -41,27 +41,7 @@ class _ViewGoal extends State<ViewGoal> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getGoal(goalId).then((value){
-      if(value != 0){
-        showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              shape: RoundedRectangleBorder(
-                  borderRadius:
-                  BorderRadius.circular(16.0)),
-              title: Text("오류", textAlign: TextAlign.center,),
-              content: Text("정보를 받아오지 못했습니다.", textAlign: TextAlign.center,),
-              actions: <Widget>[
-                new TextButton(
-                  child: new Text("확인"),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            ));
-      }
-    });
+    getGoal(goalId);
 
     // 서버에서 데이터를 받아옴
   }
@@ -370,7 +350,11 @@ class _ViewGoal extends State<ViewGoal> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (BuildContext context) =>
-                                          EditGoal(goalId))),
+                                          EditGoal(goalId))).then((value){
+                                            setState(() {
+                                              getGoal(goalId);
+                                            });
+                              }),
                             ),
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
@@ -391,8 +375,6 @@ class _ViewGoal extends State<ViewGoal> {
                               onPressed: () async {
                                 if (await deleteGoal() == 0) {
                                   Navigator.pop(context);
-                                  Navigator.pop(context);
-                                  Navigator.push(context, MaterialPageRoute(builder: (_)=>MainPage()));
                                 }
                               },
                             ),
@@ -442,11 +424,6 @@ class _ViewGoal extends State<ViewGoal> {
                               ),
                               onPressed: () {
                                 Navigator.pop(context);
-                                Navigator.pop(context);
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => MainPage()));
                               },
                             ),
                           ],
@@ -487,6 +464,23 @@ class _ViewGoal extends State<ViewGoal> {
     } catch (e) {
       print("====================");
       print("getViewGoal Err");
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius:
+                BorderRadius.circular(16.0)),
+            title: Text("오류", textAlign: TextAlign.center,),
+            content: Text("정보를 받아오지 못했습니다.", textAlign: TextAlign.center,),
+            actions: <Widget>[
+              new TextButton(
+                child: new Text("확인"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ));
     }
     return -1;
   }

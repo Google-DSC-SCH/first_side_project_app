@@ -27,27 +27,7 @@ class ViewDiary extends State<View_Diary> {
 
   ViewDiary(int id) {
     this.goalId = id;
-    getDiary().then((value){
-      if(value != 0){
-        showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              shape: RoundedRectangleBorder(
-                  borderRadius:
-                  BorderRadius.circular(16.0)),
-              title: Text("오류", textAlign: TextAlign.center,),
-              content: Text("정보를 받아오지 못했습니다.", textAlign: TextAlign.center,),
-              actions: <Widget>[
-                new TextButton(
-                  child: new Text("확인"),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            ));
-      }
-    });
+    getDiary();
   }
 
   // 위젯간 간격(세로)
@@ -148,7 +128,11 @@ class ViewDiary extends State<View_Diary> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (BuildContext context) =>
-                                        EditDiary(goalId, diaryId, content))),
+                                        EditDiary(goalId, diaryId, content))).then((value){
+                                          setState(() {
+                                            getDiary();
+                                          });
+                            }),
                           ),
 
                           /// 뒤로가기 버튼
@@ -195,8 +179,33 @@ class ViewDiary extends State<View_Diary> {
       print('====================');
       print('getDiary Err');
       await createDiary();
-      await getDiary();
-      return -1;
+      if (await getDiary() == 0) {
+        return 0;
+      } else {
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16.0)),
+                  title: Text(
+                    "오류",
+                    textAlign: TextAlign.center,
+                  ),
+                  content: Text(
+                    "정보를 받아오지 못했습니다.",
+                    textAlign: TextAlign.center,
+                  ),
+                  actions: <Widget>[
+                    new TextButton(
+                      child: new Text("확인"),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                ));
+        return -1;
+      }
     }
   }
 

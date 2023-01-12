@@ -120,8 +120,6 @@ class EditDiary extends StatelessWidget {
                                     onTap: () async {
                                       if(await editDiary() == 0){
                                       Navigator.pop(context);
-                                      Navigator.pop(context);
-                                      Navigator.push(context, MaterialPageRoute(builder:(_)=> View_Diary(goalId)));
 
                                       }else {
                                         showDialog(

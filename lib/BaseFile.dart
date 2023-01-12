@@ -19,7 +19,7 @@ double titleFontSize = 20;
 // 서브 타이틀 폰트 사이즈
 double subTitleFontSize = 14;
 // 리스트 항목 타이틀 폰트 사이즈
-double listTitleFontSize = 30;
+double listTitleFontSize = 23;
 // 버튼 텍스트 크기
 double btnTitleFontSize = 20;
 

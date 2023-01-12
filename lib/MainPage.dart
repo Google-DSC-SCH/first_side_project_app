@@ -31,32 +31,7 @@ class Real_Main extends State<MainPage> {
     date = getToday();
 
     setState(() {
-      getMain(getToday()).then((value) {
-        if (value != 0) {
-          showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16.0)),
-                    title: Text(
-                      "오류",
-                      textAlign: TextAlign.center,
-                    ),
-                    content: Text(
-                      "정보를 받아오지 못했습니다.",
-                      textAlign: TextAlign.center,
-                    ),
-                    actions: <Widget>[
-                      new TextButton(
-                        child: new Text("확인"),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ],
-                  ));
-        }
-      });
+      getMain(getToday());
     });
   }
 
@@ -105,7 +80,11 @@ class Real_Main extends State<MainPage> {
                           context,
                           MaterialPageRoute(
                               builder: (BuildContext context) =>
-                                  CreateDaily())),
+                                  CreateDaily())).then((value){
+                        setState(() {
+                          getMain(getToday());
+                        });
+                      }),
                       icon: Icon(Icons.add),
                       iconSize: 35,
                     ),
@@ -122,7 +101,12 @@ class Real_Main extends State<MainPage> {
                       onPressed: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext context) => CreateGoal())),
+                              builder: (BuildContext context) =>
+                                  CreateGoal())).then((value) {
+                        setState(() {
+                          getMain(getToday());
+                        });
+                      }),
                       icon: Icon(Icons.add),
                       iconSize: 35,
                     ),
@@ -177,7 +161,11 @@ class Real_Main extends State<MainPage> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (_) => ViewGoal(
-                                                  goalList[index].goalId)));
+                                                  goalList[index].goalId))).then((value){
+                                        setState(() {
+                                          getMain(getToday());
+                                        });
+                                      });
                                     },
                                     child: Row(
                                       crossAxisAlignment:
@@ -246,7 +234,11 @@ class Real_Main extends State<MainPage> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (_) => ViewDaily(
-                                                  dailyList[index].dailyId)));
+                                                  dailyList[index].dailyId))).then((value){
+                                        setState(() {
+                                          getMain(getToday());
+                                        });
+                                      });
                                     },
                                     child: Row(
                                       crossAxisAlignment:
@@ -270,18 +262,19 @@ class Real_Main extends State<MainPage> {
                                                     fontSize:
                                                         listTitleFontSize),
                                               ),
+                                              // 요일
                                               Text(
                                                 dailyList[index].alertDate,
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
                                                 style: TextStyle(
                                                     fontSize:
-                                                        listTitleFontSize - 10),
+                                                        listTitleFontSize - 6),
                                               ),
                                             ],
                                           ),
                                         ),
-                                        // 요일, 상태
+                                        // 상태
                                         Container(
                                           width: getMobileSizeFromPercent(
                                               context, 13, true),
@@ -305,37 +298,6 @@ class Real_Main extends State<MainPage> {
                                                         "OFF";
                                                   });
                                                 }
-                                              } else {
-                                                showDialog(
-                                                    context: context,
-                                                    builder: (context) =>
-                                                        AlertDialog(
-                                                          shape: RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          16.0)),
-                                                          title: Text(
-                                                            "오류",
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          ),
-                                                          content: Text(
-                                                            "정보 전송을 실패했습니다.",
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          ),
-                                                          actions: <Widget>[
-                                                            new TextButton(
-                                                              child: new Text(
-                                                                  "확인"),
-                                                              onPressed: () {
-                                                                Navigator.pop(
-                                                                    context);
-                                                              },
-                                                            ),
-                                                          ],
-                                                        ));
                                               }
                                             },
                                             activeColor: Color(0xFFB1AFFF),
@@ -352,15 +314,19 @@ class Real_Main extends State<MainPage> {
                       ],
                     ),
 
-                    // 로그인 버튼
+                    // 달성률 페이지
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                // 달성률 펭지로 이동
+                                // 달성률 페이지로 이동
                                 builder: (_) =>
-                                    AchievementRate(dailyList.length)));
+                                    AchievementRate(dailyList.length))).then((value){
+                                      setState(() {
+                                        getMain(getToday());
+                                      });
+                        });
                       },
                       child: Card(
                         shape: RoundedRectangleBorder(
@@ -401,6 +367,10 @@ class Real_Main extends State<MainPage> {
 
       // 모든 알림 제거
       cancelNotification();
+
+      // 모든 리스트 초기화
+      goalList.clear();
+      dailyList.clear();
 
       // // goal List 추가
       for (Map goal in res.data['goalResponseList']['goal']) {
@@ -504,41 +474,84 @@ class Real_Main extends State<MainPage> {
     } catch (e) {
       print("====================");
       print("getMainDataErr");
-      print(e);
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16.0)),
+                title: Text(
+                  "오류",
+                  textAlign: TextAlign.center,
+                ),
+                content: Text(
+                  "정보를 받아오지 못했습니다.",
+                  textAlign: TextAlign.center,
+                ),
+                actions: <Widget>[
+                  new TextButton(
+                    child: new Text("확인"),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ));
     }
     return -1;
   }
-}
 
-/// 단기목표 상태 변경
-Future<int> patchDailyState(int dailyId, String changeState) async {
-  String patchDailyURI = hostURI +
-      'api/daily/' +
-      dailyId.toString() +
-      "/" +
-      DateTime.now().year.toString() +
-      "-" +
-      getToday().substring(4, 6) +
-      "-" +
-      getToday().substring(6, 8) +
-      '/status';
+  /// 단기목표 상태 변경
+  Future<int> patchDailyState(int dailyId, String changeState) async {
+    String patchDailyURI = hostURI +
+        'api/daily/' +
+        dailyId.toString() +
+        "/" +
+        DateTime.now().year.toString() +
+        "-" +
+        getToday().substring(4, 6) +
+        "-" +
+        getToday().substring(6, 8) +
+        '/status';
 
-  late Map body;
-  body = {'dailyStatusChange': changeState == "ON" ? "OFF" : "ON"};
+    late Map body;
+    body = {'dailyStatusChange': changeState == "ON" ? "OFF" : "ON"};
 
-  Dio dio = Dio();
-  dio.options.headers['jwt-auth-token'] = token;
-  dio.options.headers['jwt-auth-refresh-token'] = refreshToken;
-  try {
-    var res = await dio.patch(patchDailyURI, data: body);
-    print("====================");
-    print('success patchDailyState');
-    return 0;
-  } catch (e) {
-    print("====================");
-    print('fetchDailyStatusErr');
+    Dio dio = Dio();
+    dio.options.headers['jwt-auth-token'] = token;
+    dio.options.headers['jwt-auth-refresh-token'] = refreshToken;
+    try {
+      var res = await dio.patch(patchDailyURI, data: body);
+      print("====================");
+      print('success patchDailyState');
+      return 0;
+    } catch (e) {
+      print("====================");
+      print('fetchDailyStatusErr');
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16.0)),
+                title: Text(
+                  "오류",
+                  textAlign: TextAlign.center,
+                ),
+                content: Text(
+                  "정보 전송을 실패했습니다.",
+                  textAlign: TextAlign.center,
+                ),
+                actions: <Widget>[
+                  new TextButton(
+                    child: new Text("확인"),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ));
+    }
+    return -1;
   }
-  return -1;
 }
 
 /// 장기목표

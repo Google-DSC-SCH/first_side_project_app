@@ -51,28 +51,7 @@ class _ViewDaily extends State<ViewDaily> {
     this.selectedState = 0;
 
     // 서버에서 데이터를 받아옴
-    getDaily(dailyId).then((value){
-      if(value != 0){
-        print(value);
-        showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              shape: RoundedRectangleBorder(
-                  borderRadius:
-                  BorderRadius.circular(16.0)),
-              title: Text("오류", textAlign: TextAlign.center,),
-              content: Text("정보를 받아오지 못했습니다.", textAlign: TextAlign.center,),
-              actions: <Widget>[
-                new TextButton(
-                  child: new Text("확인"),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            ));
-      }
-    });
+    getDaily(dailyId);
   }
 
   @override
@@ -243,6 +222,7 @@ class _ViewDaily extends State<ViewDaily> {
                           ],
                         ),
                       ),
+
                       /// 상태
                       Container(
                         width: getMobileSizeFromPercent(context, 80, true),
@@ -281,25 +261,37 @@ class _ViewDaily extends State<ViewDaily> {
                                     // 색 Switch
                                     setState(() {
                                       selectedState = 0;
-                                      patchDailyState(0).then((value){
-                                        if(value != 0){
+                                      patchDailyState(0).then((value) {
+                                        if (value != 0) {
                                           showDialog(
                                               context: context,
                                               builder: (context) => AlertDialog(
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                    BorderRadius.circular(16.0)),
-                                                title: Text("오류", textAlign: TextAlign.center,),
-                                                content: Text("전송 실패했습니다.", textAlign: TextAlign.center,),
-                                                actions: <Widget>[
-                                                  new TextButton(
-                                                    child: new Text("확인"),
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                  ),
-                                                ],
-                                              ));
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        16.0)),
+                                                    title: Text(
+                                                      "오류",
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                    content: Text(
+                                                      "전송 실패했습니다.",
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                    actions: <Widget>[
+                                                      new TextButton(
+                                                        child: new Text("확인"),
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ));
                                         }
                                       });
                                     });
@@ -333,25 +325,37 @@ class _ViewDaily extends State<ViewDaily> {
                                   onTap: () {
                                     setState(() {
                                       selectedState = 1;
-                                      patchDailyState(1).then((value){
-                                        if(value != 0){
+                                      patchDailyState(1).then((value) {
+                                        if (value != 0) {
                                           showDialog(
                                               context: context,
                                               builder: (context) => AlertDialog(
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                    BorderRadius.circular(16.0)),
-                                                title: Text("오류", textAlign: TextAlign.center,),
-                                                content: Text("전송 실패했습니다.", textAlign: TextAlign.center,),
-                                                actions: <Widget>[
-                                                  new TextButton(
-                                                    child: new Text("확인"),
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                  ),
-                                                ],
-                                              ));
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        16.0)),
+                                                    title: Text(
+                                                      "오류",
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                    content: Text(
+                                                      "전송 실패했습니다.",
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                    actions: <Widget>[
+                                                      new TextButton(
+                                                        child: new Text("확인"),
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ));
                                         }
                                       });
                                     });
@@ -394,7 +398,11 @@ class _ViewDaily extends State<ViewDaily> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (BuildContext context) =>
-                                          EditDaily(dailyId))),
+                                          EditDaily(dailyId))).then((value){
+                                            setState(() {
+                                              getDaily(dailyId);
+                                            });
+                              }),
                             ),
                             // /
                             ElevatedButton(
@@ -413,35 +421,30 @@ class _ViewDaily extends State<ViewDaily> {
                                 style: TextStyle(fontSize: 20),
                               ),
                               onPressed: () async {
-                                if(await deleteDaily() == 0){
+                                if (await deleteDaily() == 0) {
                                   Navigator.pop(context);
-                                  Navigator.pop(context);
-                                  Navigator.push(context, MaterialPageRoute(builder: (_)=>MainPage()));
                                 }
                               },
                             ),
                             // 뒤로
                             ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                    //모서리를 둥글게
-                                    borderRadius: BorderRadius.circular(16)),
-                                primary: Color(color_mint),
-                                onPrimary: Colors.black,
-                                minimumSize: Size(80, 40),
-                                shadowColor: Colors.transparent,
-                                elevation: 0,
-                              ),
-                              child: Text(
-                                "뒤로",
-                                style: TextStyle(fontSize: 20),
-                              ),
-                              onPressed: (){
-                                Navigator.pop(context);
-                                Navigator.pop(context);
-                                Navigator.push(context,MaterialPageRoute(builder: (_)=>MainPage()));
-  } 
-                            ),
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                      //모서리를 둥글게
+                                      borderRadius: BorderRadius.circular(16)),
+                                  primary: Color(color_mint),
+                                  onPrimary: Colors.black,
+                                  minimumSize: Size(80, 40),
+                                  shadowColor: Colors.transparent,
+                                  elevation: 0,
+                                ),
+                                child: Text(
+                                  "뒤로",
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                }),
                           ],
                         ),
                       ),
@@ -462,7 +465,7 @@ class _ViewDaily extends State<ViewDaily> {
         "-" +
         getToday().substring(4, 6) +
         "-" +
-        getToday().substring(6,8);
+        getToday().substring(6, 8);
 
     Dio dio = Dio();
     dio.options.headers['jwt-auth-token'] = token;
@@ -487,8 +490,28 @@ class _ViewDaily extends State<ViewDaily> {
     } catch (e) {
       print("====================");
       print("getDaily Err");
-      await createDailyStatus(id);
-      await getDaily(id);
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16.0)),
+                title: Text(
+                  "오류",
+                  textAlign: TextAlign.center,
+                ),
+                content: Text(
+                  "정보를 받아오지 못했습니다.",
+                  textAlign: TextAlign.center,
+                ),
+                actions: <Widget>[
+                  new TextButton(
+                    child: new Text("확인"),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ));
     }
     return -1;
   }
@@ -503,9 +526,9 @@ class _ViewDaily extends State<ViewDaily> {
         "-" +
         getToday().substring(4, 6) +
         "-" +
-        getToday().substring(6,8);
+        getToday().substring(6, 8);
 
-    Map body = {'dailyStatus' : 'OFF'};
+    Map body = {'dailyStatus': 'OFF'};
 
     Dio dio = Dio();
     dio.options.headers['jwt-auth-token'] = token;
@@ -532,7 +555,7 @@ class _ViewDaily extends State<ViewDaily> {
         "-" +
         getToday().substring(4, 6) +
         "-" +
-        getToday().substring(6,8) +
+        getToday().substring(6, 8) +
         '/status';
 
     late Map body;
@@ -546,8 +569,7 @@ class _ViewDaily extends State<ViewDaily> {
     dio.options.headers['jwt-auth-token'] = token;
     dio.options.headers['jwt-auth-refresh-token'] = refreshToken;
     try {
-      var res =
-          await dio.patch(patchDailyURI, data: body);
+      var res = await dio.patch(patchDailyURI, data: body);
       print("====================");
       print('success patchDailyState');
       return 0;
@@ -560,9 +582,7 @@ class _ViewDaily extends State<ViewDaily> {
 
   /// 삭제
   Future<int> deleteDaily() async {
-    String deleteDaily = hostURI +
-        'api/daily/' +
-        dailyId.toString();
+    String deleteDaily = hostURI + 'api/daily/' + dailyId.toString();
 
     print(deleteDaily);
 
@@ -570,8 +590,7 @@ class _ViewDaily extends State<ViewDaily> {
     dio.options.headers['jwt-auth-token'] = token;
     dio.options.headers['jwt-auth-refresh-token'] = refreshToken;
     try {
-      var res =
-          await dio.delete(deleteDaily);
+      var res = await dio.delete(deleteDaily);
       print('success deleteDaily');
       return 0;
     } catch (e) {

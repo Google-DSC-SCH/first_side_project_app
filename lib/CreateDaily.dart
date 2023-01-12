@@ -528,8 +528,6 @@ class _CreateDaily extends State<CreateDaily> {
                                   if(await createDaily() ==0){
                                     print("완료됨");
                                     Navigator.pop(context);
-                                    Navigator.pop(context);
-                                    Navigator.push(context,MaterialPageRoute(builder: (_)=>MainPage()));
                                   }else {
                                     showDialog(
                                         context: context,
