@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path_provider/path_provider.dart';
 import 'BaseFile.dart';
 
@@ -25,7 +26,7 @@ class _Login extends State {
 
   final _fileName = 'idpw.txt';
   late String _path;
-
+  bool isLoding = false;
   @override
   initState() {
     // TODO: implement initState
@@ -35,29 +36,26 @@ class _Login extends State {
 
   /// 자동 로그인
   Future<void> init() async {
-    // await requestPermissions();
-
     // 기본 경로 얻기
     final directory = await getApplicationDocumentsDirectory();
     _path = directory.path;
-
-    // await writeFile("");
     String text = await readFile();
     if (text != '') {
+      setState(() {
+        isLoding = true;
+      });
       List ls = text.split('\n');
-      print(ls);
       if (await login(ls[0].toString(), ls[1].toString()) == 0) {
-        // Navigator.pushAndRemoveUntil(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (BuildContext context) =>
-        //             MainPage()),
-        //     (route) => false);
-        Navigator.push(context, MaterialPageRoute(builder: (_)=>MainPage())).then((value) {
-          logout();
-          print("로그아웃");
-        });
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    MainPage()),
+            (route) => false);
       }
+      setState(() {
+        isLoding = false;
+      });
     }
   }
 
@@ -80,16 +78,35 @@ class _Login extends State {
               appBar: PreferredSize(
                 preferredSize: Size.fromHeight(
                     getMobileSizeFromPercent(context, 18, false)),
+                // 헤더
                 child: Container(
                   color: Colors.transparent,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        child: Image.asset('assets/img/icon.png'),
-                        height: getMobileSizeFromPercent(context, 10, false),
+                      GestureDetector(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              child: Image.asset('assets/img/icon.png'),
+                              width: getMobileSizeFromPercent(context, 10, false),
+                            ),
+                            Text(DateTime.now().year.toString() +
+                                "년 " +
+                                DateTime.now().month.toString() +
+                                "월 " +
+                                DateTime.now().day.toString() +
+                                "일 ", style: TextStyle(fontSize: logoDateFontSize),)
+                          ],
+                        ),
+                        onTap: (){
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  MainPage()), (route) => false);
+                        },
                       ),
-                      Container()
+                      Container(height: getMobileSizeFromPercent(context, 7, false),)
                     ],
                   ),
                 ),
@@ -102,7 +119,7 @@ class _Login extends State {
                         MediaQuery.of(context).padding.top * 2,
                     width: double.infinity,
                     // 여기서부터 찐 개발 시작
-                    child: Column(
+                    child: isLoding ? Center(child: CircularProgressIndicator()) : Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         /// 아이디
@@ -175,40 +192,16 @@ class _Login extends State {
                             if (await login(
                                     idController.text, pwController.text) ==
                                 0) {
-                              // Navigator.pushAndRemoveUntil(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (BuildContext context) =>
-                              //             MainPage()),
-                              //     (route) => false);
-                                  Navigator.push(context, MaterialPageRoute(builder: (_)=>MainPage())).then((value) {
-                                logout();
-                                print("로그아웃");
-                              });
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          MainPage()),
+                                  (route) => false);
                             } else {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) => AlertDialog(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(16.0)),
-                                        title: Text(
-                                          "오류",
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        content: Text(
-                                          "아이디 또는 비밀번호가 잘못되었습니다.",
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        actions: <Widget>[
-                                          new TextButton(
-                                            child: new Text("확인"),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                          ),
-                                        ],
-                                      ));
+                              Fluttertoast.showToast(
+                                  msg:
+                                  "아이디 또는 비밀번호가 올바르지 않습니다.");
                             }
                           },
                           child: Card(
@@ -259,23 +252,6 @@ class _Login extends State {
     } catch (e) {
       print("loginErr");
       print(e);
-      return -1;
-    }
-  }
-
-  /// 로그아웃 메소드
-  Future<int> logout() async {
-    String postURI = hostURI + 'api/auth/signout';
-    Dio dio = Dio();
-    try {
-      // var response = await dio.post(postURI);
-      // token = response.data['accessToken'];
-      // refreshToken = response.data['refreshToken'];
-      print("sucessLogout");
-      return 0;
-    } catch (e) {
-      print(e);
-      print("logout Err");
       return -1;
     }
   }

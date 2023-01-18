@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:first_side_project_app/View_Diary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'BaseFile.dart';
 import 'MainPage.dart';
 
@@ -10,11 +11,13 @@ class EditDiary extends StatelessWidget {
 
   int goalId = -1;
   int diaryId = -1;
+  String firstContent = "";
 
   EditDiary(int id, int diaryId, String content) {
     this.goalId = id;
     this.diaryId = diaryId;
     contentController.text = content;
+    firstContent = content;
   }
 
   @override
@@ -36,16 +39,35 @@ class EditDiary extends StatelessWidget {
               appBar: PreferredSize(
                 preferredSize: Size.fromHeight(
                     getMobileSizeFromPercent(context, 18, false)),
+                // 헤더
                 child: Container(
                   color: Colors.transparent,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        child: Image.asset('assets/img/icon.png'),
-                        height: getMobileSizeFromPercent(context, 10, false),
+                      GestureDetector(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              child: Image.asset('assets/img/icon.png'),
+                              width: getMobileSizeFromPercent(context, 10, false),
+                            ),
+                            Text(DateTime.now().year.toString() +
+                                "년 " +
+                                DateTime.now().month.toString() +
+                                "월 " +
+                                DateTime.now().day.toString() +
+                                "일 ", style: TextStyle(fontSize: logoDateFontSize),)
+                          ],
+                        ),
+                        onTap: (){
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  MainPage()), (route) => false);
+                        },
                       ),
-                      Container()
+                      Container(height: getMobileSizeFromPercent(context, 7, false),)
                     ],
                   ),
                 ),
@@ -57,18 +79,19 @@ class EditDiary extends StatelessWidget {
                       MediaQuery.of(context).padding.top * 2,
                   width: double.infinity,
                   // 여기서부터 찐 개발 시작
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text("일기 작성",
-                                style: TextStyle(fontSize: titleFontSize)),
-                            Container(
-                              height: 5,
-                            ),
-                            Card(
+                  child: Column( 
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text("일기 작성",
+                              style: TextStyle(fontSize: titleFontSize)),
+                          Container(
+                            height: 5,
+                          ),
+                          SingleChildScrollView(
+                            child: Card(
                               shape: RoundedRectangleBorder(
                                 //모서리를 둥글게 하기 위해 사용
                                 borderRadius: BorderRadius.circular(50.0),
@@ -95,104 +118,86 @@ class EditDiary extends StatelessWidget {
                                               Radius.circular(16)),
                                         ),
                                         contentPadding: EdgeInsets.all(5)),
-                                    style: TextStyle(fontSize: 30),
+                                    style: TextStyle(fontSize: 21),
                                     textAlignVertical: TextAlignVertical.center,
                                     maxLines: 20,
                                   )),
                             ),
-                          ],
-                        ),
-                        Container(
-                            width: getMobileSizeFromPercent(context, 80, true),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                /// 완료 버튼
-                                GestureDetector(
-                                  onTap: () async {
-                                    if (await editDiary() == 0) {
-                                      Navigator.pop(context);
-                                    } else {
-                                      showDialog(
-                                          context: context,
-                                          builder: (context) => AlertDialog(
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            16.0)),
-                                                title: Text(
-                                                  "오류",
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                                content: Text(
-                                                  "일기 작성을 실패했습니다.",
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                                actions: <Widget>[
-                                                  new TextButton(
-                                                    child: new Text("확인"),
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                  ),
-                                                ],
-                                              ));
-                                    }
-                                  },
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                      //모서리를 둥글게 하기 위해 사용
-                                      borderRadius: BorderRadius.circular(16.0),
-                                    ),
-                                    color: Color(color_mint),
-                                    elevation: 0, // 그림자 깊이
-                                    child: Container(
-                                        alignment: Alignment.center,
-                                        padding: EdgeInsets.all(5),
-                                        width: getMobileSizeFromPercent(
-                                            context, 30, true),
-                                        height: getMobileSizeFromPercent(
-                                            context, 6, false),
-                                        child: Text(
-                                          "완료",
-                                          style: TextStyle(
-                                            fontSize: btnTitleFontSize,
-                                          ),
-                                        )),
-                                  ),
-                                ),
-
-                                /// 취소 버튼
-                                GestureDetector(
-                                  onTap: () {
+                          ),
+                        ],
+                      ),
+                      Container(
+                          width: getMobileSizeFromPercent(context, 80, true),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              /// 완료 버튼
+                              GestureDetector(
+                                onTap: () async {
+                                  if (await editDiary() == 0) {
                                     Navigator.pop(context);
-                                  },
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                      //모서리를 둥글게 하기 위해 사용
-                                      borderRadius: BorderRadius.circular(16.0),
-                                    ),
-                                    color: Color(color_mint),
-                                    elevation: 0, // 그림자 깊이
-                                    child: Container(
-                                        alignment: Alignment.center,
-                                        padding: EdgeInsets.all(5),
-                                        width: getMobileSizeFromPercent(
-                                            context, 30, true),
-                                        height: getMobileSizeFromPercent(
-                                            context, 6, false),
-                                        child: Text(
-                                          "취소",
-                                          style: TextStyle(
-                                            fontSize: btnTitleFontSize,
-                                          ),
-                                        )),
+                                    Fluttertoast.showToast(
+                                        msg:
+                                        firstContent == "" ? "일기를 등록했습니다." : "일기를 수정했습니다.");
+                                  } else {
+                                    Fluttertoast.showToast(
+                                        msg:
+                                        "등록을 실패했습니다.");
+                                  }
+                                },
+                                child: Card(
+                                  shape: RoundedRectangleBorder(
+                                    //모서리를 둥글게 하기 위해 사용
+                                    borderRadius: BorderRadius.circular(16.0),
                                   ),
+                                  color: Color(color_mint),
+                                  elevation: 0, // 그림자 깊이
+                                  child: Container(
+                                      alignment: Alignment.center,
+                                      padding: EdgeInsets.all(5),
+                                      width: getMobileSizeFromPercent(
+                                          context, 30, true),
+                                      height: getMobileSizeFromPercent(
+                                          context, 6, false),
+                                      child: Text(
+                                        "완료",
+                                        style: TextStyle(
+                                          fontSize: btnTitleFontSize,
+                                        ),
+                                      )),
                                 ),
-                              ],
-                            )),
-                      ],
-                    ),
+                              ),
+
+                              /// 취소 버튼
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Card(
+                                  shape: RoundedRectangleBorder(
+                                    //모서리를 둥글게 하기 위해 사용
+                                    borderRadius: BorderRadius.circular(16.0),
+                                  ),
+                                  color: Color(color_mint),
+                                  elevation: 0, // 그림자 깊이
+                                  child: Container(
+                                      alignment: Alignment.center,
+                                      padding: EdgeInsets.all(5),
+                                      width: getMobileSizeFromPercent(
+                                          context, 30, true),
+                                      height: getMobileSizeFromPercent(
+                                          context, 6, false),
+                                      child: Text(
+                                        "취소",
+                                        style: TextStyle(
+                                          fontSize: btnTitleFontSize,
+                                        ),
+                                      )),
+                                ),
+                              ),
+                            ],
+                          )),
+                    ],
                   ))),
         ),
       );

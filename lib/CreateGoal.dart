@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:first_side_project_app/MainPage.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'BaseFile.dart';
 
 class CreateGoal extends StatefulWidget {
@@ -24,9 +25,6 @@ class _CreateGoal extends State<CreateGoal> {
   // 알림 시간
   String alertTime = "09:00";
   String? selectedTime;
-
-  // 위젯간 간격(세로)
-  double titleFontSize = 17;
 
   // 페이지 나타날때 동작
   @override
@@ -57,16 +55,35 @@ class _CreateGoal extends State<CreateGoal> {
               appBar: PreferredSize(
                 preferredSize: Size.fromHeight(
                     getMobileSizeFromPercent(context, 18, false)),
+                // 헤더
                 child: Container(
                   color: Colors.transparent,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        child: Image.asset('assets/img/icon.png'),
-                        height: getMobileSizeFromPercent(context, 10, false),
+                      GestureDetector(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              child: Image.asset('assets/img/icon.png'),
+                              width: getMobileSizeFromPercent(context, 10, false),
+                            ),
+                            Text(DateTime.now().year.toString() +
+                                "년 " +
+                                DateTime.now().month.toString() +
+                                "월 " +
+                                DateTime.now().day.toString() +
+                                "일 ", style: TextStyle(fontSize: logoDateFontSize),)
+                          ],
+                        ),
+                        onTap: (){
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  MainPage()), (route) => false);
+                        },
                       ),
-                      Container()
+                      Container(height: getMobileSizeFromPercent(context, 7, false),)
                     ],
                   ),
                 ),
@@ -171,7 +188,7 @@ class _CreateGoal extends State<CreateGoal> {
                                     height: 40,
                                     child: Text(this.duoDay,
                                         style:
-                                            TextStyle(fontSize: titleFontSize)),
+                                            TextStyle(fontSize: duoDayFontSize)),
                                   ),
                                 ),
                                 onTap: () {
@@ -228,7 +245,7 @@ class _CreateGoal extends State<CreateGoal> {
                                     child: Text(
                                       alertState,
                                       style: TextStyle(
-                                          fontSize: titleFontSize,
+                                          fontSize: alertStateFontSize,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
@@ -271,7 +288,7 @@ class _CreateGoal extends State<CreateGoal> {
                                               "시 " +
                                               alertTime.split(":")[1] +
                                               "분",
-                                      style: TextStyle(fontSize: titleFontSize),
+                                      style: TextStyle(fontSize: alertTimeFontSize),
                                     ),
                                   ),
                                 ),
@@ -327,7 +344,7 @@ class _CreateGoal extends State<CreateGoal> {
                                         child: Text(
                                           "완료",
                                           style: TextStyle(
-                                            fontSize: 20,
+                                            fontSize: goalStateFontSize,
                                           ),
                                         ),
                                       ),
@@ -360,7 +377,7 @@ class _CreateGoal extends State<CreateGoal> {
                                         child: Text(
                                           "미완료",
                                           style: TextStyle(
-                                            fontSize: titleFontSize,
+                                            fontSize: goalStateFontSize,
                                           ),
                                         ),
                                       ),
@@ -409,55 +426,13 @@ class _CreateGoal extends State<CreateGoal> {
                                 onPressed: () async {
                                   if (await createGoal() == 0) {
                                     Navigator.pop(context);
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) => AlertDialog(
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          16.0)),
-                                              title: Text(
-                                                titleController.text,
-                                                textAlign: TextAlign.center,
-                                              ),
-                                              content: Text(
-                                                "성공적으로 추가했습니다.",
-                                                textAlign: TextAlign.center,
-                                              ),
-                                              actions: <Widget>[
-                                                new TextButton(
-                                                  child: new Text("확인"),
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                ),
-                                              ],
-                                            ));
+                                    Fluttertoast.showToast(
+                                        msg:
+                                        "${titleController.text}: 성공적으로 추가했습니다.");
                                   } else {
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) => AlertDialog(
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          16.0)),
-                                              title: Text(
-                                                "오류",
-                                                textAlign: TextAlign.center,
-                                              ),
-                                              content: Text(
-                                                "등록 실패했습니다.",
-                                                textAlign: TextAlign.center,
-                                              ),
-                                              actions: <Widget>[
-                                                new TextButton(
-                                                  child: new Text("확인"),
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                ),
-                                              ],
-                                            ));
+                                    Fluttertoast.showToast(
+                                        msg:
+                                        "등록을 실패했습니다.");
                                   }
                                 },
                               ),

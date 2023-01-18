@@ -5,6 +5,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:flutter/services.dart';
 
 // 각 페이지들 import
 import 'Login.dart';
@@ -14,6 +15,10 @@ late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 Future<void> main() async {
+  // 화면 방향 고정
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp]);
   runApp(MyApp());
 }
 
@@ -21,6 +26,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+          child: child!,
+        );
+      },
       title: 'Flutter Demo',
       theme: ThemeData(
         fontFamily: 'HandTyping',
@@ -104,6 +115,9 @@ Future<void> initializeNotification() async {
 /// 메시지 등록 취소
 Future<void> cancelNotification() async {
   await flutterLocalNotificationsPlugin.cancelAll();
+}
+Future<void> cancelNotificationSpecific(int id) async {
+  await flutterLocalNotificationsPlugin.cancel(id);
 }
 
 /// 권한 요청

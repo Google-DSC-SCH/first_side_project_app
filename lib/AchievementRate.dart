@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:first_side_project_app/Achieved_Goal.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'BaseFile.dart';
 import 'dart:math';
 
 import 'EditDaily.dart';
+import 'MainPage.dart';
 
 class AchievementRate extends StatefulWidget {
   int dailyNum = 0;
@@ -107,51 +109,39 @@ class _AchievementRate extends State<AchievementRate> {
             appBar: PreferredSize(
               preferredSize:
                   Size.fromHeight(getMobileSizeFromPercent(context, 18, false)),
+              // 헤더
               child: Container(
                 color: Colors.transparent,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      child: Image.asset('assets/img/icon.png'),
-                      height: getMobileSizeFromPercent(context, 10, false),
+                    GestureDetector(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            child: Image.asset('assets/img/icon.png'),
+                            width: getMobileSizeFromPercent(context, 10, false),
+                          ),
+                          Text(DateTime.now().year.toString() +
+                              "년 " +
+                              DateTime.now().month.toString() +
+                              "월 " +
+                              DateTime.now().day.toString() +
+                              "일 ", style: TextStyle(fontSize: logoDateFontSize),)
+                        ],
+                      ),
+                      onTap: (){
+                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                MainPage()), (route) => false);
+                      },
                     ),
+                    Container(height: getMobileSizeFromPercent(context, 7, false),)
                   ],
                 ),
               ),
             ),
-
-            // floatig button
-            // floatingActionButtonLocation:
-            //     FloatingActionButtonLocation.centerDocked,
-            // floatingActionButton: Stack(
-            //   children: <Widget>[
-            //     Positioned(
-            //       left: 10,
-            //       top: getMobileSizeFromPercent(context, 50, false),
-            //       child: SizedBox(
-            //         width: 40,
-            //         child: FloatingActionButton(
-            //           heroTag: "btn1",
-            //           onPressed: (() => print("")),
-            //           child: Icon(Icons.arrow_circle_left, size: 38),
-            //         ),
-            //       ),
-            //     ),
-            //     Positioned(
-            //       right: 10,
-            //       top: getMobileSizeFromPercent(context, 50, false),
-            //       child: SizedBox(
-            //         width: 40,
-            //         child: FloatingActionButton(
-            //           heroTag: "btn2",
-            //           onPressed: (() => print("")),
-            //           child: Icon(Icons.arrow_circle_right, size: 38),
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),
 
             // Body
             body: Container(
@@ -166,15 +156,6 @@ class _AchievementRate extends State<AchievementRate> {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          // 날짜
-                          Text(
-                              today.substring(0, 4) +
-                                  " - " +
-                                  today.substring(4, 6),
-                              style: TextStyle(fontSize: titleFontSize)),
-
-                          Container(),
-
                           // 요일
                           Container(
                             padding: EdgeInsets.all(3),
@@ -188,49 +169,49 @@ class _AchievementRate extends State<AchievementRate> {
                                   "월",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: dayFontSize,
+                                    fontSize: achievementDayFontSize,
                                   ),
                                 ),
                                 Text(
                                   "화",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: dayFontSize,
+                                    fontSize: achievementDayFontSize,
                                   ),
                                 ),
                                 Text(
                                   "수",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: dayFontSize,
+                                    fontSize: achievementDayFontSize,
                                   ),
                                 ),
                                 Text(
                                   "목",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: dayFontSize,
+                                    fontSize: achievementDayFontSize,
                                   ),
                                 ),
                                 Text(
                                   "금",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: dayFontSize,
+                                    fontSize: achievementDayFontSize,
                                   ),
                                 ),
                                 Text(
                                   "토",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: dayFontSize,
+                                    fontSize: achievementDayFontSize,
                                   ),
                                 ),
                                 Text(
                                   "일",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: dayFontSize,
+                                    fontSize: achievementDayFontSize,
                                   ),
                                 ),
                               ],
@@ -310,7 +291,7 @@ class _AchievementRate extends State<AchievementRate> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text("0 %",
-                                              style: TextStyle(fontSize: titleFontSize)),
+                                              style: TextStyle(fontSize: achievementPercentFontSize)),
                                           Container(
                                               width: (getMobileSizeFromPercent(
                                                           context, 80, true) -
@@ -343,7 +324,7 @@ class _AchievementRate extends State<AchievementRate> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text("~49 %",
-                                              style: TextStyle(fontSize: titleFontSize)),
+                                              style: TextStyle(fontSize: achievementPercentFontSize)),
                                           Container(
                                               width: (getMobileSizeFromPercent(
                                                           context, 80, true) -
@@ -382,7 +363,7 @@ class _AchievementRate extends State<AchievementRate> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text("~99 %",
-                                              style: TextStyle(fontSize: titleFontSize)),
+                                              style: TextStyle(fontSize: achievementPercentFontSize)),
                                           Container(
                                               width: (getMobileSizeFromPercent(
                                                           context, 80, true) -
@@ -415,7 +396,7 @@ class _AchievementRate extends State<AchievementRate> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text("100 %",
-                                              style: TextStyle(fontSize: titleFontSize)),
+                                              style: TextStyle(fontSize: achievementPercentFontSize)),
                                           Container(
                                               width: (getMobileSizeFromPercent(
                                                           context, 80, true) -
@@ -532,28 +513,9 @@ class _AchievementRate extends State<AchievementRate> {
     } catch (e) {
       print("====================");
       print("getAchievementRate Err");
-      showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.0)),
-                title: Text(
-                  "오류",
-                  textAlign: TextAlign.center,
-                ),
-                content: Text(
-                  "정보를 받아오지 못했습니다.",
-                  textAlign: TextAlign.center,
-                ),
-                actions: <Widget>[
-                  new TextButton(
-                    child: new Text("확인"),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ],
-              ));
+      Fluttertoast.showToast(
+          msg:
+          "정보를 받아오지 못했습니다.");
     }
     return -1;
   }

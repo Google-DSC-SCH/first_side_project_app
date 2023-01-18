@@ -1,13 +1,17 @@
 import 'package:dio/dio.dart';
 import 'package:first_side_project_app/ViewDaily.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'BaseFile.dart';
+import 'MainPage.dart';
 
 class EditDaily extends StatefulWidget {
   int dailyId = -1;
-  EditDaily(int id){
+
+  EditDaily(int id) {
     this.dailyId = id;
   }
+
   @override
   State<EditDaily> createState() => _EditDaily(dailyId);
 }
@@ -39,10 +43,7 @@ class _EditDaily extends State<EditDaily> {
   // 알림 시간
   String alertTime = "13:00";
 
-  // 위젯간 간격(세로)
-  double titleFontSize = 17;
-
-  _EditDaily(int id){
+  _EditDaily(int id) {
     this.dayilyId = id;
   }
 
@@ -84,16 +85,44 @@ class _EditDaily extends State<EditDaily> {
               appBar: PreferredSize(
                 preferredSize: Size.fromHeight(
                     getMobileSizeFromPercent(context, 18, false)),
+                // 헤더
                 child: Container(
                   color: Colors.transparent,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        child: Image.asset('assets/img/icon.png'),
-                        height: getMobileSizeFromPercent(context, 10, false),
+                      GestureDetector(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              child: Image.asset('assets/img/icon.png'),
+                              width:
+                                  getMobileSizeFromPercent(context, 10, false),
+                            ),
+                            Text(
+                              DateTime.now().year.toString() +
+                                  "년 " +
+                                  DateTime.now().month.toString() +
+                                  "월 " +
+                                  DateTime.now().day.toString() +
+                                  "일 ",
+                              style: TextStyle(fontSize: logoDateFontSize),
+                            )
+                          ],
+                        ),
+                        onTap: () {
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      MainPage()),
+                              (route) => false);
+                        },
                       ),
-                      Container()
+                      Container(
+                        height: getMobileSizeFromPercent(context, 7, false),
+                      )
                     ],
                   ),
                 ),
@@ -183,233 +212,243 @@ class _EditDaily extends State<EditDaily> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("반복요일",
+                              Text("알림 반복 요일",
                                   style: TextStyle(fontSize: titleFontSize)),
-                              Row(children: [
-                                // 월
-                                GestureDetector(
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                      //모서리를 둥글게 하기 위해 사용
-                                      borderRadius: BorderRadius.circular(20.0),
+                              Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    // 월
+                                    GestureDetector(
+                                      child: Card(
+                                        shape: RoundedRectangleBorder(
+                                          //모서리를 둥글게 하기 위해 사용
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                        ),
+                                        color: Color(checkedDayList[0]
+                                            ? color_realYellow
+                                            : color_whiteYellow),
+                                        elevation: 0, // 그림자 깊이
+                                        child: Container(
+                                            alignment: Alignment.center,
+                                            width: getMobileSizeFromPercent(
+                                                context, 9, true),
+                                            height: getMobileSizeFromPercent(
+                                                context, 10, true),
+                                            child: Text(
+                                              "월",
+                                              style: TextStyle(
+                                                  fontSize: daySelectFontSize,
+                                                  fontWeight: FontWeight.bold),
+                                            )),
+                                      ),
+                                      onTap: () {
+                                        setState(() {
+                                          checkedDayList[0] =
+                                              checkedDayList[0] ? false : true;
+                                        });
+                                      },
                                     ),
-                                    color: Color(checkedDayList[0]
-                                        ? color_realYellow
-                                        : color_whiteYellow),
-                                    elevation: 0, // 그림자 깊이
-                                    child: Container(
-                                        alignment: Alignment.center,
-                                        width: getMobileSizeFromPercent(
-                                            context, 9, true),
-                                        height: getMobileSizeFromPercent(
-                                            context, 10, true),
-                                        child: Text(
-                                          "월",
-                                          style: TextStyle(
-                                              fontSize: daySelectFontSize,
-                                              fontWeight: FontWeight.bold),
-                                        )),
-                                  ),
-                                  onTap: () {
-                                    setState(() {
-                                      checkedDayList[0] =
-                                          checkedDayList[0] ? false : true;
-                                    });
-                                  },
-                                ),
 
-                                // 화
-                                GestureDetector(
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                      //모서리를 둥글게 하기 위해 사용
-                                      borderRadius: BorderRadius.circular(20.0),
+                                    // 화
+                                    GestureDetector(
+                                      child: Card(
+                                        shape: RoundedRectangleBorder(
+                                          //모서리를 둥글게 하기 위해 사용
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                        ),
+                                        color: Color(checkedDayList[1]
+                                            ? color_realYellow
+                                            : color_whiteYellow),
+                                        elevation: 0, // 그림자 깊이
+                                        child: Container(
+                                            alignment: Alignment.center,
+                                            width: getMobileSizeFromPercent(
+                                                context, 9, true),
+                                            height: getMobileSizeFromPercent(
+                                                context, 10, true),
+                                            child: Text(
+                                              "화",
+                                              style: TextStyle(
+                                                  fontSize: daySelectFontSize,
+                                                  fontWeight: FontWeight.bold),
+                                            )),
+                                      ),
+                                      onTap: () {
+                                        setState(() {
+                                          checkedDayList[1] =
+                                              checkedDayList[1] ? false : true;
+                                        });
+                                      },
                                     ),
-                                    color: Color(checkedDayList[1]
-                                        ? color_realYellow
-                                        : color_whiteYellow),
-                                    elevation: 0, // 그림자 깊이
-                                    child: Container(
-                                        alignment: Alignment.center,
-                                        width: getMobileSizeFromPercent(
-                                            context, 9, true),
-                                        height: getMobileSizeFromPercent(
-                                            context, 10, true),
-                                        child: Text(
-                                          "화",
-                                          style: TextStyle(
-                                              fontSize: daySelectFontSize,
-                                              fontWeight: FontWeight.bold),
-                                        )),
-                                  ),
-                                  onTap: () {
-                                    setState(() {
-                                      checkedDayList[1] =
-                                          checkedDayList[1] ? false : true;
-                                    });
-                                  },
-                                ),
 
-                                // 수
-                                GestureDetector(
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                      //모서리를 둥글게 하기 위해 사용
-                                      borderRadius: BorderRadius.circular(20.0),
+                                    // 수
+                                    GestureDetector(
+                                      child: Card(
+                                        shape: RoundedRectangleBorder(
+                                          //모서리를 둥글게 하기 위해 사용
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                        ),
+                                        color: Color(checkedDayList[2]
+                                            ? color_realYellow
+                                            : color_whiteYellow),
+                                        elevation: 0, // 그림자 깊이
+                                        child: Container(
+                                            alignment: Alignment.center,
+                                            width: getMobileSizeFromPercent(
+                                                context, 9, true),
+                                            height: getMobileSizeFromPercent(
+                                                context, 10, true),
+                                            child: Text(
+                                              "수",
+                                              style: TextStyle(
+                                                  fontSize: daySelectFontSize,
+                                                  fontWeight: FontWeight.bold),
+                                            )),
+                                      ),
+                                      onTap: () {
+                                        setState(() {
+                                          checkedDayList[2] =
+                                              checkedDayList[2] ? false : true;
+                                        });
+                                      },
                                     ),
-                                    color: Color(checkedDayList[2]
-                                        ? color_realYellow
-                                        : color_whiteYellow),
-                                    elevation: 0, // 그림자 깊이
-                                    child: Container(
-                                        alignment: Alignment.center,
-                                        width: getMobileSizeFromPercent(
-                                            context, 9, true),
-                                        height: getMobileSizeFromPercent(
-                                            context, 10, true),
-                                        child: Text(
-                                          "수",
-                                          style: TextStyle(
-                                              fontSize: daySelectFontSize,
-                                              fontWeight: FontWeight.bold),
-                                        )),
-                                  ),
-                                  onTap: () {
-                                    setState(() {
-                                      checkedDayList[2] =
-                                          checkedDayList[2] ? false : true;
-                                    });
-                                  },
-                                ),
 
-                                // 목
-                                GestureDetector(
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                      //모서리를 둥글게 하기 위해 사용
-                                      borderRadius: BorderRadius.circular(20.0),
+                                    // 목
+                                    GestureDetector(
+                                      child: Card(
+                                        shape: RoundedRectangleBorder(
+                                          //모서리를 둥글게 하기 위해 사용
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                        ),
+                                        color: Color(checkedDayList[3]
+                                            ? color_realYellow
+                                            : color_whiteYellow),
+                                        elevation: 0, // 그림자 깊이
+                                        child: Container(
+                                            alignment: Alignment.center,
+                                            width: getMobileSizeFromPercent(
+                                                context, 9, true),
+                                            height: getMobileSizeFromPercent(
+                                                context, 10, true),
+                                            child: Text(
+                                              "목",
+                                              style: TextStyle(
+                                                  fontSize: daySelectFontSize,
+                                                  fontWeight: FontWeight.bold),
+                                            )),
+                                      ),
+                                      onTap: () {
+                                        setState(() {
+                                          checkedDayList[3] =
+                                              checkedDayList[3] ? false : true;
+                                        });
+                                      },
                                     ),
-                                    color: Color(checkedDayList[3]
-                                        ? color_realYellow
-                                        : color_whiteYellow),
-                                    elevation: 0, // 그림자 깊이
-                                    child: Container(
-                                        alignment: Alignment.center,
-                                        width: getMobileSizeFromPercent(
-                                            context, 9, true),
-                                        height: getMobileSizeFromPercent(
-                                            context, 10, true),
-                                        child: Text(
-                                          "목",
-                                          style: TextStyle(
-                                              fontSize: daySelectFontSize,
-                                              fontWeight: FontWeight.bold),
-                                        )),
-                                  ),
-                                  onTap: () {
-                                    setState(() {
-                                      checkedDayList[3] =
-                                          checkedDayList[3] ? false : true;
-                                    });
-                                  },
-                                ),
 
-                                // 금
-                                GestureDetector(
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                      //모서리를 둥글게 하기 위해 사용
-                                      borderRadius: BorderRadius.circular(20.0),
+                                    // 금
+                                    GestureDetector(
+                                      child: Card(
+                                        shape: RoundedRectangleBorder(
+                                          //모서리를 둥글게 하기 위해 사용
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                        ),
+                                        color: Color(checkedDayList[4]
+                                            ? color_realYellow
+                                            : color_whiteYellow),
+                                        elevation: 0, // 그림자 깊이
+                                        child: Container(
+                                            alignment: Alignment.center,
+                                            width: getMobileSizeFromPercent(
+                                                context, 9, true),
+                                            height: getMobileSizeFromPercent(
+                                                context, 10, true),
+                                            child: Text(
+                                              "금",
+                                              style: TextStyle(
+                                                  fontSize: daySelectFontSize,
+                                                  fontWeight: FontWeight.bold),
+                                            )),
+                                      ),
+                                      onTap: () {
+                                        setState(() {
+                                          checkedDayList[4] =
+                                              checkedDayList[4] ? false : true;
+                                        });
+                                      },
                                     ),
-                                    color: Color(checkedDayList[4]
-                                        ? color_realYellow
-                                        : color_whiteYellow),
-                                    elevation: 0, // 그림자 깊이
-                                    child: Container(
-                                        alignment: Alignment.center,
-                                        width: getMobileSizeFromPercent(
-                                            context, 9, true),
-                                        height: getMobileSizeFromPercent(
-                                            context, 10, true),
-                                        child: Text(
-                                          "금",
-                                          style: TextStyle(
-                                              fontSize: daySelectFontSize,
-                                              fontWeight: FontWeight.bold),
-                                        )),
-                                  ),
-                                  onTap: () {
-                                    setState(() {
-                                      checkedDayList[4] =
-                                          checkedDayList[4] ? false : true;
-                                    });
-                                  },
-                                ),
 
-                                // 토
-                                GestureDetector(
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                      //모서리를 둥글게 하기 위해 사용
-                                      borderRadius: BorderRadius.circular(20.0),
+                                    // 토
+                                    GestureDetector(
+                                      child: Card(
+                                        shape: RoundedRectangleBorder(
+                                          //모서리를 둥글게 하기 위해 사용
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                        ),
+                                        color: Color(checkedDayList[5]
+                                            ? color_realYellow
+                                            : color_whiteYellow),
+                                        elevation: 0, // 그림자 깊이
+                                        child: Container(
+                                            alignment: Alignment.center,
+                                            width: getMobileSizeFromPercent(
+                                                context, 9, true),
+                                            height: getMobileSizeFromPercent(
+                                                context, 10, true),
+                                            child: Text(
+                                              "토",
+                                              style: TextStyle(
+                                                  fontSize: daySelectFontSize,
+                                                  fontWeight: FontWeight.bold),
+                                            )),
+                                      ),
+                                      onTap: () {
+                                        setState(() {
+                                          checkedDayList[5] =
+                                              checkedDayList[5] ? false : true;
+                                        });
+                                      },
                                     ),
-                                    color: Color(checkedDayList[5]
-                                        ? color_realYellow
-                                        : color_whiteYellow),
-                                    elevation: 0, // 그림자 깊이
-                                    child: Container(
-                                        alignment: Alignment.center,
-                                        width: getMobileSizeFromPercent(
-                                            context, 9, true),
-                                        height: getMobileSizeFromPercent(
-                                            context, 10, true),
-                                        child: Text(
-                                          "토",
-                                          style: TextStyle(
-                                              fontSize: daySelectFontSize,
-                                              fontWeight: FontWeight.bold),
-                                        )),
-                                  ),
-                                  onTap: () {
-                                    setState(() {
-                                      checkedDayList[5] =
-                                          checkedDayList[5] ? false : true;
-                                    });
-                                  },
-                                ),
 
-                                // 일
-                                GestureDetector(
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                      //모서리를 둥글게 하기 위해 사용
-                                      borderRadius: BorderRadius.circular(20.0),
+                                    // 일
+                                    GestureDetector(
+                                      child: Card(
+                                        shape: RoundedRectangleBorder(
+                                          //모서리를 둥글게 하기 위해 사용
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                        ),
+                                        color: Color(checkedDayList[6]
+                                            ? color_realYellow
+                                            : color_whiteYellow),
+                                        elevation: 0, // 그림자 깊이
+                                        child: Container(
+                                            alignment: Alignment.center,
+                                            width: getMobileSizeFromPercent(
+                                                context, 9, true),
+                                            height: getMobileSizeFromPercent(
+                                                context, 10, true),
+                                            child: Text(
+                                              "일",
+                                              style: TextStyle(
+                                                  fontSize: daySelectFontSize,
+                                                  fontWeight: FontWeight.bold),
+                                            )),
+                                      ),
+                                      onTap: () {
+                                        setState(() {
+                                          checkedDayList[6] =
+                                              checkedDayList[6] ? false : true;
+                                        });
+                                      },
                                     ),
-                                    color: Color(checkedDayList[6]
-                                        ? color_realYellow
-                                        : color_whiteYellow),
-                                    elevation: 0, // 그림자 깊이
-                                    child: Container(
-                                        alignment: Alignment.center,
-                                        width: getMobileSizeFromPercent(
-                                            context, 9, true),
-                                        height: getMobileSizeFromPercent(
-                                            context, 10, true),
-                                        child: Text(
-                                          "일",
-                                          style: TextStyle(
-                                              fontSize: daySelectFontSize,
-                                              fontWeight: FontWeight.bold),
-                                        )),
-                                  ),
-                                  onTap: () {
-                                    setState(() {
-                                      checkedDayList[6] =
-                                          checkedDayList[6] ? false : true;
-                                    });
-                                  },
-                                ),
-                              ])
+                                  ])
                             ],
                           ),
                         ),
@@ -440,7 +479,7 @@ class _EditDaily extends State<EditDaily> {
                                     child: Text(
                                       alertState,
                                       style: TextStyle(
-                                          fontSize: titleFontSize,
+                                          fontSize: alertStateFontSize,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
@@ -484,7 +523,7 @@ class _EditDaily extends State<EditDaily> {
                                               alertTime.split(":")[1] +
                                               "분",
                                       style: TextStyle(
-                                          fontSize: titleFontSize),
+                                          fontSize: alertTimeFontSize),
                                     ),
                                   ),
                                 ),
@@ -523,83 +562,50 @@ class _EditDaily extends State<EditDaily> {
                               // 완료
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                        //모서리를 둥글게
-                                        borderRadius:
-                                            BorderRadius.circular(16)),
-                                    primary: Color(color_mint),
-                                    onPrimary: Colors.black,
-                                    minimumSize: Size(
-                                        getMobileSizeFromPercent(
-                                            context, 30, true),
-                                        40),
-                                    shadowColor: Colors.transparent,
-                                  elevation: 0,),
+                                  shape: RoundedRectangleBorder(
+                                      //모서리를 둥글게
+                                      borderRadius: BorderRadius.circular(16)),
+                                  primary: Color(color_mint),
+                                  onPrimary: Colors.black,
+                                  minimumSize: Size(
+                                      getMobileSizeFromPercent(
+                                          context, 30, true),
+                                      40),
+                                  shadowColor: Colors.transparent,
+                                  elevation: 0,
+                                ),
                                 child: Text(
                                   "완료",
                                   style: TextStyle(fontSize: btnTitleFontSize),
                                 ),
                                 onPressed: () async {
-                                  if(await editDaily()==0){
+                                  if (await editDaily() == 0) {
                                     Navigator.pop(context);
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) => AlertDialog(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(16.0)),
-                                          title: Text(
-                                            titleController.text,
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          content: Text(
-                                            "성공적으로 수정했습니다.",
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          actions: <Widget>[
-                                            new TextButton(
-                                              child: new Text("확인"),
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                            ),
-                                          ],
-                                        ));
-                                  }else {
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) => AlertDialog(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                              BorderRadius.circular(16.0)),
-                                          title: Text("오류", textAlign: TextAlign.center,),
-                                          content: Text("수정을 실패했습니다.", textAlign: TextAlign.center,),
-                                          actions: <Widget>[
-                                            new TextButton(
-                                              child: new Text("확인"),
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                            ),
-                                          ],
-                                        ));
+                                    Fluttertoast.showToast(
+                                        msg:
+                                        "${titleController.text}: 성공적으로 수정했습니다.");
+                                  } else {
+                                    Fluttertoast.showToast(
+                                        msg:
+                                        "수정을 실패했습니다.");
                                   }
                                 },
                               ),
                               // 취소
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                        //모서리를 둥글게
-                                        borderRadius:
-                                            BorderRadius.circular(16)),
-                                    primary: Color(color_mint),
-                                    onPrimary: Colors.black,
-                                    minimumSize: Size(
-                                        getMobileSizeFromPercent(
-                                            context, 30, true),
-                                        40),
-                                    shadowColor: Colors.transparent,
-                                  elevation: 0,),
+                                  shape: RoundedRectangleBorder(
+                                      //모서리를 둥글게
+                                      borderRadius: BorderRadius.circular(16)),
+                                  primary: Color(color_mint),
+                                  onPrimary: Colors.black,
+                                  minimumSize: Size(
+                                      getMobileSizeFromPercent(
+                                          context, 30, true),
+                                      40),
+                                  shadowColor: Colors.transparent,
+                                  elevation: 0,
+                                ),
                                 child: Text(
                                   "취소",
                                   style: TextStyle(fontSize: btnTitleFontSize),
@@ -661,7 +667,7 @@ class _EditDaily extends State<EditDaily> {
         "-" +
         getToday().substring(4, 6) +
         "-" +
-        getToday().substring(6,8);
+        getToday().substring(6, 8);
 
     Dio dio = Dio();
     dio.options.headers['jwt-auth-token'] = token;
@@ -687,23 +693,23 @@ class _EditDaily extends State<EditDaily> {
 
   /// 수정
   Future<int> editDaily() async {
-    if(titleController.text == ""){
+    if (titleController.text == "") {
       return -1;
     }
     // checkedDayStr 갱신
-    List dayList = ["월","화","수","목","금","토","일"];
-    for(int i = 0; i < dayList.length; i++){
-      if(checkedDayList[i]){
+    List dayList = ["월", "화", "수", "목", "금", "토", "일"];
+    for (int i = 0; i < dayList.length; i++) {
+      if (checkedDayList[i]) {
         checkedDayStr += dayList[i];
       }
     }
     String createDailyURI = hostURI + 'api/daily/' + dayilyId.toString();
     Map body = {
       'title': titleController.text.toString(),
-      'content':contentController.text.toString(),
-      'alertStatus' : alertState,
-      'alertTime' : alertTime.toString(),
-      'alertDates' : checkedDayStr.toString(),
+      'content': contentController.text.toString(),
+      'alertStatus': alertState,
+      'alertTime': alertTime.toString(),
+      'alertDates': checkedDayStr.toString(),
     };
     Dio dio = Dio();
     dio.options.headers['jwt-auth-token'] = token;

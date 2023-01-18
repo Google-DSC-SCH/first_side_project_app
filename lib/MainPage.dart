@@ -1,22 +1,23 @@
 import 'package:dio/dio.dart';
 import 'package:first_side_project_app/CreateDaily.dart';
-import 'package:first_side_project_app/SignUp.dart';
 import 'package:first_side_project_app/ViewDaily.dart';
 import 'package:first_side_project_app/ViewGoal.dart';
 import 'package:first_side_project_app/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'BaseFile.dart';
 import 'AchievementRate.dart';
 import 'CreateGoal.dart';
-import 'Login.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 
 class MainPage extends StatefulWidget {
   @override
   State<MainPage> createState() => Real_Main();
 }
 
-class Real_Main extends State<MainPage> {
+class Real_Main extends State<MainPage> with WidgetsBindingObserver {
   // 정보를 가져올 날짜
   String date = "";
 
@@ -31,7 +32,7 @@ class Real_Main extends State<MainPage> {
     // TODO: implement initState
     super.initState();
     date = getToday();
-
+    WidgetsBinding.instance.addObserver(this);
     setState(() {
       getMain(getToday());
     });
@@ -39,9 +40,19 @@ class Real_Main extends State<MainPage> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
-    print("로그아웃");
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // TODO: implement didChangeAppLifecycleState
+    super.didChangeAppLifecycleState(state);
+    switch (state) {
+      case AppLifecycleState.detached:
+        logout();
+        break;
+    }
   }
 
   @override
@@ -70,23 +81,30 @@ class Real_Main extends State<MainPage> {
                         children: [
                           Container(
                             child: Image.asset('assets/img/icon.png'),
-                            width: getMobileSizeFromPercent(context, 20, true),
+                            width: getMobileSizeFromPercent(context, 10, false),
                           ),
-                          Text(DateTime.now().year.toString() +
-                              "년 " +
-                              DateTime.now().month.toString() +
-                              "월 " +
-                              DateTime.now().day.toString() +
-                              "일 ", style: TextStyle(fontSize: logoDateFontSize),)
+                          Text(
+                            DateTime.now().year.toString() +
+                                "년 " +
+                                DateTime.now().month.toString() +
+                                "월 " +
+                                DateTime.now().day.toString() +
+                                "일 ",
+                            style: TextStyle(fontSize: logoDateFontSize),
+                          )
                         ],
                       ),
-                      onTap: (){
-                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                MainPage()), (route) => false);
+                      onTap: () {
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) => MainPage()),
+                            (route) => false);
                       },
                     ),
-                    Container(height: getMobileSizeFromPercent(context, 7, false),)
+                    Container(
+                      height: getMobileSizeFromPercent(context, 7, false),
+                    )
                   ],
                 ),
               ),
@@ -101,16 +119,6 @@ class Real_Main extends State<MainPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    /// 오늘 날짜
-                    Text(
-                        date.substring(0, 4) +
-                            "년 " +
-                            date.substring(4, 6) +
-                            "월 " +
-                            date.substring(6, 8) +
-                            "일",
-                        style: TextStyle(fontSize: subTitleFontSize)),
-
                     /// 장기목표
                     Stack(
                       children: [
@@ -148,7 +156,7 @@ class Real_Main extends State<MainPage> {
                                   width: getMobileSizeFromPercent(
                                       context, 80, true),
                                   height: getMobileSizeFromPercent(
-                                      context, 25, false),
+                                      context, 20, false),
                                   child: ListView.builder(
                                     itemCount: goalList.length,
                                     itemBuilder: (context, index) => Card(
@@ -245,7 +253,7 @@ class Real_Main extends State<MainPage> {
                                   width: getMobileSizeFromPercent(
                                       context, 80, true),
                                   height: getMobileSizeFromPercent(
-                                      context, 25, false),
+                                      context, 35, false),
                                   child: ListView.builder(
                                     itemCount: dailyList.length,
                                     itemBuilder: (context, index) => Card(
@@ -325,42 +333,9 @@ class Real_Main extends State<MainPage> {
                                                         dailyList[index]
                                                             .statue = "ON";
                                                       });
-                                                      showDialog(
-                                                          context: context,
-                                                          builder:
-                                                              (context) =>
-                                                                  AlertDialog(
-                                                                    shape: RoundedRectangleBorder(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(16.0)),
-                                                                    title: Text(
-                                                                      dailyList[
-                                                                              index]
-                                                                          .title,
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .center,
-                                                                    ),
-                                                                    content:
-                                                                        Text(
-                                                                      "목표를 완료했습니다!",
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .center,
-                                                                    ),
-                                                                    actions: <
-                                                                        Widget>[
-                                                                      new TextButton(
-                                                                        child: new Text(
-                                                                            "확인"),
-                                                                        onPressed:
-                                                                            () {
-                                                                          Navigator.pop(
-                                                                              context);
-                                                                        },
-                                                                      ),
-                                                                    ],
-                                                                  ));
+                                                      Fluttertoast.showToast(
+                                                          msg:
+                                                              "${dailyList[index].title}: 목표를 달성했습니다!");
                                                     }
                                                     // 미달성
                                                     else {
@@ -438,6 +413,7 @@ class Real_Main extends State<MainPage> {
     dio.options.headers['jwt-auth-refresh-token'] = refreshToken;
     try {
       var res = await dio.get(getMainURI);
+      print("삐삐");
 
       // 모든 알림 제거
       cancelNotification();
@@ -525,7 +501,6 @@ class Real_Main extends State<MainPage> {
                 addNum = 6;
                 break;
             }
-            print(daily['alert_time']);
             List ls = daily['alert_time'].split(':');
             registerMessage(
                 notificationId: daily['daily_id'] * 7 + addNum,
@@ -549,28 +524,10 @@ class Real_Main extends State<MainPage> {
     } catch (e) {
       print("====================");
       print("getMainDataErr");
-      showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.0)),
-                title: Text(
-                  "오류",
-                  textAlign: TextAlign.center,
-                ),
-                content: Text(
-                  "정보를 받아오지 못했습니다.",
-                  textAlign: TextAlign.center,
-                ),
-                actions: <Widget>[
-                  new TextButton(
-                    child: new Text("확인"),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ],
-              ));
+      print(e);
+      Fluttertoast.showToast(
+          msg:
+          "정보를 받아오지 못했습니다.");
     }
     return -1;
   }
@@ -602,30 +559,28 @@ class Real_Main extends State<MainPage> {
     } catch (e) {
       print("====================");
       print('fetchDailyStatusErr');
-      showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.0)),
-                title: Text(
-                  "오류",
-                  textAlign: TextAlign.center,
-                ),
-                content: Text(
-                  "정보 전송을 실패했습니다.",
-                  textAlign: TextAlign.center,
-                ),
-                actions: <Widget>[
-                  new TextButton(
-                    child: new Text("확인"),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ],
-              ));
+      Fluttertoast.showToast(
+          msg:
+          "상태 변경을 실패했습니다.");
     }
     return -1;
+  }
+
+  /// 로그아웃 메소드
+  Future<int> logout() async {
+    String postURI = hostURI + 'api/auth/signout';
+    Dio dio = Dio();
+    try {
+      // var response = await dio.post(postURI);
+      // token = response.data['accessToken'];
+      // refreshToken = response.data['refreshToken'];
+      print("sucessLogout");
+      return 0;
+    } catch (e) {
+      print(e);
+      print("logout Err");
+      return -1;
+    }
   }
 }
 

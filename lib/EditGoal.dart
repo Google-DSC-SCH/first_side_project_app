@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:first_side_project_app/ViewGoal.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'BaseFile.dart';
+import 'MainPage.dart';
 
 class EditGoal extends StatefulWidget {
   int goalId = -1;
@@ -66,16 +68,35 @@ class _EditGoal extends State<EditGoal> {
               appBar: PreferredSize(
                 preferredSize: Size.fromHeight(
                     getMobileSizeFromPercent(context, 18, false)),
+                // 헤더
                 child: Container(
                   color: Colors.transparent,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        child: Image.asset('assets/img/icon.png'),
-                        height: getMobileSizeFromPercent(context, 10, false),
+                      GestureDetector(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              child: Image.asset('assets/img/icon.png'),
+                              width: getMobileSizeFromPercent(context, 10, false),
+                            ),
+                            Text(DateTime.now().year.toString() +
+                                "년 " +
+                                DateTime.now().month.toString() +
+                                "월 " +
+                                DateTime.now().day.toString() +
+                                "일 ", style: TextStyle(fontSize: logoDateFontSize),)
+                          ],
+                        ),
+                        onTap: (){
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  MainPage()), (route) => false);
+                        },
                       ),
-                      Container()
+                      Container(height: getMobileSizeFromPercent(context, 7, false),)
                     ],
                   ),
                 ),
@@ -179,7 +200,7 @@ class _EditGoal extends State<EditGoal> {
                                     width: 150,
                                     height: 40,
                                     child: Text(this.duoDay,
-                                        style: TextStyle(fontSize: titleFontSize)),
+                                        style: TextStyle(fontSize: duoDayFontSize)),
                                   ),
                                 ),
                                 onTap: () {
@@ -236,7 +257,7 @@ class _EditGoal extends State<EditGoal> {
                                     child: Text(
                                       alertState,
                                       style: TextStyle(
-                                          fontSize: titleFontSize,
+                                          fontSize: alertStateFontSize,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
@@ -279,7 +300,7 @@ class _EditGoal extends State<EditGoal> {
                                               "시 " +
                                               alertTime.split(":")[1] +
                                               "분",
-                                      style: TextStyle(fontSize: titleFontSize),
+                                      style: TextStyle(fontSize: alertTimeFontSize),
                                     ),
                                   ),
                                 ),
@@ -335,7 +356,7 @@ class _EditGoal extends State<EditGoal> {
                                         child: Text(
                                           "완료",
                                           style: TextStyle(
-                                            fontSize: btnTitleFontSize,
+                                            fontSize: goalStateFontSize,
                                           ),
                                         ),
                                       ),
@@ -368,7 +389,7 @@ class _EditGoal extends State<EditGoal> {
                                         child: Text(
                                           "미완료",
                                           style: TextStyle(
-                                            fontSize: btnTitleFontSize,
+                                            fontSize: goalStateFontSize,
                                           ),
                                         ),
                                       ),
@@ -417,47 +438,14 @@ class _EditGoal extends State<EditGoal> {
                                 onPressed: () async {
                                   if (await editGoal() == 0) {
                                     Navigator.pop(context);
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) => AlertDialog(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(16.0)),
-                                          title: Text(
-                                            titleController.text,
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          content: Text(
-                                            "성공적으로 수정했습니다.",
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          actions: <Widget>[
-                                            new TextButton(
-                                              child: new Text("확인"),
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                            ),
-                                          ],
-                                        ));
+                                    Fluttertoast.showToast(
+                                        msg:
+                                        "${titleController.text}: 성공적으로 수정했습니다.");
                                   }
                                   else {
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) => AlertDialog(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                              BorderRadius.circular(16.0)),
-                                          title: Text("오류", textAlign: TextAlign.center,),
-                                          content: Text("수정을 실패했습니다.", textAlign: TextAlign.center,),
-                                          actions: <Widget>[
-                                            new TextButton(
-                                              child: new Text("확인"),
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                            ),
-                                          ],
-                                        ));
+                                    Fluttertoast.showToast(
+                                        msg:
+                                        "수정을 실패했습니다.");
                                   }
                                 },
                               ),

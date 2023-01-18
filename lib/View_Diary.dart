@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:first_side_project_app/Achieved_Goal.dart';
 import 'package:first_side_project_app/EditDiary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'BaseFile.dart';
 import 'MainPage.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class View_Diary extends StatefulWidget {
   int goalId = -1;
@@ -30,9 +30,6 @@ class ViewDiary extends State<View_Diary> {
     getDiary();
   }
 
-  // 위젯간 간격(세로)
-  double titleFontSize = 17;
-
   @override
   Widget build(BuildContext context) => Container(
         // 상태바 높이만큼 띄우기
@@ -47,16 +44,35 @@ class ViewDiary extends State<View_Diary> {
             appBar: PreferredSize(
               preferredSize:
                   Size.fromHeight(getMobileSizeFromPercent(context, 18, false)),
+              // 헤더
               child: Container(
                 color: Colors.transparent,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      child: Image.asset('assets/img/icon.png'),
-                      height: getMobileSizeFromPercent(context, 10, false),
+                    GestureDetector(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            child: Image.asset('assets/img/icon.png'),
+                            width: getMobileSizeFromPercent(context, 10, false),
+                          ),
+                          Text(DateTime.now().year.toString() +
+                              "년 " +
+                              DateTime.now().month.toString() +
+                              "월 " +
+                              DateTime.now().day.toString() +
+                              "일 ", style: TextStyle(fontSize: logoDateFontSize),)
+                        ],
+                      ),
+                      onTap: (){
+                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                MainPage()), (route) => false);
+                      },
                     ),
-                    Container()
+                    Container(height: getMobileSizeFromPercent(context, 7, false),)
                   ],
                 ),
               ),
@@ -182,28 +198,9 @@ class ViewDiary extends State<View_Diary> {
       if (await getDiary() == 0) {
         return 0;
       } else {
-        showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16.0)),
-                  title: Text(
-                    "오류",
-                    textAlign: TextAlign.center,
-                  ),
-                  content: Text(
-                    "정보를 받아오지 못했습니다.",
-                    textAlign: TextAlign.center,
-                  ),
-                  actions: <Widget>[
-                    new TextButton(
-                      child: new Text("확인"),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ],
-                ));
+        Fluttertoast.showToast(
+            msg:
+            "정보를 받아오지 못했습니다.");
         return -1;
       }
     }
