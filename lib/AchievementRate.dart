@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:first_side_project_app/Achieved_Goal.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'BaseFile.dart';
 import 'dart:math';
 
@@ -512,28 +513,9 @@ class _AchievementRate extends State<AchievementRate> {
     } catch (e) {
       print("====================");
       print("getAchievementRate Err");
-      showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.0)),
-                title: Text(
-                  "오류",
-                  textAlign: TextAlign.center,
-                ),
-                content: Text(
-                  "정보를 받아오지 못했습니다.",
-                  textAlign: TextAlign.center,
-                ),
-                actions: <Widget>[
-                  new TextButton(
-                    child: new Text("확인"),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ],
-              ));
+      Fluttertoast.showToast(
+          msg:
+          "정보를 받아오지 못했습니다.");
     }
     return -1;
   }

@@ -1,23 +1,23 @@
 import 'package:dio/dio.dart';
 import 'package:first_side_project_app/CreateDaily.dart';
-import 'package:first_side_project_app/SignUp.dart';
 import 'package:first_side_project_app/ViewDaily.dart';
 import 'package:first_side_project_app/ViewGoal.dart';
 import 'package:first_side_project_app/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'BaseFile.dart';
 import 'AchievementRate.dart';
 import 'CreateGoal.dart';
-import 'Login.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 
 class MainPage extends StatefulWidget {
   @override
   State<MainPage> createState() => Real_Main();
 }
 
-class Real_Main extends State<MainPage> with WidgetsBindingObserver
-{
+class Real_Main extends State<MainPage> with WidgetsBindingObserver {
   // 정보를 가져올 날짜
   String date = "";
 
@@ -48,7 +48,7 @@ class Real_Main extends State<MainPage> with WidgetsBindingObserver
   void didChangeAppLifecycleState(AppLifecycleState state) {
     // TODO: implement didChangeAppLifecycleState
     super.didChangeAppLifecycleState(state);
-    switch(state){
+    switch (state) {
       case AppLifecycleState.detached:
         logout();
         break;
@@ -83,21 +83,28 @@ class Real_Main extends State<MainPage> with WidgetsBindingObserver
                             child: Image.asset('assets/img/icon.png'),
                             width: getMobileSizeFromPercent(context, 10, false),
                           ),
-                          Text(DateTime.now().year.toString() +
-                              "년 " +
-                              DateTime.now().month.toString() +
-                              "월 " +
-                              DateTime.now().day.toString() +
-                              "일 ", style: TextStyle(fontSize: logoDateFontSize),)
+                          Text(
+                            DateTime.now().year.toString() +
+                                "년 " +
+                                DateTime.now().month.toString() +
+                                "월 " +
+                                DateTime.now().day.toString() +
+                                "일 ",
+                            style: TextStyle(fontSize: logoDateFontSize),
+                          )
                         ],
                       ),
-                      onTap: (){
-                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                MainPage()), (route) => false);
+                      onTap: () {
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) => MainPage()),
+                            (route) => false);
                       },
                     ),
-                    Container(height: getMobileSizeFromPercent(context, 7, false),)
+                    Container(
+                      height: getMobileSizeFromPercent(context, 7, false),
+                    )
                   ],
                 ),
               ),
@@ -326,42 +333,9 @@ class Real_Main extends State<MainPage> with WidgetsBindingObserver
                                                         dailyList[index]
                                                             .statue = "ON";
                                                       });
-                                                      showDialog(
-                                                          context: context,
-                                                          builder:
-                                                              (context) =>
-                                                                  AlertDialog(
-                                                                    shape: RoundedRectangleBorder(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(16.0)),
-                                                                    title: Text(
-                                                                      dailyList[
-                                                                              index]
-                                                                          .title,
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .center,
-                                                                    ),
-                                                                    content:
-                                                                        Text(
-                                                                      "목표를 완료했습니다!",
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .center,
-                                                                    ),
-                                                                    actions: <
-                                                                        Widget>[
-                                                                      new TextButton(
-                                                                        child: new Text(
-                                                                            "확인"),
-                                                                        onPressed:
-                                                                            () {
-                                                                          Navigator.pop(
-                                                                              context);
-                                                                        },
-                                                                      ),
-                                                                    ],
-                                                                  ));
+                                                      Fluttertoast.showToast(
+                                                          msg:
+                                                              "${dailyList[index].title}: 목표를 달성했습니다!");
                                                     }
                                                     // 미달성
                                                     else {
@@ -527,7 +501,6 @@ class Real_Main extends State<MainPage> with WidgetsBindingObserver
                 addNum = 6;
                 break;
             }
-            print(daily['alert_time']);
             List ls = daily['alert_time'].split(':');
             registerMessage(
                 notificationId: daily['daily_id'] * 7 + addNum,
@@ -551,28 +524,10 @@ class Real_Main extends State<MainPage> with WidgetsBindingObserver
     } catch (e) {
       print("====================");
       print("getMainDataErr");
-      showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.0)),
-                title: Text(
-                  "오류",
-                  textAlign: TextAlign.center,
-                ),
-                content: Text(
-                  "정보를 받아오지 못했습니다.",
-                  textAlign: TextAlign.center,
-                ),
-                actions: <Widget>[
-                  new TextButton(
-                    child: new Text("확인"),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ],
-              ));
+      print(e);
+      Fluttertoast.showToast(
+          msg:
+          "정보를 받아오지 못했습니다.");
     }
     return -1;
   }
@@ -604,28 +559,9 @@ class Real_Main extends State<MainPage> with WidgetsBindingObserver
     } catch (e) {
       print("====================");
       print('fetchDailyStatusErr');
-      showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.0)),
-                title: Text(
-                  "오류",
-                  textAlign: TextAlign.center,
-                ),
-                content: Text(
-                  "정보 전송을 실패했습니다.",
-                  textAlign: TextAlign.center,
-                ),
-                actions: <Widget>[
-                  new TextButton(
-                    child: new Text("확인"),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ],
-              ));
+      Fluttertoast.showToast(
+          msg:
+          "상태 변경을 실패했습니다.");
     }
     return -1;
   }

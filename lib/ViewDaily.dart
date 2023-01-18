@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:first_side_project_app/MainPage.dart';
+import 'package:first_side_project_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'BaseFile.dart';
 
@@ -82,21 +84,28 @@ class _ViewDaily extends State<ViewDaily> {
                             child: Image.asset('assets/img/icon.png'),
                             width: getMobileSizeFromPercent(context, 10, false),
                           ),
-                          Text(DateTime.now().year.toString() +
-                              "년 " +
-                              DateTime.now().month.toString() +
-                              "월 " +
-                              DateTime.now().day.toString() +
-                              "일 ", style: TextStyle(fontSize: logoDateFontSize),)
+                          Text(
+                            DateTime.now().year.toString() +
+                                "년 " +
+                                DateTime.now().month.toString() +
+                                "월 " +
+                                DateTime.now().day.toString() +
+                                "일 ",
+                            style: TextStyle(fontSize: logoDateFontSize),
+                          )
                         ],
                       ),
-                      onTap: (){
-                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                MainPage()), (route) => false);
+                      onTap: () {
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) => MainPage()),
+                            (route) => false);
                       },
                     ),
-                    Container(height: getMobileSizeFromPercent(context, 7, false),)
+                    Container(
+                      height: getMobileSizeFromPercent(context, 7, false),
+                    )
                   ],
                 ),
               ),
@@ -136,7 +145,8 @@ class _ViewDaily extends State<ViewDaily> {
                                     children: [
                                       Text(
                                         this.title,
-                                        style: TextStyle(fontSize: viewTitleFontSize),
+                                        style: TextStyle(
+                                            fontSize: viewTitleFontSize),
                                       )
                                     ],
                                   ),
@@ -170,7 +180,8 @@ class _ViewDaily extends State<ViewDaily> {
                                     children: [
                                       Text(
                                         this.content,
-                                        style: TextStyle(fontSize: viewContentFontSize),
+                                        style: TextStyle(
+                                            fontSize: viewContentFontSize),
                                       ),
                                     ],
                                   ),
@@ -185,10 +196,12 @@ class _ViewDaily extends State<ViewDaily> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("반복요일",
+                            Text("알림 반복 요일",
                                 style: TextStyle(fontSize: titleFontSize)),
                             Text(
-                              this.repeatDay,
+                              this.repeatDay == ""
+                                  ? "알림 반복 없음"
+                                  : this.repeatDay,
                               textAlign: TextAlign.center,
                               style: TextStyle(fontSize: viewDailyDateFontSize),
                             )
@@ -218,20 +231,20 @@ class _ViewDaily extends State<ViewDaily> {
                             Text(
                               int.parse(alertTime.split(":")[0]) >= 12
                                   ? "오후 " +
-                                  (alertTime.split(":")[0] == "12"
-                                      ? 12
-                                      : (int.parse(alertTime
-                                      .split(":")[0]) %
-                                      12))
-                                      .toString() +
-                                  "시 " +
-                                  alertTime.split(":")[1] +
-                                  "분"
+                                      (alertTime.split(":")[0] == "12"
+                                              ? 12
+                                              : (int.parse(
+                                                      alertTime.split(":")[0]) %
+                                                  12))
+                                          .toString() +
+                                      "시 " +
+                                      alertTime.split(":")[1] +
+                                      "분"
                                   : "오전 " +
-                                  alertTime.split(":")[0] +
-                                  "시 " +
-                                  alertTime.split(":")[1] +
-                                  "분",
+                                      alertTime.split(":")[0] +
+                                      "시 " +
+                                      alertTime.split(":")[1] +
+                                      "분",
                               style: TextStyle(
                                 fontSize: alertTimeFontSize,
                               ),
@@ -281,35 +294,14 @@ class _ViewDaily extends State<ViewDaily> {
                                       selectedState = 0;
                                       patchDailyState(0).then((value) {
                                         if (value != 0) {
-                                          showDialog(
-                                              context: context,
-                                              builder: (context) => AlertDialog(
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        16.0)),
-                                                    title: Text(
-                                                      "오류",
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                    content: Text(
-                                                      "전송 실패했습니다.",
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                    actions: <Widget>[
-                                                      new TextButton(
-                                                        child: new Text("확인"),
-                                                        onPressed: () {
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                      ),
-                                                    ],
-                                                  ));
+                                          Fluttertoast.showToast(
+                                              msg:
+                                              "상태 변경을 실패했습니다.");
+                                        }
+                                        else{
+                                          Fluttertoast.showToast(
+                                              msg:
+                                              "${title}: 목표를 달성했습니다!");
                                         }
                                       });
                                     });
@@ -345,35 +337,9 @@ class _ViewDaily extends State<ViewDaily> {
                                       selectedState = 1;
                                       patchDailyState(1).then((value) {
                                         if (value != 0) {
-                                          showDialog(
-                                              context: context,
-                                              builder: (context) => AlertDialog(
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        16.0)),
-                                                    title: Text(
-                                                      "오류",
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                    content: Text(
-                                                      "전송 실패했습니다.",
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                    actions: <Widget>[
-                                                      new TextButton(
-                                                        child: new Text("확인"),
-                                                        onPressed: () {
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                      ),
-                                                    ],
-                                                  ));
+                                          Fluttertoast.showToast(
+                                              msg:
+                                              "상태 변경을 실패했습니다.");
                                         }
                                       });
                                     });
@@ -416,10 +382,10 @@ class _ViewDaily extends State<ViewDaily> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (BuildContext context) =>
-                                          EditDaily(dailyId))).then((value){
-                                            setState(() {
-                                              getDaily(dailyId);
-                                            });
+                                          EditDaily(dailyId))).then((value) {
+                                setState(() {
+                                  getDaily(dailyId);
+                                });
                               }),
                             ),
                             // /
@@ -441,35 +407,15 @@ class _ViewDaily extends State<ViewDaily> {
                               onPressed: () async {
                                 if (await deleteDaily() == 0) {
                                   Navigator.pop(context);
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) => AlertDialog(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(16.0)),
-                                        title: Text(
-                                          title,
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        content: Text(
-                                          "성공적으로 삭제했습니다.",
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        actions: <Widget>[
-                                          new TextButton(
-                                            child: new Text("확인"),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                          ),
-                                        ],
-                                      ));
+                                  Fluttertoast.showToast(
+                                      msg:
+                                      "${title}: 성공적으로 삭제했습니다.");
                                 }
                               },
                             ),
                             // 뒤로
                             ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-
                                   shape: RoundedRectangleBorder(
                                       //모서리를 둥글게
                                       borderRadius: BorderRadius.circular(16)),
@@ -525,6 +471,73 @@ class _ViewDaily extends State<ViewDaily> {
           this.selectedState = 1;
         }
       });
+
+      // 알림 초기화
+      for (int i = 0; i < 7; i++) {
+        cancelNotificationSpecific(dailyId * 7 + i);
+        print('cancleAlert');
+      }
+
+      //알림 추가
+      var now = DateTime.now();
+      if (alarmOnOff == "ON" &&
+          selectedState == 1) {
+        for (String day in repeatDay.split('')) {
+          var firstTime =
+              DateTime(now.year, now.month, now.day - (now.weekday - 1));
+          int addNum = 0;
+          switch (day) {
+            case "월":
+              firstTime =
+                  DateTime(now.year, now.month, now.day - (now.weekday - 1));
+              break;
+            case "화":
+              firstTime = DateTime(
+                  now.year, now.month, now.day - (now.weekday - 1) + 1);
+              addNum = 1;
+              break;
+            case "수":
+              firstTime = DateTime(
+                  now.year, now.month, now.day - (now.weekday - 1) + 2);
+              addNum = 2;
+              break;
+            case "목":
+              firstTime = DateTime(
+                  now.year, now.month, now.day - (now.weekday - 1) + 3);
+              addNum = 3;
+              break;
+            case "금":
+              firstTime = DateTime(
+                  now.year, now.month, now.day - (now.weekday - 1) + 4);
+              addNum = 4;
+              break;
+            case "토":
+              firstTime = DateTime(
+                  now.year, now.month, now.day - (now.weekday - 1) + 5);
+              addNum = 5;
+              break;
+            case "일":
+              firstTime = DateTime(
+                  now.year, now.month, now.day - (now.weekday - 1) + 6);
+              addNum = 6;
+              break;
+          }
+          List ls = alertTime.split(':');
+          registerMessage(
+              notificationId: dailyId * 7 + addNum,
+              year: firstTime.year,
+              month: firstTime.month,
+              day: firstTime.day,
+              hour: int.parse(ls[0]),
+              minutes: int.parse(
+                ls[1],
+              ),
+              message: title,
+              target: "daily");
+          print('addAlert: ' + firstTime.toString());
+        }
+      }
+
       print("====================");
       print("sucess getDaily");
       print(alertTime);
@@ -532,28 +545,9 @@ class _ViewDaily extends State<ViewDaily> {
     } catch (e) {
       print("====================");
       print("getDaily Err");
-      showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.0)),
-                title: Text(
-                  "오류",
-                  textAlign: TextAlign.center,
-                ),
-                content: Text(
-                  "정보를 받아오지 못했습니다.",
-                  textAlign: TextAlign.center,
-                ),
-                actions: <Widget>[
-                  new TextButton(
-                    child: new Text("확인"),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ],
-              ));
+      Fluttertoast.showToast(
+          msg:
+          "정보를 받아오지 못했습니다.");
     }
     return -1;
   }

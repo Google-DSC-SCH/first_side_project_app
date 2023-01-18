@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'BaseFile.dart';
 import 'Login.dart';
 
@@ -170,58 +171,28 @@ class SignUp extends StatelessWidget {
                         GestureDetector(
                           // 터치 메소드
                           onTap: () async {
+                            
+                            // 정규식 검사
+                            RegExp regForm = RegExp(r'^[a-zA-Z_0-9]{5,15}$');
+                            if(!regForm.hasMatch(idController.text)){
+                              Fluttertoast.showToast(
+                                  msg:
+                                  "id와 pw는 영문과 숫자를 포함한 5자 이상 15자 이하의 문자만 가능합니다.");
+                              return;
+                            }
+                            
                             if (await postSignUp(idController.text,
                                     pwController.text, pwcController.text) ==
                                 0) {
                               Navigator.pop(context);
-                              showDialog(
-                                  context: context,
-                                  builder: (context) => AlertDialog(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(16.0)),
-                                        title: Text(
-                                          "성공",
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        content: Text(
-                                          "회원가입을 완료했습니다.",
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        actions: <Widget>[
-                                          new TextButton(
-                                            child: new Text("확인"),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                          ),
-                                        ],
-                                      ));
+                              Fluttertoast.showToast(
+                                  msg:
+                                  "회원가입을 완료했습니다.");
                               
                             } else {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) => AlertDialog(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(16.0)),
-                                        title: Text(
-                                          "오류",
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        content: Text(
-                                          "잘못된 정보입니다.",
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        actions: <Widget>[
-                                          new TextButton(
-                                            child: new Text("확인"),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                          ),
-                                        ],
-                                      ));
+                              Fluttertoast.showToast(
+                                  msg:
+                                  "이미 존재하는 아이디입니다.");
                             }
                           },
                           child: Card(

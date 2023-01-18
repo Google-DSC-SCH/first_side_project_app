@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:first_side_project_app/MainPage.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'BaseFile.dart';
 
 class CreateGoal extends StatefulWidget {
@@ -425,55 +426,13 @@ class _CreateGoal extends State<CreateGoal> {
                                 onPressed: () async {
                                   if (await createGoal() == 0) {
                                     Navigator.pop(context);
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) => AlertDialog(
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          16.0)),
-                                              title: Text(
-                                                titleController.text,
-                                                textAlign: TextAlign.center,
-                                              ),
-                                              content: Text(
-                                                "성공적으로 추가했습니다.",
-                                                textAlign: TextAlign.center,
-                                              ),
-                                              actions: <Widget>[
-                                                new TextButton(
-                                                  child: new Text("확인"),
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                ),
-                                              ],
-                                            ));
+                                    Fluttertoast.showToast(
+                                        msg:
+                                        "${titleController.text}: 성공적으로 추가했습니다.");
                                   } else {
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) => AlertDialog(
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          16.0)),
-                                              title: Text(
-                                                "오류",
-                                                textAlign: TextAlign.center,
-                                              ),
-                                              content: Text(
-                                                "등록 실패했습니다.",
-                                                textAlign: TextAlign.center,
-                                              ),
-                                              actions: <Widget>[
-                                                new TextButton(
-                                                  child: new Text("확인"),
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                ),
-                                              ],
-                                            ));
+                                    Fluttertoast.showToast(
+                                        msg:
+                                        "등록을 실패했습니다.");
                                   }
                                 },
                               ),

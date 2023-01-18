@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:first_side_project_app/ViewGoal.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'BaseFile.dart';
 import 'MainPage.dart';
 
@@ -437,47 +438,14 @@ class _EditGoal extends State<EditGoal> {
                                 onPressed: () async {
                                   if (await editGoal() == 0) {
                                     Navigator.pop(context);
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) => AlertDialog(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(16.0)),
-                                          title: Text(
-                                            titleController.text,
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          content: Text(
-                                            "성공적으로 수정했습니다.",
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          actions: <Widget>[
-                                            new TextButton(
-                                              child: new Text("확인"),
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                            ),
-                                          ],
-                                        ));
+                                    Fluttertoast.showToast(
+                                        msg:
+                                        "${titleController.text}: 성공적으로 수정했습니다.");
                                   }
                                   else {
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) => AlertDialog(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                              BorderRadius.circular(16.0)),
-                                          title: Text("오류", textAlign: TextAlign.center,),
-                                          content: Text("수정을 실패했습니다.", textAlign: TextAlign.center,),
-                                          actions: <Widget>[
-                                            new TextButton(
-                                              child: new Text("확인"),
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                            ),
-                                          ],
-                                        ));
+                                    Fluttertoast.showToast(
+                                        msg:
+                                        "수정을 실패했습니다.");
                                   }
                                 },
                               ),

@@ -31,7 +31,7 @@ double btnTitleFontSize = 20;
 // 알림 상태
 double alertStateFontSize = 25;
 // 알림 시간
-double alertTimeFontSize = 20;
+double alertTimeFontSize = 25;
 // View title 폰트
 double viewTitleFontSize = 25;
 // view content 폰트
@@ -55,7 +55,7 @@ double achievementPercentFontSize = 20;
 // 요일 폰트 사이즈(알림 날짜 선택)
 double daySelectFontSize = 15;
 // view 반복 요일 폰트 사이즈
-double viewDailyDateFontSize = 22;
+double viewDailyDateFontSize = 25;
 
 // ==== goal ====
 // 목표 기간 폰트 사이즈
@@ -67,7 +67,7 @@ double goalStateFontSize = 25;
 // 일기 내용 폰트 크기
 double diaryContentFontSize = 30;
 
-// 모바일 화면 구하는 함수(context, 변환하고자 하는 퍼센테이지, 가로,세로 여부/가로 true, 세로: false)
+/// 모바일 화면 구하는 함수(context, 변환하고자 하는 퍼센테이지, 가로,세로 여부/가로 true, 세로: false)
 double getMobileSizeFromPercent(BuildContext context, int percent, bool isWidth){
   if(isWidth){
     return MediaQuery.of(context).size.width * percent / 100;

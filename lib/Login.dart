@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path_provider/path_provider.dart';
 import 'BaseFile.dart';
 
@@ -77,16 +78,35 @@ class _Login extends State {
               appBar: PreferredSize(
                 preferredSize: Size.fromHeight(
                     getMobileSizeFromPercent(context, 18, false)),
+                // 헤더
                 child: Container(
                   color: Colors.transparent,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        child: Image.asset('assets/img/icon.png'),
-                        height: getMobileSizeFromPercent(context, 10, false),
+                      GestureDetector(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              child: Image.asset('assets/img/icon.png'),
+                              width: getMobileSizeFromPercent(context, 10, false),
+                            ),
+                            Text(DateTime.now().year.toString() +
+                                "년 " +
+                                DateTime.now().month.toString() +
+                                "월 " +
+                                DateTime.now().day.toString() +
+                                "일 ", style: TextStyle(fontSize: logoDateFontSize),)
+                          ],
+                        ),
+                        onTap: (){
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  MainPage()), (route) => false);
+                        },
                       ),
-                      Container()
+                      Container(height: getMobileSizeFromPercent(context, 7, false),)
                     ],
                   ),
                 ),
@@ -179,29 +199,9 @@ class _Login extends State {
                                           MainPage()),
                                   (route) => false);
                             } else {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) => AlertDialog(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(16.0)),
-                                        title: Text(
-                                          "오류",
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        content: Text(
-                                          "아이디 또는 비밀번호가 잘못되었습니다.",
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        actions: <Widget>[
-                                          new TextButton(
-                                            child: new Text("확인"),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                          ),
-                                        ],
-                                      ));
+                              Fluttertoast.showToast(
+                                  msg:
+                                  "아이디 또는 비밀번호가 올바르지 않습니다.");
                             }
                           },
                           child: Card(
