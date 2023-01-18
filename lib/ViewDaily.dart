@@ -126,10 +126,10 @@ class _ViewDaily extends State<ViewDaily> {
                         ],
                       ),
 
-                      // 설명
+                      // 메모
                       Column(
                         children: [
-                          Text("설명", style: TextStyle(fontSize: titleFontSize)),
+                          Text("메모", style: TextStyle(fontSize: titleFontSize)),
                           Container(
                             height: 5,
                           ),
@@ -162,7 +162,7 @@ class _ViewDaily extends State<ViewDaily> {
 
                       // 반복 요일
                       Container(
-                        width: getMobileSizeFromPercent(context, 65, true),
+                        width: getMobileSizeFromPercent(context, 80, true),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -179,7 +179,7 @@ class _ViewDaily extends State<ViewDaily> {
 
                       // 알림
                       Container(
-                        width: getMobileSizeFromPercent(context, 65, true),
+                        width: getMobileSizeFromPercent(context, 80, true),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -407,6 +407,28 @@ class _ViewDaily extends State<ViewDaily> {
                               onPressed: () async {
                                 if (await deleteDaily() == 0) {
                                   Navigator.pop(context);
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(16.0)),
+                                        title: Text(
+                                          title,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        content: Text(
+                                          "성공적으로 삭제했습니다.",
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        actions: <Widget>[
+                                          new TextButton(
+                                            child: new Text("확인"),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                        ],
+                                      ));
                                 }
                               },
                             ),

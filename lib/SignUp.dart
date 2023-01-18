@@ -98,7 +98,7 @@ class SignUp extends StatelessWidget {
                               height:
                                   getMobileSizeFromPercent(context, 6, false),
                               child: TextField(
-                                obscureText:true,
+                                obscureText: true,
                                 controller: pwController,
                                 decoration: InputDecoration(
                                   hintText: '비밀번호',
@@ -125,7 +125,7 @@ class SignUp extends StatelessWidget {
                               height:
                                   getMobileSizeFromPercent(context, 6, false),
                               child: TextField(
-                                obscureText:true,
+                                obscureText: true,
                                 controller: pwcController,
                                 decoration: InputDecoration(
                                   hintText: '비밀번호 확인',
@@ -139,8 +139,8 @@ class SignUp extends StatelessWidget {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child:
-                                Text("뒤로 가기", style: TextStyle(fontSize: titleFontSize))),
+                            child: Text("뒤로 가기",
+                                style: TextStyle(fontSize: titleFontSize))),
                         Container(
                           height: 30,
                         ),
@@ -149,26 +149,58 @@ class SignUp extends StatelessWidget {
                         GestureDetector(
                           // 터치 메소드
                           onTap: () async {
-                            if (await postSignUp(idController.text, pwController.text, pwcController.text) == 0) {
+                            if (await postSignUp(idController.text,
+                                    pwController.text, pwcController.text) ==
+                                0) {
                               Navigator.pop(context);
+                              showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(16.0)),
+                                        title: Text(
+                                          "성공",
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        content: Text(
+                                          "회원가입을 완료했습니다.",
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        actions: <Widget>[
+                                          new TextButton(
+                                            child: new Text("확인"),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                        ],
+                                      ));
+                              
                             } else {
                               showDialog(
                                   context: context,
                                   builder: (context) => AlertDialog(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                        BorderRadius.circular(16.0)),
-                                    title: Text("오류", textAlign: TextAlign.center,),
-                                    content: Text("잘못된 정보입니다.", textAlign: TextAlign.center,),
-                                    actions: <Widget>[
-                                      new TextButton(
-                                        child: new Text("확인"),
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                      ),
-                                    ],
-                                  ));
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(16.0)),
+                                        title: Text(
+                                          "오류",
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        content: Text(
+                                          "잘못된 정보입니다.",
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        actions: <Widget>[
+                                          new TextButton(
+                                            child: new Text("확인"),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                        ],
+                                      ));
                             }
                           },
                           child: Card(
@@ -201,7 +233,7 @@ class SignUp extends StatelessWidget {
 
   /// 회원가입 메소드
   Future<int> postSignUp(String id, String pw1, String pw2) async {
-    if(pw1 != pw2){
+    if (pw1 != pw2) {
       return -1;
     }
     String postURI = hostURI + 'api/auth/signup';

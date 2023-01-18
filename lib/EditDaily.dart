@@ -55,7 +55,7 @@ class _EditDaily extends State<EditDaily> {
     // 제목
     titleController.text = "";
 
-    // 설명
+    // 메모
     contentController.text = "";
 
     // 요일 상태 리스트 업데이트
@@ -142,10 +142,10 @@ class _EditDaily extends State<EditDaily> {
                           ],
                         ),
 
-                        // 설명
+                        // 메모
                         Column(
                           children: [
-                            Text("설명",
+                            Text("메모",
                                 style: TextStyle(fontSize: titleFontSize)),
                             Container(
                               height: 5,
@@ -542,6 +542,28 @@ class _EditDaily extends State<EditDaily> {
                                 onPressed: () async {
                                   if(await editDaily()==0){
                                     Navigator.pop(context);
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(16.0)),
+                                          title: Text(
+                                            titleController.text,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          content: Text(
+                                            "성공적으로 수정했습니다.",
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          actions: <Widget>[
+                                            new TextButton(
+                                              child: new Text("확인"),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                          ],
+                                        ));
                                   }else {
                                     showDialog(
                                         context: context,

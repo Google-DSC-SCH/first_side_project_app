@@ -118,10 +118,10 @@ class _ViewGoal extends State<ViewGoal> {
                         ],
                       ),
 
-                      // 설명
+                      // 메모
                       Column(
                         children: [
-                          Text("설명", style: TextStyle(fontSize: titleFontSize)),
+                          Text("메모", style: TextStyle(fontSize: titleFontSize)),
                           Container(
                             height: 5,
                           ),
@@ -323,12 +323,40 @@ class _ViewGoal extends State<ViewGoal> {
                         height: 10,
                       ),
 
-                      // 뒤로가기
+                      // 하단 버튼
                       Container(
                         width: getMobileSizeFromPercent(context, 80, true),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+
+                            // 일기 페이지 이동
+                            if (selectedState == 0)
+                              Container(
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      //모서리를 둥글게
+                                        borderRadius:
+                                        BorderRadius.circular(16)),
+                                    primary: Color(color_skyBlue),
+                                    onPrimary: Colors.black,
+                                    minimumSize: Size(60, 40),
+                                    shadowColor: Colors.transparent,
+                                    elevation: 0,
+                                  ),
+                                  child: Text(
+                                    "일기",
+                                    style: TextStyle(fontSize: btnTitleFontSize),
+                                  ),
+                                  onPressed: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              View_Diary(goalId))),
+                                ),
+                              ),
+
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
@@ -375,37 +403,34 @@ class _ViewGoal extends State<ViewGoal> {
                               onPressed: () async {
                                 if (await deleteGoal() == 0) {
                                   Navigator.pop(context);
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(16.0)),
+                                        title: Text(
+                                          title,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        content: Text(
+                                          "성공적으로 삭제했습니다.",
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        actions: <Widget>[
+                                          new TextButton(
+                                            child: new Text("확인"),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                        ],
+                                      ));
                                 }
                               },
                             ),
 
-                            // 일기 페이지 이동
-                            if (selectedState == 0)
-                              Container(
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                        //모서리를 둥글게
-                                        borderRadius:
-                                            BorderRadius.circular(16)),
-                                    primary: Color(color_mint),
-                                    onPrimary: Colors.black,
-                                    minimumSize: Size(60, 40),
-                                    shadowColor: Colors.transparent,
-                                    elevation: 0,
-                                  ),
-                                  child: Text(
-                                    "일기",
-                                    style: TextStyle(fontSize: btnTitleFontSize),
-                                  ),
-                                  onPressed: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (BuildContext context) =>
-                                              View_Diary(goalId))),
-                                ),
-                              ),
 
+                            // 뒤로가기 버튼
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(

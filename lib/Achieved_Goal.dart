@@ -109,17 +109,17 @@ class _AchievedGoal extends State<AchievedGoal> {
                         ),
                       ],
                     ),
-                    Card(
-                      shape: RoundedRectangleBorder(
-                        //모서리를 둥글게 하기 위해 사용
-                        borderRadius: BorderRadius.circular(16.0),
-                      ),
-                      color: Color(color_mint),
-                      elevation: 0, // 그림자 깊이
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          //모서리를 둥글게 하기 위해 사용
+                          borderRadius: BorderRadius.circular(16.0),
+                        ),
+                        color: Color(color_mint),
+                        elevation: 0, // 그림자 깊이
                         child: Container(
                             alignment: Alignment.center,
                             padding: EdgeInsets.all(5),
