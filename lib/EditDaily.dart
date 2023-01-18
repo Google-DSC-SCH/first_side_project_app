@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:first_side_project_app/ViewDaily.dart';
 import 'package:flutter/material.dart';
 import 'BaseFile.dart';
+import 'MainPage.dart';
 
 class EditDaily extends StatefulWidget {
   int dailyId = -1;
@@ -38,9 +39,6 @@ class _EditDaily extends State<EditDaily> {
 
   // 알림 시간
   String alertTime = "13:00";
-
-  // 위젯간 간격(세로)
-  double titleFontSize = 17;
 
   _EditDaily(int id){
     this.dayilyId = id;
@@ -84,16 +82,35 @@ class _EditDaily extends State<EditDaily> {
               appBar: PreferredSize(
                 preferredSize: Size.fromHeight(
                     getMobileSizeFromPercent(context, 18, false)),
+                // 헤더
                 child: Container(
                   color: Colors.transparent,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        child: Image.asset('assets/img/icon.png'),
-                        height: getMobileSizeFromPercent(context, 10, false),
+                      GestureDetector(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              child: Image.asset('assets/img/icon.png'),
+                              width: getMobileSizeFromPercent(context, 10, false),
+                            ),
+                            Text(DateTime.now().year.toString() +
+                                "년 " +
+                                DateTime.now().month.toString() +
+                                "월 " +
+                                DateTime.now().day.toString() +
+                                "일 ", style: TextStyle(fontSize: logoDateFontSize),)
+                          ],
+                        ),
+                        onTap: (){
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  MainPage()), (route) => false);
+                        },
                       ),
-                      Container()
+                      Container(height: getMobileSizeFromPercent(context, 7, false),)
                     ],
                   ),
                 ),
@@ -440,7 +457,7 @@ class _EditDaily extends State<EditDaily> {
                                     child: Text(
                                       alertState,
                                       style: TextStyle(
-                                          fontSize: titleFontSize,
+                                          fontSize: alertStateFontSize,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
@@ -484,7 +501,7 @@ class _EditDaily extends State<EditDaily> {
                                               alertTime.split(":")[1] +
                                               "분",
                                       style: TextStyle(
-                                          fontSize: titleFontSize),
+                                          fontSize: alertTimeFontSize),
                                     ),
                                   ),
                                 ),

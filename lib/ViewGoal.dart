@@ -24,13 +24,10 @@ class _ViewGoal extends State<ViewGoal> {
   String content = "";
   String duoDay = "";
   String alarmOnOff = "";
-  String alertTime = "";
+  String alertTime = "9:0";
 
   // 완료 여부, 0: 완료, 1:미완료
   int selectedState = 0;
-
-  // 위젯간 간격(세로)
-  double titleFontSize = 17;
 
   _ViewGoal(int id) {
     this.goalId = id;
@@ -60,16 +57,35 @@ class _ViewGoal extends State<ViewGoal> {
             appBar: PreferredSize(
               preferredSize:
                   Size.fromHeight(getMobileSizeFromPercent(context, 18, false)),
+              // 헤더
               child: Container(
                 color: Colors.transparent,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      child: Image.asset('assets/img/icon.png'),
-                      height: getMobileSizeFromPercent(context, 10, false),
+                    GestureDetector(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            child: Image.asset('assets/img/icon.png'),
+                            width: getMobileSizeFromPercent(context, 10, false),
+                          ),
+                          Text(DateTime.now().year.toString() +
+                              "년 " +
+                              DateTime.now().month.toString() +
+                              "월 " +
+                              DateTime.now().day.toString() +
+                              "일 ", style: TextStyle(fontSize: logoDateFontSize),)
+                        ],
+                      ),
+                      onTap: (){
+                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                MainPage()), (route) => false);
+                      },
                     ),
-                    Container()
+                    Container(height: getMobileSizeFromPercent(context, 7, false),)
                   ],
                 ),
               ),
@@ -109,7 +125,7 @@ class _ViewGoal extends State<ViewGoal> {
                                     children: [
                                       Text(
                                         this.title,
-                                        style: TextStyle(fontSize: titleFontSize),
+                                        style: TextStyle(fontSize: viewTitleFontSize),
                                       )
                                     ],
                                   ),
@@ -163,7 +179,7 @@ class _ViewGoal extends State<ViewGoal> {
                             Text(
                               this.duoDay,
                               textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: titleFontSize),
+                              style: TextStyle(fontSize: duoDayFontSize),
                             )
                           ],
                         ),
@@ -184,14 +200,29 @@ class _ViewGoal extends State<ViewGoal> {
                                 ),
                                 Text(this.alarmOnOff,
                                     style: TextStyle(
-                                        fontSize: titleFontSize,
+                                        fontSize: alertStateFontSize,
                                         fontWeight: FontWeight.bold)),
                               ],
                             ),
                             Text(
-                              alertTime,
+                              int.parse(alertTime.split(":")[0]) >= 12
+                                  ? "오후 " +
+                                  (alertTime.split(":")[0] == "12"
+                                      ? 12
+                                      : (int.parse(alertTime
+                                      .split(":")[0]) %
+                                      12))
+                                      .toString() +
+                                  "시 " +
+                                  alertTime.split(":")[1] +
+                                  "분"
+                                  : "오전 " +
+                                  alertTime.split(":")[0] +
+                                  "시 " +
+                                  alertTime.split(":")[1] +
+                                  "분",
                               style: TextStyle(
-                                fontSize: titleFontSize,
+                                fontSize: alertTimeFontSize,
                               ),
                               textAlign: TextAlign.center,
                             )
@@ -228,7 +259,7 @@ class _ViewGoal extends State<ViewGoal> {
                                       child: Text(
                                         "완료",
                                         style: TextStyle(
-                                          fontSize: titleFontSize,
+                                          fontSize: goalStateFontSize,
                                         ),
                                       ),
                                     ),
@@ -281,7 +312,7 @@ class _ViewGoal extends State<ViewGoal> {
                                       child: Text(
                                         "미완료",
                                         style: TextStyle(
-                                          fontSize: titleFontSize,
+                                          fontSize: goalStateFontSize,
                                         ),
                                       ),
                                     ),

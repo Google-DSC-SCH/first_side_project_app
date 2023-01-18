@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:first_side_project_app/ViewGoal.dart';
 import 'package:flutter/material.dart';
 import 'BaseFile.dart';
+import 'MainPage.dart';
 
 class EditGoal extends StatefulWidget {
   int goalId = -1;
@@ -66,16 +67,35 @@ class _EditGoal extends State<EditGoal> {
               appBar: PreferredSize(
                 preferredSize: Size.fromHeight(
                     getMobileSizeFromPercent(context, 18, false)),
+                // 헤더
                 child: Container(
                   color: Colors.transparent,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        child: Image.asset('assets/img/icon.png'),
-                        height: getMobileSizeFromPercent(context, 10, false),
+                      GestureDetector(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              child: Image.asset('assets/img/icon.png'),
+                              width: getMobileSizeFromPercent(context, 10, false),
+                            ),
+                            Text(DateTime.now().year.toString() +
+                                "년 " +
+                                DateTime.now().month.toString() +
+                                "월 " +
+                                DateTime.now().day.toString() +
+                                "일 ", style: TextStyle(fontSize: logoDateFontSize),)
+                          ],
+                        ),
+                        onTap: (){
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  MainPage()), (route) => false);
+                        },
                       ),
-                      Container()
+                      Container(height: getMobileSizeFromPercent(context, 7, false),)
                     ],
                   ),
                 ),
@@ -179,7 +199,7 @@ class _EditGoal extends State<EditGoal> {
                                     width: 150,
                                     height: 40,
                                     child: Text(this.duoDay,
-                                        style: TextStyle(fontSize: titleFontSize)),
+                                        style: TextStyle(fontSize: duoDayFontSize)),
                                   ),
                                 ),
                                 onTap: () {
@@ -236,7 +256,7 @@ class _EditGoal extends State<EditGoal> {
                                     child: Text(
                                       alertState,
                                       style: TextStyle(
-                                          fontSize: titleFontSize,
+                                          fontSize: alertStateFontSize,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
@@ -279,7 +299,7 @@ class _EditGoal extends State<EditGoal> {
                                               "시 " +
                                               alertTime.split(":")[1] +
                                               "분",
-                                      style: TextStyle(fontSize: titleFontSize),
+                                      style: TextStyle(fontSize: alertTimeFontSize),
                                     ),
                                   ),
                                 ),
@@ -335,7 +355,7 @@ class _EditGoal extends State<EditGoal> {
                                         child: Text(
                                           "완료",
                                           style: TextStyle(
-                                            fontSize: btnTitleFontSize,
+                                            fontSize: goalStateFontSize,
                                           ),
                                         ),
                                       ),
@@ -368,7 +388,7 @@ class _EditGoal extends State<EditGoal> {
                                         child: Text(
                                           "미완료",
                                           style: TextStyle(
-                                            fontSize: btnTitleFontSize,
+                                            fontSize: goalStateFontSize,
                                           ),
                                         ),
                                       ),

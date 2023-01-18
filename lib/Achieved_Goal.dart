@@ -12,8 +12,6 @@ class AchievedGoal extends StatefulWidget {
 }
 
 class _AchievedGoal extends State<AchievedGoal> {
-  // 위젯간 간격(세로)
-  double titleFontSize = 17;
 
   List goalList = [];
 
@@ -41,13 +39,31 @@ class _AchievedGoal extends State<AchievedGoal> {
               child: Container(
                 color: Colors.transparent,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      child: Image.asset('assets/img/icon.png'),
-                      height: getMobileSizeFromPercent(context, 10, false),
+                    GestureDetector(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            child: Image.asset('assets/img/icon.png'),
+                            width: getMobileSizeFromPercent(context, 10, false),
+                          ),
+                          Text(DateTime.now().year.toString() +
+                              "년 " +
+                              DateTime.now().month.toString() +
+                              "월 " +
+                              DateTime.now().day.toString() +
+                              "일 ", style: TextStyle(fontSize: logoDateFontSize),)
+                        ],
+                      ),
+                      onTap: (){
+                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                MainPage()), (route) => false);
+                      },
                     ),
-                    Container()
+                    Container(height: getMobileSizeFromPercent(context, 7, false),)
                   ],
                 ),
               ),

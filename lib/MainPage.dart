@@ -16,7 +16,8 @@ class MainPage extends StatefulWidget {
   State<MainPage> createState() => Real_Main();
 }
 
-class Real_Main extends State<MainPage> {
+class Real_Main extends State<MainPage> with WidgetsBindingObserver
+{
   // 정보를 가져올 날짜
   String date = "";
 
@@ -31,7 +32,7 @@ class Real_Main extends State<MainPage> {
     // TODO: implement initState
     super.initState();
     date = getToday();
-
+    WidgetsBinding.instance.addObserver(this);
     setState(() {
       getMain(getToday());
     });
@@ -39,9 +40,19 @@ class Real_Main extends State<MainPage> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
-    print("로그아웃");
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // TODO: implement didChangeAppLifecycleState
+    super.didChangeAppLifecycleState(state);
+    switch(state){
+      case AppLifecycleState.detached:
+        logout();
+        break;
+    }
   }
 
   @override
@@ -70,7 +81,7 @@ class Real_Main extends State<MainPage> {
                         children: [
                           Container(
                             child: Image.asset('assets/img/icon.png'),
-                            width: getMobileSizeFromPercent(context, 20, true),
+                            width: getMobileSizeFromPercent(context, 10, false),
                           ),
                           Text(DateTime.now().year.toString() +
                               "년 " +
@@ -101,16 +112,6 @@ class Real_Main extends State<MainPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    /// 오늘 날짜
-                    Text(
-                        date.substring(0, 4) +
-                            "년 " +
-                            date.substring(4, 6) +
-                            "월 " +
-                            date.substring(6, 8) +
-                            "일",
-                        style: TextStyle(fontSize: subTitleFontSize)),
-
                     /// 장기목표
                     Stack(
                       children: [
@@ -148,7 +149,7 @@ class Real_Main extends State<MainPage> {
                                   width: getMobileSizeFromPercent(
                                       context, 80, true),
                                   height: getMobileSizeFromPercent(
-                                      context, 25, false),
+                                      context, 20, false),
                                   child: ListView.builder(
                                     itemCount: goalList.length,
                                     itemBuilder: (context, index) => Card(
@@ -245,7 +246,7 @@ class Real_Main extends State<MainPage> {
                                   width: getMobileSizeFromPercent(
                                       context, 80, true),
                                   height: getMobileSizeFromPercent(
-                                      context, 25, false),
+                                      context, 35, false),
                                   child: ListView.builder(
                                     itemCount: dailyList.length,
                                     itemBuilder: (context, index) => Card(
@@ -438,6 +439,7 @@ class Real_Main extends State<MainPage> {
     dio.options.headers['jwt-auth-refresh-token'] = refreshToken;
     try {
       var res = await dio.get(getMainURI);
+      print("삐삐");
 
       // 모든 알림 제거
       cancelNotification();
@@ -626,6 +628,23 @@ class Real_Main extends State<MainPage> {
               ));
     }
     return -1;
+  }
+
+  /// 로그아웃 메소드
+  Future<int> logout() async {
+    String postURI = hostURI + 'api/auth/signout';
+    Dio dio = Dio();
+    try {
+      // var response = await dio.post(postURI);
+      // token = response.data['accessToken'];
+      // refreshToken = response.data['refreshToken'];
+      print("sucessLogout");
+      return 0;
+    } catch (e) {
+      print(e);
+      print("logout Err");
+      return -1;
+    }
   }
 }
 

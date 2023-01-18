@@ -25,9 +25,6 @@ class _CreateGoal extends State<CreateGoal> {
   String alertTime = "09:00";
   String? selectedTime;
 
-  // 위젯간 간격(세로)
-  double titleFontSize = 17;
-
   // 페이지 나타날때 동작
   @override
   void initState() {
@@ -57,16 +54,35 @@ class _CreateGoal extends State<CreateGoal> {
               appBar: PreferredSize(
                 preferredSize: Size.fromHeight(
                     getMobileSizeFromPercent(context, 18, false)),
+                // 헤더
                 child: Container(
                   color: Colors.transparent,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        child: Image.asset('assets/img/icon.png'),
-                        height: getMobileSizeFromPercent(context, 10, false),
+                      GestureDetector(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              child: Image.asset('assets/img/icon.png'),
+                              width: getMobileSizeFromPercent(context, 10, false),
+                            ),
+                            Text(DateTime.now().year.toString() +
+                                "년 " +
+                                DateTime.now().month.toString() +
+                                "월 " +
+                                DateTime.now().day.toString() +
+                                "일 ", style: TextStyle(fontSize: logoDateFontSize),)
+                          ],
+                        ),
+                        onTap: (){
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  MainPage()), (route) => false);
+                        },
                       ),
-                      Container()
+                      Container(height: getMobileSizeFromPercent(context, 7, false),)
                     ],
                   ),
                 ),
@@ -171,7 +187,7 @@ class _CreateGoal extends State<CreateGoal> {
                                     height: 40,
                                     child: Text(this.duoDay,
                                         style:
-                                            TextStyle(fontSize: titleFontSize)),
+                                            TextStyle(fontSize: duoDayFontSize)),
                                   ),
                                 ),
                                 onTap: () {
@@ -228,7 +244,7 @@ class _CreateGoal extends State<CreateGoal> {
                                     child: Text(
                                       alertState,
                                       style: TextStyle(
-                                          fontSize: titleFontSize,
+                                          fontSize: alertStateFontSize,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
@@ -271,7 +287,7 @@ class _CreateGoal extends State<CreateGoal> {
                                               "시 " +
                                               alertTime.split(":")[1] +
                                               "분",
-                                      style: TextStyle(fontSize: titleFontSize),
+                                      style: TextStyle(fontSize: alertTimeFontSize),
                                     ),
                                   ),
                                 ),
@@ -327,7 +343,7 @@ class _CreateGoal extends State<CreateGoal> {
                                         child: Text(
                                           "완료",
                                           style: TextStyle(
-                                            fontSize: 20,
+                                            fontSize: goalStateFontSize,
                                           ),
                                         ),
                                       ),
@@ -360,7 +376,7 @@ class _CreateGoal extends State<CreateGoal> {
                                         child: Text(
                                           "미완료",
                                           style: TextStyle(
-                                            fontSize: titleFontSize,
+                                            fontSize: goalStateFontSize,
                                           ),
                                         ),
                                       ),
