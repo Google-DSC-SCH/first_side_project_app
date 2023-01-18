@@ -6,13 +6,12 @@ import 'BaseFile.dart';
 import 'MainPage.dart';
 
 class EditDiary extends StatelessWidget {
-  // 위젯간 간격(세로)
-  double titleFontSize = 17;
   TextEditingController contentController = TextEditingController();
 
   int goalId = -1;
   int diaryId = -1;
-  EditDiary(int id, int diaryId, String content){
+
+  EditDiary(int id, int diaryId, String content) {
     this.goalId = id;
     this.diaryId = diaryId;
     contentController.text = content;
@@ -35,8 +34,8 @@ class EditDiary extends StatelessWidget {
           child: Scaffold(
               backgroundColor: Colors.transparent,
               appBar: PreferredSize(
-                preferredSize:
-                    Size.fromHeight(getMobileSizeFromPercent(context, 18, false)),
+                preferredSize: Size.fromHeight(
+                    getMobileSizeFromPercent(context, 18, false)),
                 child: Container(
                   color: Colors.transparent,
                   child: Column(
@@ -62,9 +61,9 @@ class EditDiary extends StatelessWidget {
                     child: Column(
                       children: [
                         Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Text("후기 작성",
+                            Text("일기 작성",
                                 style: TextStyle(fontSize: titleFontSize)),
                             Container(
                               height: 5,
@@ -78,10 +77,10 @@ class EditDiary extends StatelessWidget {
                               elevation: 0, // 그림자 깊이
                               child: Container(
                                   padding: EdgeInsets.all(10),
-                                  width:
-                                      getMobileSizeFromPercent(context, 80, true),
-                                  height:
-                                      getMobileSizeFromPercent(context, 50, false),
+                                  width: getMobileSizeFromPercent(
+                                      context, 80, true),
+                                  height: getMobileSizeFromPercent(
+                                      context, 50, false),
                                   child: TextField(
                                     controller: contentController,
                                     // 꾸미기
@@ -92,8 +91,8 @@ class EditDiary extends StatelessWidget {
                                         // 둘그런 형태
                                         border: OutlineInputBorder(
                                           borderSide: BorderSide.none,
-                                          borderRadius:
-                                              BorderRadius.all(Radius.circular(16)),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(16)),
                                         ),
                                         contentPadding: EdgeInsets.all(5)),
                                     style: TextStyle(fontSize: 30),
@@ -109,38 +108,44 @@ class EditDiary extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 /// 완료 버튼
-                                Card(
-                                  shape: RoundedRectangleBorder(
-                                    //모서리를 둥글게 하기 위해 사용
-                                    borderRadius: BorderRadius.circular(16.0),
-                                  ),
-                                  color: Color(color_mint),
-                                  elevation: 0, // 그림자 깊이
-                                  child: GestureDetector(
-                                    onTap: () async {
-                                      if(await editDiary() == 0){
+                                GestureDetector(
+                                  onTap: () async {
+                                    if (await editDiary() == 0) {
                                       Navigator.pop(context);
-
-                                      }else {
-                                        showDialog(
-                                            context: context,
-                                            builder: (context) => AlertDialog(
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                  BorderRadius.circular(16.0)),
-                                              title: Text("오류", textAlign: TextAlign.center,),
-                                              content: Text("수정을 실패했습니다.", textAlign: TextAlign.center,),
-                                              actions: <Widget>[
-                                                new TextButton(
-                                                  child: new Text("확인"),
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
+                                    } else {
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) => AlertDialog(
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            16.0)),
+                                                title: Text(
+                                                  "오류",
+                                                  textAlign: TextAlign.center,
                                                 ),
-                                              ],
-                                            ));
-                                      }
-                                    },
+                                                content: Text(
+                                                  "일기 작성을 실패했습니다.",
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                actions: <Widget>[
+                                                  new TextButton(
+                                                    child: new Text("확인"),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                  ),
+                                                ],
+                                              ));
+                                    }
+                                  },
+                                  child: Card(
+                                    shape: RoundedRectangleBorder(
+                                      //모서리를 둥글게 하기 위해 사용
+                                      borderRadius: BorderRadius.circular(16.0),
+                                    ),
+                                    color: Color(color_mint),
+                                    elevation: 0, // 그림자 깊이
                                     child: Container(
                                         alignment: Alignment.center,
                                         padding: EdgeInsets.all(5),
@@ -151,24 +156,24 @@ class EditDiary extends StatelessWidget {
                                         child: Text(
                                           "완료",
                                           style: TextStyle(
-                                            fontSize: 25,
+                                            fontSize: btnTitleFontSize,
                                           ),
                                         )),
                                   ),
                                 ),
 
                                 /// 취소 버튼
-                                Card(
-                                  shape: RoundedRectangleBorder(
-                                    //모서리를 둥글게 하기 위해 사용
-                                    borderRadius: BorderRadius.circular(16.0),
-                                  ),
-                                  color: Color(color_mint),
-                                  elevation: 0, // 그림자 깊이
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                    },
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Card(
+                                    shape: RoundedRectangleBorder(
+                                      //모서리를 둥글게 하기 위해 사용
+                                      borderRadius: BorderRadius.circular(16.0),
+                                    ),
+                                    color: Color(color_mint),
+                                    elevation: 0, // 그림자 깊이
                                     child: Container(
                                         alignment: Alignment.center,
                                         padding: EdgeInsets.all(5),
@@ -179,7 +184,7 @@ class EditDiary extends StatelessWidget {
                                         child: Text(
                                           "취소",
                                           style: TextStyle(
-                                            fontSize: 25,
+                                            fontSize: btnTitleFontSize,
                                           ),
                                         )),
                                   ),
@@ -194,7 +199,7 @@ class EditDiary extends StatelessWidget {
 
   /// 일기 수정
   Future<int> editDiary() async {
-    String editDiaryURI = hostURI + 'api/diary/'+diaryId.toString() ;
+    String editDiaryURI = hostURI + 'api/diary/' + diaryId.toString();
     Map body = {
       'content': contentController.text.toString(),
     };

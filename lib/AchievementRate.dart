@@ -171,7 +171,7 @@ class _AchievementRate extends State<AchievementRate> {
                               today.substring(0, 4) +
                                   " - " +
                                   today.substring(4, 6),
-                              style: TextStyle(fontSize: 30)),
+                              style: TextStyle(fontSize: titleFontSize)),
 
                           Container(),
 
@@ -188,49 +188,49 @@ class _AchievementRate extends State<AchievementRate> {
                                   "월",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: 25,
+                                    fontSize: dayFontSize,
                                   ),
                                 ),
                                 Text(
                                   "화",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: 25,
+                                    fontSize: dayFontSize,
                                   ),
                                 ),
                                 Text(
                                   "수",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: 25,
+                                    fontSize: dayFontSize,
                                   ),
                                 ),
                                 Text(
                                   "목",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: 25,
+                                    fontSize: dayFontSize,
                                   ),
                                 ),
                                 Text(
                                   "금",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: 25,
+                                    fontSize: dayFontSize,
                                   ),
                                 ),
                                 Text(
                                   "토",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: 25,
+                                    fontSize: dayFontSize,
                                   ),
                                 ),
                                 Text(
                                   "일",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: 25,
+                                    fontSize: dayFontSize,
                                   ),
                                 ),
                               ],
@@ -310,7 +310,7 @@ class _AchievementRate extends State<AchievementRate> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text("0 %",
-                                              style: TextStyle(fontSize: 20)),
+                                              style: TextStyle(fontSize: titleFontSize)),
                                           Container(
                                               width: (getMobileSizeFromPercent(
                                                           context, 80, true) -
@@ -343,7 +343,7 @@ class _AchievementRate extends State<AchievementRate> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text("~49 %",
-                                              style: TextStyle(fontSize: 20)),
+                                              style: TextStyle(fontSize: titleFontSize)),
                                           Container(
                                               width: (getMobileSizeFromPercent(
                                                           context, 80, true) -
@@ -382,7 +382,7 @@ class _AchievementRate extends State<AchievementRate> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text("~99 %",
-                                              style: TextStyle(fontSize: 20)),
+                                              style: TextStyle(fontSize: titleFontSize)),
                                           Container(
                                               width: (getMobileSizeFromPercent(
                                                           context, 80, true) -
@@ -415,7 +415,7 @@ class _AchievementRate extends State<AchievementRate> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text("100 %",
-                                              style: TextStyle(fontSize: 20)),
+                                              style: TextStyle(fontSize: titleFontSize)),
                                           Container(
                                               width: (getMobileSizeFromPercent(
                                                           context, 80, true) -
@@ -463,7 +463,7 @@ class _AchievementRate extends State<AchievementRate> {
                               ),
                               child: Text(
                                 "달성한 목표",
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(fontSize: btnTitleFontSize),
                               ),
                               onPressed: () {
                                 Navigator.push(
@@ -489,7 +489,7 @@ class _AchievementRate extends State<AchievementRate> {
                               ),
                               child: Text(
                                 "뒤로가기",
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(fontSize: btnTitleFontSize),
                               ),
                               onPressed: () => Navigator.pop(context),
                             ),

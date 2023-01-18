@@ -115,10 +115,10 @@ class _CreateGoal extends State<CreateGoal> {
                           ],
                         ),
 
-                        /// 설명
+                        /// 메모
                         Column(
                           children: [
-                            Text("설명",
+                            Text("메모",
                                 style: TextStyle(fontSize: titleFontSize)),
                             Container(
                               height: 5,
@@ -170,7 +170,8 @@ class _CreateGoal extends State<CreateGoal> {
                                     width: 150,
                                     height: 40,
                                     child: Text(this.duoDay,
-                                        style: TextStyle(fontSize: 20)),
+                                        style:
+                                            TextStyle(fontSize: titleFontSize)),
                                   ),
                                 ),
                                 onTap: () {
@@ -227,7 +228,7 @@ class _CreateGoal extends State<CreateGoal> {
                                     child: Text(
                                       alertState,
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: titleFontSize,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
@@ -270,7 +271,7 @@ class _CreateGoal extends State<CreateGoal> {
                                               "시 " +
                                               alertTime.split(":")[1] +
                                               "분",
-                                      style: TextStyle(fontSize: 20),
+                                      style: TextStyle(fontSize: titleFontSize),
                                     ),
                                   ),
                                 ),
@@ -359,7 +360,7 @@ class _CreateGoal extends State<CreateGoal> {
                                         child: Text(
                                           "미완료",
                                           style: TextStyle(
-                                            fontSize: 20,
+                                            fontSize: titleFontSize,
                                           ),
                                         ),
                                       ),
@@ -386,7 +387,7 @@ class _CreateGoal extends State<CreateGoal> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                                /// 완료 버튼
+                              /// 완료 버튼
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
@@ -403,30 +404,60 @@ class _CreateGoal extends State<CreateGoal> {
                                 ),
                                 child: Text(
                                   "완료",
-                                  style: TextStyle(fontSize: 20),
+                                  style: TextStyle(fontSize: btnTitleFontSize),
                                 ),
                                 onPressed: () async {
-                                  if(await createGoal() == 0){
-                                  Navigator.pop(context);
-                                    
-                                  }else {
+                                  if (await createGoal() == 0) {
+                                    Navigator.pop(context);
                                     showDialog(
                                         context: context,
                                         builder: (context) => AlertDialog(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                              BorderRadius.circular(16.0)),
-                                          title: Text("오류", textAlign: TextAlign.center,),
-                                          content: Text("등록 실패했습니다.", textAlign: TextAlign.center,),
-                                          actions: <Widget>[
-                                            new TextButton(
-                                              child: new Text("확인"),
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                            ),
-                                          ],
-                                        ));
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          16.0)),
+                                              title: Text(
+                                                titleController.text,
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              content: Text(
+                                                "성공적으로 추가했습니다.",
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              actions: <Widget>[
+                                                new TextButton(
+                                                  child: new Text("확인"),
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                ),
+                                              ],
+                                            ));
+                                  } else {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          16.0)),
+                                              title: Text(
+                                                "오류",
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              content: Text(
+                                                "등록 실패했습니다.",
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              actions: <Widget>[
+                                                new TextButton(
+                                                  child: new Text("확인"),
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                ),
+                                              ],
+                                            ));
                                   }
                                 },
                               ),
@@ -447,7 +478,7 @@ class _CreateGoal extends State<CreateGoal> {
                                 ),
                                 child: Text(
                                   "취소",
-                                  style: TextStyle(fontSize: 20),
+                                  style: TextStyle(fontSize: btnTitleFontSize),
                                 ),
                                 onPressed: () => Navigator.pop(context),
                               ),
@@ -466,7 +497,7 @@ class _CreateGoal extends State<CreateGoal> {
 
   /// 수정
   Future<int> createGoal() async {
-    if(titleController.text == ""){
+    if (titleController.text == "") {
       return -1;
     }
 

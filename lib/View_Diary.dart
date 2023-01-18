@@ -73,7 +73,7 @@ class ViewDiary extends State<View_Diary> {
                   children: [
                     Column(
                       children: [
-                        Text("후기", style: TextStyle(fontSize: titleFontSize)),
+                        Text("일기", style: TextStyle(fontSize: titleFontSize)),
                         Container(
                           height: 5,
                         ),
@@ -95,7 +95,7 @@ class ViewDiary extends State<View_Diary> {
                             child: SingleChildScrollView(
                                 child: Text(
                               content,
-                              style: TextStyle(fontSize: 30),
+                              style: TextStyle(fontSize: diaryContentFontSize),
                             )),
                           ),
                         ),
@@ -121,8 +121,8 @@ class ViewDiary extends State<View_Diary> {
                               elevation: 0,
                             ),
                             child: Text(
-                              "수정",
-                              style: TextStyle(fontSize: 20),
+                              content == "" ? "일기쓰기" : "수정",
+                              style: TextStyle(fontSize: btnTitleFontSize),
                             ),
                             onPressed: () => Navigator.push(
                                 context,
@@ -149,7 +149,7 @@ class ViewDiary extends State<View_Diary> {
                               ),
                               child: Text(
                                 "뒤로",
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(fontSize: btnTitleFontSize),
                               ),
                               onPressed: () => Navigator.pop(context)),
                         ],

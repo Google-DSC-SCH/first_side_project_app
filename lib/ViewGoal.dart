@@ -109,7 +109,7 @@ class _ViewGoal extends State<ViewGoal> {
                                     children: [
                                       Text(
                                         this.title,
-                                        style: TextStyle(fontSize: 21),
+                                        style: TextStyle(fontSize: titleFontSize),
                                       )
                                     ],
                                   ),
@@ -118,10 +118,10 @@ class _ViewGoal extends State<ViewGoal> {
                         ],
                       ),
 
-                      // 설명
+                      // 메모
                       Column(
                         children: [
-                          Text("설명", style: TextStyle(fontSize: titleFontSize)),
+                          Text("메모", style: TextStyle(fontSize: titleFontSize)),
                           Container(
                             height: 5,
                           ),
@@ -143,7 +143,7 @@ class _ViewGoal extends State<ViewGoal> {
                                     children: [
                                       Text(
                                         this.content,
-                                        style: TextStyle(fontSize: 15),
+                                        style: TextStyle(fontSize: viewContentFontSize),
                                       ),
                                     ],
                                   ),
@@ -163,7 +163,7 @@ class _ViewGoal extends State<ViewGoal> {
                             Text(
                               this.duoDay,
                               textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 25),
+                              style: TextStyle(fontSize: titleFontSize),
                             )
                           ],
                         ),
@@ -184,14 +184,14 @@ class _ViewGoal extends State<ViewGoal> {
                                 ),
                                 Text(this.alarmOnOff,
                                     style: TextStyle(
-                                        fontSize: 25,
+                                        fontSize: titleFontSize,
                                         fontWeight: FontWeight.bold)),
                               ],
                             ),
                             Text(
                               alertTime,
                               style: TextStyle(
-                                fontSize: 25,
+                                fontSize: titleFontSize,
                               ),
                               textAlign: TextAlign.center,
                             )
@@ -228,7 +228,7 @@ class _ViewGoal extends State<ViewGoal> {
                                       child: Text(
                                         "완료",
                                         style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: titleFontSize,
                                         ),
                                       ),
                                     ),
@@ -281,7 +281,7 @@ class _ViewGoal extends State<ViewGoal> {
                                       child: Text(
                                         "미완료",
                                         style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: titleFontSize,
                                         ),
                                       ),
                                     ),
@@ -323,12 +323,40 @@ class _ViewGoal extends State<ViewGoal> {
                         height: 10,
                       ),
 
-                      // 뒤로가기
+                      // 하단 버튼
                       Container(
                         width: getMobileSizeFromPercent(context, 80, true),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+
+                            // 일기 페이지 이동
+                            if (selectedState == 0)
+                              Container(
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      //모서리를 둥글게
+                                        borderRadius:
+                                        BorderRadius.circular(16)),
+                                    primary: Color(color_skyBlue),
+                                    onPrimary: Colors.black,
+                                    minimumSize: Size(60, 40),
+                                    shadowColor: Colors.transparent,
+                                    elevation: 0,
+                                  ),
+                                  child: Text(
+                                    "일기",
+                                    style: TextStyle(fontSize: btnTitleFontSize),
+                                  ),
+                                  onPressed: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              View_Diary(goalId))),
+                                ),
+                              ),
+
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
@@ -344,7 +372,7 @@ class _ViewGoal extends State<ViewGoal> {
                               ),
                               child: Text(
                                 "수정",
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(fontSize: btnTitleFontSize),
                               ),
                               onPressed: () => Navigator.push(
                                   context,
@@ -370,42 +398,39 @@ class _ViewGoal extends State<ViewGoal> {
                               ),
                               child: Text(
                                 "삭제",
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(fontSize: btnTitleFontSize),
                               ),
                               onPressed: () async {
                                 if (await deleteGoal() == 0) {
                                   Navigator.pop(context);
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(16.0)),
+                                        title: Text(
+                                          title,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        content: Text(
+                                          "성공적으로 삭제했습니다.",
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        actions: <Widget>[
+                                          new TextButton(
+                                            child: new Text("확인"),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                        ],
+                                      ));
                                 }
                               },
                             ),
 
-                            // 일기 페이지 이동
-                            if (selectedState == 0)
-                              Container(
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                        //모서리를 둥글게
-                                        borderRadius:
-                                            BorderRadius.circular(16)),
-                                    primary: Color(color_mint),
-                                    onPrimary: Colors.black,
-                                    minimumSize: Size(60, 40),
-                                    shadowColor: Colors.transparent,
-                                    elevation: 0,
-                                  ),
-                                  child: Text(
-                                    "일기",
-                                    style: TextStyle(fontSize: 20),
-                                  ),
-                                  onPressed: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (BuildContext context) =>
-                                              View_Diary(goalId))),
-                                ),
-                              ),
 
+                            // 뒤로가기 버튼
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
@@ -420,7 +445,7 @@ class _ViewGoal extends State<ViewGoal> {
                               ),
                               child: Text(
                                 "뒤로",
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(fontSize: btnTitleFontSize),
                               ),
                               onPressed: () {
                                 Navigator.pop(context);

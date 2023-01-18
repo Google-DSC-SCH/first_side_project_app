@@ -117,7 +117,7 @@ class _ViewDaily extends State<ViewDaily> {
                                     children: [
                                       Text(
                                         this.title,
-                                        style: TextStyle(fontSize: 21),
+                                        style: TextStyle(fontSize: titleFontSize),
                                       )
                                     ],
                                   ),
@@ -126,10 +126,10 @@ class _ViewDaily extends State<ViewDaily> {
                         ],
                       ),
 
-                      // 설명
+                      // 메모
                       Column(
                         children: [
-                          Text("설명", style: TextStyle(fontSize: titleFontSize)),
+                          Text("메모", style: TextStyle(fontSize: titleFontSize)),
                           Container(
                             height: 5,
                           ),
@@ -151,7 +151,7 @@ class _ViewDaily extends State<ViewDaily> {
                                     children: [
                                       Text(
                                         this.content,
-                                        style: TextStyle(fontSize: 15),
+                                        style: TextStyle(fontSize: viewContentFontSize),
                                       ),
                                     ],
                                   ),
@@ -162,7 +162,7 @@ class _ViewDaily extends State<ViewDaily> {
 
                       // 반복 요일
                       Container(
-                        width: getMobileSizeFromPercent(context, 65, true),
+                        width: getMobileSizeFromPercent(context, 80, true),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -171,7 +171,7 @@ class _ViewDaily extends State<ViewDaily> {
                             Text(
                               this.repeatDay,
                               textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 25),
+                              style: TextStyle(fontSize: titleFontSize),
                             )
                           ],
                         ),
@@ -179,7 +179,7 @@ class _ViewDaily extends State<ViewDaily> {
 
                       // 알림
                       Container(
-                        width: getMobileSizeFromPercent(context, 65, true),
+                        width: getMobileSizeFromPercent(context, 80, true),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -192,30 +192,14 @@ class _ViewDaily extends State<ViewDaily> {
                                 ),
                                 Text(this.alarmOnOff,
                                     style: TextStyle(
-                                        fontSize: 25,
+                                        fontSize: titleFontSize,
                                         fontWeight: FontWeight.bold)),
                               ],
                             ),
                             Text(
                               this.alertTime,
-                              // int.parse(alertTime.split(":")[0]) >= 12
-                              //     ? "오후 " +
-                              //     (alertTime.split(":")[0] == "12"
-                              //         ? 12
-                              //         : (int.parse(
-                              //         alertTime.split(":")[0]) %
-                              //         12))
-                              //         .toString() +
-                              //     "시 " +
-                              //     alertTime.split(":")[1] +
-                              //     "분"
-                              //     : "오전 " +
-                              //     alertTime.split(":")[0] +
-                              //     "시 " +
-                              //     alertTime.split(":")[1] +
-                              //     "분",
                               style: TextStyle(
-                                fontSize: 25,
+                                fontSize: titleFontSize,
                               ),
                               textAlign: TextAlign.center,
                             )
@@ -252,7 +236,7 @@ class _ViewDaily extends State<ViewDaily> {
                                       child: Text(
                                         "완료",
                                         style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: titleFontSize,
                                         ),
                                       ),
                                     ),
@@ -317,7 +301,7 @@ class _ViewDaily extends State<ViewDaily> {
                                       child: Text(
                                         "미완료",
                                         style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: titleFontSize,
                                         ),
                                       ),
                                     ),
@@ -392,7 +376,7 @@ class _ViewDaily extends State<ViewDaily> {
                               ),
                               child: Text(
                                 "수정",
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(fontSize: btnTitleFontSize),
                               ),
                               onPressed: () => Navigator.push(
                                   context,
@@ -418,17 +402,40 @@ class _ViewDaily extends State<ViewDaily> {
                               ),
                               child: Text(
                                 "삭제",
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(fontSize: btnTitleFontSize),
                               ),
                               onPressed: () async {
                                 if (await deleteDaily() == 0) {
                                   Navigator.pop(context);
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(16.0)),
+                                        title: Text(
+                                          title,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        content: Text(
+                                          "성공적으로 삭제했습니다.",
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        actions: <Widget>[
+                                          new TextButton(
+                                            child: new Text("확인"),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                        ],
+                                      ));
                                 }
                               },
                             ),
                             // 뒤로
                             ElevatedButton(
                                 style: ElevatedButton.styleFrom(
+
                                   shape: RoundedRectangleBorder(
                                       //모서리를 둥글게
                                       borderRadius: BorderRadius.circular(16)),
@@ -440,7 +447,7 @@ class _ViewDaily extends State<ViewDaily> {
                                 ),
                                 child: Text(
                                   "뒤로",
-                                  style: TextStyle(fontSize: 20),
+                                  style: TextStyle(fontSize: btnTitleFontSize),
                                 ),
                                 onPressed: () {
                                   Navigator.pop(context);

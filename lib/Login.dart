@@ -10,12 +10,11 @@ import 'BaseFile.dart';
 import 'BaseFile.dart';
 import 'SignUp.dart';
 import 'MainPage.dart';
-import 'main.dart';
 
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-class Login extends StatefulWidget{
+class Login extends StatefulWidget {
   @override
   State createState() => _Login();
 }
@@ -26,7 +25,7 @@ class _Login extends State {
 
   final _fileName = 'idpw.txt';
   late String _path;
-  
+
   @override
   initState() {
     // TODO: implement initState
@@ -44,15 +43,21 @@ class _Login extends State {
 
     // await writeFile("");
     String text = await readFile();
-    if (text != ''){
-      print("로그인됨");
+    if (text != '') {
       List ls = text.split('\n');
       print(ls);
-      if(await login(ls[0].toString(),ls[1].toString()) == 0){
-        Navigator.push(context,
-            MaterialPageRoute(builder: (_) => MainPage()));
+      if (await login(ls[0].toString(), ls[1].toString()) == 0) {
+        // Navigator.pushAndRemoveUntil(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: (BuildContext context) =>
+        //             MainPage()),
+        //     (route) => false);
+        Navigator.push(context, MaterialPageRoute(builder: (_)=>MainPage())).then((value) {
+          logout();
+          print("로그아웃");
+        });
       }
-
     }
   }
 
@@ -143,7 +148,7 @@ class _Login extends State {
                               height:
                                   getMobileSizeFromPercent(context, 6, false),
                               child: TextField(
-                                obscureText:true,
+                                obscureText: true,
                                 controller: pwController,
                                 decoration: InputDecoration(
                                   hintText: '비밀번호',
@@ -159,7 +164,7 @@ class _Login extends State {
                                   MaterialPageRoute(builder: (_) => SignUp()));
                             },
                             child: Text("sign up",
-                                style: TextStyle(fontSize: 17))),
+                                style: TextStyle(fontSize: titleFontSize))),
                         Container(
                           height: 30,
                         ),
@@ -167,30 +172,43 @@ class _Login extends State {
                         /// 로그인 버튼
                         GestureDetector(
                           onTap: () async {
-                            if (await login(idController.text, pwController.text) == 0) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (_) => MainPage())).then((value) => logout());
-                            }
-                            else{
+                            if (await login(
+                                    idController.text, pwController.text) ==
+                                0) {
+                              // Navigator.pushAndRemoveUntil(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (BuildContext context) =>
+                              //             MainPage()),
+                              //     (route) => false);
+                                  Navigator.push(context, MaterialPageRoute(builder: (_)=>MainPage())).then((value) {
+                                logout();
+                                print("로그아웃");
+                              });
+                            } else {
                               showDialog(
                                   context: context,
                                   builder: (context) => AlertDialog(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                        BorderRadius.circular(16.0)),
-                                    title: Text("오류", textAlign: TextAlign.center,),
-                                    content: Text("아이디 또는 비밀번호가 잘못되었습니다.", textAlign: TextAlign.center,),
-                                    actions: <Widget>[
-                                      new TextButton(
-                                        child: new Text("확인"),
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                      ),
-                                    ],
-                                  ));
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(16.0)),
+                                        title: Text(
+                                          "오류",
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        content: Text(
+                                          "아이디 또는 비밀번호가 잘못되었습니다.",
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        actions: <Widget>[
+                                          new TextButton(
+                                            child: new Text("확인"),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                        ],
+                                      ));
                             }
                           },
                           child: Card(
@@ -211,7 +229,7 @@ class _Login extends State {
                                 child: Text(
                                   "login",
                                   style: TextStyle(
-                                    fontSize: 25,
+                                    fontSize: btnTitleFontSize,
                                   ),
                                 )),
                           ),
@@ -277,7 +295,7 @@ class _Login extends State {
     try {
       final file = File('$_path/$_fileName');
       file.writeAsString(message);
-    } catch(e){
+    } catch (e) {
       print(e);
     }
   }

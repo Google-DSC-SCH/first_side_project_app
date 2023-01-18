@@ -123,10 +123,10 @@ class _CreateDaily extends State<CreateDaily> {
                           ],
                         ),
 
-                        // 설명
+                        // 메모
                         Column(
                           children: [
-                            Text("설명",
+                            Text("메모",
                                 style: TextStyle(fontSize: titleFontSize)),
                             Container(
                               height: 5,
@@ -187,7 +187,7 @@ class _CreateDaily extends State<CreateDaily> {
                                         child: Text(
                                           "월",
                                           style: TextStyle(
-                                              fontSize: 15,
+                                              fontSize: daySelectFontSize,
                                               fontWeight: FontWeight.bold),
                                         )),
                                   ),
@@ -219,7 +219,7 @@ class _CreateDaily extends State<CreateDaily> {
                                         child: Text(
                                           "화",
                                           style: TextStyle(
-                                              fontSize: 15,
+                                              fontSize: daySelectFontSize,
                                               fontWeight: FontWeight.bold),
                                         )),
                                   ),
@@ -251,7 +251,7 @@ class _CreateDaily extends State<CreateDaily> {
                                         child: Text(
                                           "수",
                                           style: TextStyle(
-                                              fontSize: 15,
+                                              fontSize: daySelectFontSize,
                                               fontWeight: FontWeight.bold),
                                         )),
                                   ),
@@ -283,7 +283,7 @@ class _CreateDaily extends State<CreateDaily> {
                                         child: Text(
                                           "목",
                                           style: TextStyle(
-                                              fontSize: 15,
+                                              fontSize: daySelectFontSize,
                                               fontWeight: FontWeight.bold),
                                         )),
                                   ),
@@ -315,7 +315,7 @@ class _CreateDaily extends State<CreateDaily> {
                                         child: Text(
                                           "금",
                                           style: TextStyle(
-                                              fontSize: 15,
+                                              fontSize: daySelectFontSize,
                                               fontWeight: FontWeight.bold),
                                         )),
                                   ),
@@ -347,7 +347,7 @@ class _CreateDaily extends State<CreateDaily> {
                                         child: Text(
                                           "토",
                                           style: TextStyle(
-                                              fontSize: 15,
+                                              fontSize: daySelectFontSize,
                                               fontWeight: FontWeight.bold),
                                         )),
                                   ),
@@ -379,7 +379,7 @@ class _CreateDaily extends State<CreateDaily> {
                                         child: Text(
                                           "일",
                                           style: TextStyle(
-                                              fontSize: 15,
+                                              fontSize: daySelectFontSize,
                                               fontWeight: FontWeight.bold),
                                         )),
                                   ),
@@ -421,7 +421,7 @@ class _CreateDaily extends State<CreateDaily> {
                                     child: Text(
                                       alertState,
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: titleFontSize,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
@@ -464,7 +464,7 @@ class _CreateDaily extends State<CreateDaily> {
                                               "시 " +
                                               alertTime.split(":")[1] +
                                               "분",
-                                      style: TextStyle(fontSize: 20),
+                                      style: TextStyle(fontSize: titleFontSize),
                                     ),
                                   ),
                                 ),
@@ -522,21 +522,25 @@ class _CreateDaily extends State<CreateDaily> {
                                 ),
                                 child: Text(
                                   "완료",
-                                  style: TextStyle(fontSize: 20),
+                                  style: TextStyle(fontSize: btnTitleFontSize),
                                 ),
                                 onPressed: () async {
-                                  if(await createDaily() ==0){
+                                  if (await createDaily() == 0) {
                                     print("완료됨");
                                     Navigator.pop(context);
-                                  }else {
                                     showDialog(
                                         context: context,
                                         builder: (context) => AlertDialog(
                                           shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                              BorderRadius.circular(16.0)),
-                                          title: Text("오류", textAlign: TextAlign.center,),
-                                          content: Text("등록 실패했습니다.", textAlign: TextAlign.center,),
+                                              borderRadius: BorderRadius.circular(16.0)),
+                                          title: Text(
+                                            titleController.text,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          content: Text(
+                                            "성공적으로 추가했습니다.",
+                                            textAlign: TextAlign.center,
+                                          ),
                                           actions: <Widget>[
                                             new TextButton(
                                               child: new Text("확인"),
@@ -546,6 +550,31 @@ class _CreateDaily extends State<CreateDaily> {
                                             ),
                                           ],
                                         ));
+                                  } else {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          16.0)),
+                                              title: Text(
+                                                "오류",
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              content: Text(
+                                                "등록 실패했습니다.",
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              actions: <Widget>[
+                                                new TextButton(
+                                                  child: new Text("확인"),
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                ),
+                                              ],
+                                            ));
                                   }
                                 },
                               ),
@@ -618,24 +647,24 @@ class _CreateDaily extends State<CreateDaily> {
   /// daily 추가
   Future<int> createDaily() async {
     // 제목 입력 안하면
-    if(titleController.text == ""){
+    if (titleController.text == "") {
       return -1;
     }
-    
+
     // checkedDayStr 갱신
-    List dayList = ["월","화","수","목","금","토","일"];
-    for(int i = 0; i < dayList.length; i++){
-      if(checkedDayList[i]){
+    List dayList = ["월", "화", "수", "목", "금", "토", "일"];
+    for (int i = 0; i < dayList.length; i++) {
+      if (checkedDayList[i]) {
         checkedDayStr += dayList[i];
       }
     }
     String createDailyURI = hostURI + 'api/daily';
     Map body = {
       'title': titleController.text.toString(),
-      'content':contentController.text.toString(),
-      'alertStatus' : alertState,
-      'alertTime' : alertTime.toString(),
-      'alertDates' : checkedDayStr.toString()
+      'content': contentController.text.toString(),
+      'alertStatus': alertState,
+      'alertTime': alertTime.toString(),
+      'alertDates': checkedDayStr.toString()
     };
     Dio dio = Dio();
     dio.options.headers['jwt-auth-token'] = token;
