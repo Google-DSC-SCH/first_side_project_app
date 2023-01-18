@@ -98,7 +98,7 @@ class _AchievedGoal extends State<AchievedGoal> {
                                     goalList[index].title,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(fontSize: 30),
+                                    style: TextStyle(fontSize: listTitleFontSize),
                                   ),
                                 ),
                                 color: Color(color_whiteYellow),
@@ -128,7 +128,7 @@ class _AchievedGoal extends State<AchievedGoal> {
                             child: Text(
                               "뒤로 가기",
                               style: TextStyle(
-                                fontSize: 25,
+                                fontSize: btnTitleFontSize,
                               ),
                             )),
                       ),

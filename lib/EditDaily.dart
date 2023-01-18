@@ -206,7 +206,7 @@ class _EditDaily extends State<EditDaily> {
                                         child: Text(
                                           "월",
                                           style: TextStyle(
-                                              fontSize: 15,
+                                              fontSize: daySelectFontSize,
                                               fontWeight: FontWeight.bold),
                                         )),
                                   ),
@@ -238,7 +238,7 @@ class _EditDaily extends State<EditDaily> {
                                         child: Text(
                                           "화",
                                           style: TextStyle(
-                                              fontSize: 15,
+                                              fontSize: daySelectFontSize,
                                               fontWeight: FontWeight.bold),
                                         )),
                                   ),
@@ -270,7 +270,7 @@ class _EditDaily extends State<EditDaily> {
                                         child: Text(
                                           "수",
                                           style: TextStyle(
-                                              fontSize: 15,
+                                              fontSize: daySelectFontSize,
                                               fontWeight: FontWeight.bold),
                                         )),
                                   ),
@@ -302,7 +302,7 @@ class _EditDaily extends State<EditDaily> {
                                         child: Text(
                                           "목",
                                           style: TextStyle(
-                                              fontSize: 15,
+                                              fontSize: daySelectFontSize,
                                               fontWeight: FontWeight.bold),
                                         )),
                                   ),
@@ -334,7 +334,7 @@ class _EditDaily extends State<EditDaily> {
                                         child: Text(
                                           "금",
                                           style: TextStyle(
-                                              fontSize: 15,
+                                              fontSize: daySelectFontSize,
                                               fontWeight: FontWeight.bold),
                                         )),
                                   ),
@@ -366,7 +366,7 @@ class _EditDaily extends State<EditDaily> {
                                         child: Text(
                                           "토",
                                           style: TextStyle(
-                                              fontSize: 15,
+                                              fontSize: daySelectFontSize,
                                               fontWeight: FontWeight.bold),
                                         )),
                                   ),
@@ -398,7 +398,7 @@ class _EditDaily extends State<EditDaily> {
                                         child: Text(
                                           "일",
                                           style: TextStyle(
-                                              fontSize: 15,
+                                              fontSize: daySelectFontSize,
                                               fontWeight: FontWeight.bold),
                                         )),
                                   ),
@@ -440,7 +440,7 @@ class _EditDaily extends State<EditDaily> {
                                     child: Text(
                                       alertState,
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: titleFontSize,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
@@ -484,7 +484,7 @@ class _EditDaily extends State<EditDaily> {
                                               alertTime.split(":")[1] +
                                               "분",
                                       style: TextStyle(
-                                          fontSize: 20),
+                                          fontSize: titleFontSize),
                                     ),
                                   ),
                                 ),
@@ -537,7 +537,7 @@ class _EditDaily extends State<EditDaily> {
                                   elevation: 0,),
                                 child: Text(
                                   "완료",
-                                  style: TextStyle(fontSize: 20),
+                                  style: TextStyle(fontSize: btnTitleFontSize),
                                 ),
                                 onPressed: () async {
                                   if(await editDaily()==0){
@@ -580,7 +580,7 @@ class _EditDaily extends State<EditDaily> {
                                   elevation: 0,),
                                 child: Text(
                                   "취소",
-                                  style: TextStyle(fontSize: 20),
+                                  style: TextStyle(fontSize: btnTitleFontSize),
                                 ),
                                 onPressed: () => Navigator.pop(context),
                               ),

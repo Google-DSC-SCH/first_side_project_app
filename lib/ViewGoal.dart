@@ -109,7 +109,7 @@ class _ViewGoal extends State<ViewGoal> {
                                     children: [
                                       Text(
                                         this.title,
-                                        style: TextStyle(fontSize: 21),
+                                        style: TextStyle(fontSize: titleFontSize),
                                       )
                                     ],
                                   ),
@@ -143,7 +143,7 @@ class _ViewGoal extends State<ViewGoal> {
                                     children: [
                                       Text(
                                         this.content,
-                                        style: TextStyle(fontSize: 15),
+                                        style: TextStyle(fontSize: viewContentFontSize),
                                       ),
                                     ],
                                   ),
@@ -163,7 +163,7 @@ class _ViewGoal extends State<ViewGoal> {
                             Text(
                               this.duoDay,
                               textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 25),
+                              style: TextStyle(fontSize: titleFontSize),
                             )
                           ],
                         ),
@@ -184,14 +184,14 @@ class _ViewGoal extends State<ViewGoal> {
                                 ),
                                 Text(this.alarmOnOff,
                                     style: TextStyle(
-                                        fontSize: 25,
+                                        fontSize: titleFontSize,
                                         fontWeight: FontWeight.bold)),
                               ],
                             ),
                             Text(
                               alertTime,
                               style: TextStyle(
-                                fontSize: 25,
+                                fontSize: titleFontSize,
                               ),
                               textAlign: TextAlign.center,
                             )
@@ -228,7 +228,7 @@ class _ViewGoal extends State<ViewGoal> {
                                       child: Text(
                                         "완료",
                                         style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: titleFontSize,
                                         ),
                                       ),
                                     ),
@@ -281,7 +281,7 @@ class _ViewGoal extends State<ViewGoal> {
                                       child: Text(
                                         "미완료",
                                         style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: titleFontSize,
                                         ),
                                       ),
                                     ),
@@ -344,7 +344,7 @@ class _ViewGoal extends State<ViewGoal> {
                               ),
                               child: Text(
                                 "수정",
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(fontSize: btnTitleFontSize),
                               ),
                               onPressed: () => Navigator.push(
                                   context,
@@ -370,7 +370,7 @@ class _ViewGoal extends State<ViewGoal> {
                               ),
                               child: Text(
                                 "삭제",
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(fontSize: btnTitleFontSize),
                               ),
                               onPressed: () async {
                                 if (await deleteGoal() == 0) {
@@ -396,7 +396,7 @@ class _ViewGoal extends State<ViewGoal> {
                                   ),
                                   child: Text(
                                     "일기",
-                                    style: TextStyle(fontSize: 20),
+                                    style: TextStyle(fontSize: btnTitleFontSize),
                                   ),
                                   onPressed: () => Navigator.push(
                                       context,
@@ -420,7 +420,7 @@ class _ViewGoal extends State<ViewGoal> {
                               ),
                               child: Text(
                                 "뒤로",
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(fontSize: btnTitleFontSize),
                               ),
                               onPressed: () {
                                 Navigator.pop(context);

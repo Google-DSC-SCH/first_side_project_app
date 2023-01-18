@@ -193,7 +193,7 @@ class Real_Main extends State<MainPage> {
                                             overflow: TextOverflow.ellipsis,
                                             style: TextStyle(
                                                 fontSize:
-                                                    listTitleFontSize - 5),
+                                                listTitleSubFontSize),
                                           ),
                                         ),
                                       ],
@@ -269,7 +269,7 @@ class Real_Main extends State<MainPage> {
                                                 overflow: TextOverflow.ellipsis,
                                                 style: TextStyle(
                                                     fontSize:
-                                                        listTitleFontSize - 6),
+                                                    listTitleSubFontSize),
                                               ),
                                             ],
                                           ),

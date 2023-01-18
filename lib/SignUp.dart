@@ -140,7 +140,7 @@ class SignUp extends StatelessWidget {
                               Navigator.pop(context);
                             },
                             child:
-                                Text("뒤로 가기", style: TextStyle(fontSize: 17))),
+                                Text("뒤로 가기", style: TextStyle(fontSize: titleFontSize))),
                         Container(
                           height: 30,
                         ),
@@ -188,7 +188,7 @@ class SignUp extends StatelessWidget {
                                 child: Text(
                                   "sign up",
                                   style: TextStyle(
-                                    fontSize: 25,
+                                    fontSize: btnTitleFontSize,
                                   ),
                                 )),
                           ),

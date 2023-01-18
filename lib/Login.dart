@@ -10,7 +10,6 @@ import 'BaseFile.dart';
 import 'BaseFile.dart';
 import 'SignUp.dart';
 import 'MainPage.dart';
-import 'main.dart';
 
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -159,7 +158,7 @@ class _Login extends State {
                                   MaterialPageRoute(builder: (_) => SignUp()));
                             },
                             child: Text("sign up",
-                                style: TextStyle(fontSize: 17))),
+                                style: TextStyle(fontSize: titleFontSize))),
                         Container(
                           height: 30,
                         ),
@@ -211,7 +210,7 @@ class _Login extends State {
                                 child: Text(
                                   "login",
                                   style: TextStyle(
-                                    fontSize: 25,
+                                    fontSize: btnTitleFontSize,
                                   ),
                                 )),
                           ),

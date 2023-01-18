@@ -187,7 +187,7 @@ class _CreateDaily extends State<CreateDaily> {
                                         child: Text(
                                           "월",
                                           style: TextStyle(
-                                              fontSize: 15,
+                                              fontSize: daySelectFontSize,
                                               fontWeight: FontWeight.bold),
                                         )),
                                   ),
@@ -219,7 +219,7 @@ class _CreateDaily extends State<CreateDaily> {
                                         child: Text(
                                           "화",
                                           style: TextStyle(
-                                              fontSize: 15,
+                                              fontSize: daySelectFontSize,
                                               fontWeight: FontWeight.bold),
                                         )),
                                   ),
@@ -251,7 +251,7 @@ class _CreateDaily extends State<CreateDaily> {
                                         child: Text(
                                           "수",
                                           style: TextStyle(
-                                              fontSize: 15,
+                                              fontSize: daySelectFontSize,
                                               fontWeight: FontWeight.bold),
                                         )),
                                   ),
@@ -283,7 +283,7 @@ class _CreateDaily extends State<CreateDaily> {
                                         child: Text(
                                           "목",
                                           style: TextStyle(
-                                              fontSize: 15,
+                                              fontSize: daySelectFontSize,
                                               fontWeight: FontWeight.bold),
                                         )),
                                   ),
@@ -315,7 +315,7 @@ class _CreateDaily extends State<CreateDaily> {
                                         child: Text(
                                           "금",
                                           style: TextStyle(
-                                              fontSize: 15,
+                                              fontSize: daySelectFontSize,
                                               fontWeight: FontWeight.bold),
                                         )),
                                   ),
@@ -347,7 +347,7 @@ class _CreateDaily extends State<CreateDaily> {
                                         child: Text(
                                           "토",
                                           style: TextStyle(
-                                              fontSize: 15,
+                                              fontSize: daySelectFontSize,
                                               fontWeight: FontWeight.bold),
                                         )),
                                   ),
@@ -379,7 +379,7 @@ class _CreateDaily extends State<CreateDaily> {
                                         child: Text(
                                           "일",
                                           style: TextStyle(
-                                              fontSize: 15,
+                                              fontSize: daySelectFontSize,
                                               fontWeight: FontWeight.bold),
                                         )),
                                   ),
@@ -421,7 +421,7 @@ class _CreateDaily extends State<CreateDaily> {
                                     child: Text(
                                       alertState,
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: titleFontSize,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
@@ -464,7 +464,7 @@ class _CreateDaily extends State<CreateDaily> {
                                               "시 " +
                                               alertTime.split(":")[1] +
                                               "분",
-                                      style: TextStyle(fontSize: 20),
+                                      style: TextStyle(fontSize: titleFontSize),
                                     ),
                                   ),
                                 ),
@@ -522,7 +522,7 @@ class _CreateDaily extends State<CreateDaily> {
                                 ),
                                 child: Text(
                                   "완료",
-                                  style: TextStyle(fontSize: 20),
+                                  style: TextStyle(fontSize: btnTitleFontSize),
                                 ),
                                 onPressed: () async {
                                   if(await createDaily() ==0){

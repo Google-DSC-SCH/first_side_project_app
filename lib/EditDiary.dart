@@ -6,8 +6,6 @@ import 'BaseFile.dart';
 import 'MainPage.dart';
 
 class EditDiary extends StatelessWidget {
-  // 위젯간 간격(세로)
-  double titleFontSize = 17;
   TextEditingController contentController = TextEditingController();
 
   int goalId = -1;
@@ -151,7 +149,7 @@ class EditDiary extends StatelessWidget {
                                         child: Text(
                                           "완료",
                                           style: TextStyle(
-                                            fontSize: 25,
+                                            fontSize: btnTitleFontSize,
                                           ),
                                         )),
                                   ),
@@ -179,7 +177,7 @@ class EditDiary extends StatelessWidget {
                                         child: Text(
                                           "취소",
                                           style: TextStyle(
-                                            fontSize: 25,
+                                            fontSize: btnTitleFontSize,
                                           ),
                                         )),
                                   ),

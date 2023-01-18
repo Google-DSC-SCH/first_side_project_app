@@ -14,14 +14,35 @@ int color_realYellow = 0xFFFFD966;
 int color_mint = 0xFFCDF0EA;
 
 /// 사이즈
+
+// ==== 공통 ====
 // 타이틀 폰트 사이즈
 double titleFontSize = 20;
 // 서브 타이틀 폰트 사이즈
 double subTitleFontSize = 14;
-// 리스트 항목 타이틀 폰트 사이즈
-double listTitleFontSize = 23;
 // 버튼 텍스트 크기
 double btnTitleFontSize = 20;
+// 설명
+double viewContentFontSize = 15;
+
+// ==== 메인 ====
+// 리스트 항목 타이틀 폰트 사이즈
+double listTitleFontSize = 23;
+// 리스트 항목 서브 타이틀 폰트 사이즈
+double listTitleSubFontSize = 15;
+
+// ==== 달성률 페이지 ====
+// 요일 폰트 사이즈(달성률 페이지)
+double dayFontSize = 25;
+
+// ==== daily ====
+// 요일 폰트 사이즈(알림 날짜 선택)
+double daySelectFontSize = 15;
+
+
+// ==== diary ====
+// 일기 내용 폰트 크기
+double diaryContentFontSize = 30;
 
 // 모바일 화면 구하는 함수(context, 변환하고자 하는 퍼센테이지, 가로,세로 여부/가로 true, 세로: false)
 double getMobileSizeFromPercent(BuildContext context, int percent, bool isWidth){

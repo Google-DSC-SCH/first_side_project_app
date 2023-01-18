@@ -32,9 +32,6 @@ class _EditGoal extends State<EditGoal> {
   String alertTime = "13:00";
   String? selectedTime;
 
-  // 위젯간 간격(세로)
-  double titleFontSize = 17;
-
   _EditGoal(int id) {
     this.goalId = id;
   }
@@ -182,7 +179,7 @@ class _EditGoal extends State<EditGoal> {
                                     width: 150,
                                     height: 40,
                                     child: Text(this.duoDay,
-                                        style: TextStyle(fontSize: 20)),
+                                        style: TextStyle(fontSize: titleFontSize)),
                                   ),
                                 ),
                                 onTap: () {
@@ -239,7 +236,7 @@ class _EditGoal extends State<EditGoal> {
                                     child: Text(
                                       alertState,
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: titleFontSize,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
@@ -282,7 +279,7 @@ class _EditGoal extends State<EditGoal> {
                                               "시 " +
                                               alertTime.split(":")[1] +
                                               "분",
-                                      style: TextStyle(fontSize: 20),
+                                      style: TextStyle(fontSize: titleFontSize),
                                     ),
                                   ),
                                 ),
@@ -338,7 +335,7 @@ class _EditGoal extends State<EditGoal> {
                                         child: Text(
                                           "완료",
                                           style: TextStyle(
-                                            fontSize: 20,
+                                            fontSize: btnTitleFontSize,
                                           ),
                                         ),
                                       ),
@@ -371,7 +368,7 @@ class _EditGoal extends State<EditGoal> {
                                         child: Text(
                                           "미완료",
                                           style: TextStyle(
-                                            fontSize: 20,
+                                            fontSize: btnTitleFontSize,
                                           ),
                                         ),
                                       ),
@@ -415,7 +412,7 @@ class _EditGoal extends State<EditGoal> {
                                 ),
                                 child: Text(
                                   "완료",
-                                  style: TextStyle(fontSize: 20),
+                                  style: TextStyle(fontSize: btnTitleFontSize),
                                 ),
                                 onPressed: () async {
                                   if (await editGoal() == 0) {
@@ -459,7 +456,7 @@ class _EditGoal extends State<EditGoal> {
                                 ),
                                 child: Text(
                                   "취소",
-                                  style: TextStyle(fontSize: 20),
+                                  style: TextStyle(fontSize: btnTitleFontSize),
                                 ),
                                 onPressed: () => Navigator.pop(context),
                               ),
