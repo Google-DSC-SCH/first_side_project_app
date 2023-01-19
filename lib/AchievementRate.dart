@@ -291,7 +291,7 @@ class _AchievementRate extends State<AchievementRate> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text("0 %",
-                                              style: TextStyle(fontSize: achievementPercentFontSize)),
+                                              style: TextStyle(fontSize: achievementPercentFontSize),),
                                           Container(
                                               width: (getMobileSizeFromPercent(
                                                           context, 80, true) -
@@ -423,59 +423,24 @@ class _AchievementRate extends State<AchievementRate> {
                       ),
 
                       // 뒤로가기
-                      Container(
-                        width: getMobileSizeFromPercent(context, 80, true),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            ElevatedButton(
-                              // 완료
-                              style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                    //모서리를 둥글게
-                                    borderRadius: BorderRadius.circular(16)),
-                                primary: Color(color_mint),
-                                onPrimary: Colors.black,
-                                minimumSize: Size(
-                                    getMobileSizeFromPercent(context, 30, true),
-                                    40),
-                                shadowColor: Colors.transparent,
-                                elevation: 0,
-                              ),
-                              child: Text(
-                                "달성한 목표",
-                                style: TextStyle(fontSize: btnTitleFontSize),
-                              ),
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            AchievedGoal()));
-                              },
-                            ),
-                            // 취소
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                    //모서리를 둥글게
-                                    borderRadius: BorderRadius.circular(16)),
-                                primary: Color(color_mint),
-                                onPrimary: Colors.black,
-                                minimumSize: Size(
-                                    getMobileSizeFromPercent(context, 30, true),
-                                    40),
-                                shadowColor: Colors.transparent,
-                                elevation: 0,
-                              ),
-                              child: Text(
-                                "뒤로가기",
-                                style: TextStyle(fontSize: btnTitleFontSize),
-                              ),
-                              onPressed: () => Navigator.pop(context),
-                            ),
-                          ],
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              //모서리를 둥글게
+                              borderRadius: BorderRadius.circular(16)),
+                          primary: Color(color_mint),
+                          onPrimary: Colors.black,
+                          minimumSize: Size(
+                              getMobileSizeFromPercent(context, 50, true),
+                              getMobileSizeFromPercent(context, 6, false)),
+                          shadowColor: Colors.transparent,
+                          elevation: 0,
                         ),
+                        child: Text(
+                          "뒤로가기",
+                          style: TextStyle(fontSize: btnTitleFontSize),
+                        ),
+                        onPressed: () => Navigator.pop(context),
                       ),
                     ]))),
       );

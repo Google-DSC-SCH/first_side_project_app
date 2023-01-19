@@ -289,7 +289,7 @@ class _ViewGoal extends State<ViewGoal> {
                                         else{
                                           Fluttertoast.showToast(
                                               msg:
-                                              "${title}: 목표를 달성했습니다!");
+                                              "${title}! 성공을 축하드려요!");
                                         }
                                       });
                                     });
@@ -340,44 +340,47 @@ class _ViewGoal extends State<ViewGoal> {
                         ),
                       ),
 
-                      Container(
-                        height: 10,
-                      ),
+                      if(selectedState == 1)
+                        Container(
+                          height: getMobileSizeFromPercent(context, 6, false),
+                        ),
+
+                      // 일기 페이지 이동
+                      if (selectedState == 0)
+                        Container(
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                //모서리를 둥글게
+                                  borderRadius:
+                                  BorderRadius.circular(16)),
+                              primary: Color(color_mint),
+                              onPrimary: Colors.black,
+                              minimumSize: Size(getMobileSizeFromPercent(context, 75, true), getMobileSizeFromPercent(context, 6, false)),
+                              shadowColor: Colors.transparent,
+                              elevation: 0,
+                            ),
+                            child: Text(
+                              "일기",
+                              style:
+                              TextStyle(fontSize: btnTitleFontSize),
+                            ),
+                            onPressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        View_Diary(goalId))),
+                          ),
+                        ),
 
                       // 하단 버튼
                       Container(
                         width: getMobileSizeFromPercent(context, 80, true),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            // 일기 페이지 이동
-                            if (selectedState == 0)
-                              Container(
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                        //모서리를 둥글게
-                                        borderRadius:
-                                            BorderRadius.circular(16)),
-                                    primary: Color(color_skyBlue),
-                                    onPrimary: Colors.black,
-                                    minimumSize: Size(60, 40),
-                                    shadowColor: Colors.transparent,
-                                    elevation: 0,
-                                  ),
-                                  child: Text(
-                                    "일기",
-                                    style:
-                                        TextStyle(fontSize: btnTitleFontSize),
-                                  ),
-                                  onPressed: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (BuildContext context) =>
-                                              View_Diary(goalId))),
-                                ),
-                              ),
-
+                            
+                            // 수정 버튼
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
@@ -386,7 +389,7 @@ class _ViewGoal extends State<ViewGoal> {
                                 primary: Color(color_mint),
                                 onPrimary: Colors.black,
                                 minimumSize:
-                                    Size(selectedState == 0 ? 60 : 80, 40),
+                                    Size(getMobileSizeFromPercent(context, 23, true), getMobileSizeFromPercent(context, 6, false)),
                                 //width, height
                                 shadowColor: Colors.transparent,
                                 elevation: 0,
@@ -413,7 +416,7 @@ class _ViewGoal extends State<ViewGoal> {
                                 primary: Color(color_mint),
                                 onPrimary: Colors.black,
                                 minimumSize:
-                                    Size(selectedState == 0 ? 60 : 80, 40),
+                                    Size(getMobileSizeFromPercent(context, 23, true), getMobileSizeFromPercent(context, 6, false)),
                                 shadowColor: Colors.transparent,
                                 elevation: 0,
                               ),
@@ -426,7 +429,7 @@ class _ViewGoal extends State<ViewGoal> {
                                   Navigator.pop(context);
                                   Fluttertoast.showToast(
                                       msg:
-                                      "${title}: 성종적으로 삭제했습니다.");
+                                      "${title}을(를) 삭제했습니다.");
                                 }
                               },
                             ),
@@ -440,7 +443,7 @@ class _ViewGoal extends State<ViewGoal> {
                                 primary: Color(color_mint),
                                 onPrimary: Colors.black,
                                 minimumSize:
-                                    Size(selectedState == 0 ? 60 : 80, 40),
+                                    Size(getMobileSizeFromPercent(context, 23, true), getMobileSizeFromPercent(context, 6, false)),
                                 shadowColor: Colors.transparent,
                                 elevation: 0,
                               ),

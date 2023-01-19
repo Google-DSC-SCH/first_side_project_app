@@ -1,4 +1,6 @@
+import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:dio/dio.dart';
+import 'package:first_side_project_app/Achieved_Goal.dart';
 import 'package:first_side_project_app/CreateDaily.dart';
 import 'package:first_side_project_app/ViewDaily.dart';
 import 'package:first_side_project_app/ViewGoal.dart';
@@ -10,7 +12,6 @@ import 'BaseFile.dart';
 import 'AchievementRate.dart';
 import 'CreateGoal.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
 
 class MainPage extends StatefulWidget {
   @override
@@ -181,6 +182,7 @@ class Real_Main extends State<MainPage> with WidgetsBindingObserver {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Container(
+                                              padding: EdgeInsets.only(top: 5, bottom: 5),
                                               width: getMobileSizeFromPercent(
                                                   context, 45, true),
                                               child: Text(
@@ -257,31 +259,35 @@ class Real_Main extends State<MainPage> with WidgetsBindingObserver {
                                   child: ListView.builder(
                                     itemCount: dailyList.length,
                                     itemBuilder: (context, index) => Card(
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
+                                      color: Color(color_whiteYellow),
+                                      margin: EdgeInsets.all(2),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          // 타이틀
+                                          GestureDetector(
+                                            onTap: () {
+                                              Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (_) => ViewDaily(
                                                           dailyList[index]
                                                               .dailyId)))
-                                              .then((value) {
-                                            setState(() {
-                                              getMain(getToday());
-                                            });
-                                          });
-                                        },
-                                        child: Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            // 타이틀
-                                            Container(
-                                              color: Color(color_whiteYellow),
+                                                  .then((value) {
+                                                setState(() {
+                                                  getMain(getToday());
+                                                });
+                                              });
+                                            },
+                                            child: Container(
+                                              color: Colors.transparent,
                                               width: getMobileSizeFromPercent(
-                                                  context, 57, true),
+                                                      context, 80, true) -
+                                                  50 -
+                                                  (togleSize * 2),
                                               child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
@@ -312,48 +318,91 @@ class Real_Main extends State<MainPage> with WidgetsBindingObserver {
                                                 ],
                                               ),
                                             ),
-                                            // 상태
-                                            Container(
-                                              width: getMobileSizeFromPercent(
-                                                  context, 13, true),
-                                              child: Switch(
-                                                value:
-                                                    dailyList[index].statue ==
-                                                        "ON",
-                                                onChanged: (value) async {
-                                                  if (await patchDailyState(
-                                                          dailyList[index]
-                                                              .dailyId,
-                                                          dailyList[index]
-                                                              .statue) ==
-                                                      0) {
-                                                    // 달성
-                                                    if (value) {
-                                                      setState(() {
-                                                        dailyList[index]
-                                                            .statue = "ON";
-                                                      });
-                                                      Fluttertoast.showToast(
-                                                          msg:
-                                                              "${dailyList[index].title}: 목표를 달성했습니다!");
-                                                    }
-                                                    // 미달성
-                                                    else {
-                                                      setState(() {
-                                                        dailyList[index]
-                                                            .statue = "OFF";
-                                                      });
-                                                    }
-                                                  }
-                                                },
-                                                activeColor: Color(0xFFB1AFFF),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
+                                          ),
+                                          // 상태(0: 미달성, 1: 달성)
+                                          Container(
+                                            padding: EdgeInsets.only(top:10, bottom: 10),
+                                              child: AnimatedToggleSwitch<
+                                                  int>.dual(
+                                            current:
+                                                dailyList[index].statue ==
+                                                        "ON"
+                                                    ? 1
+                                                    : 0,
+                                            first: 0,
+                                            second: 1,
+                                            indicatorSize: Size(
+                                                togleSize, togleSize),
+                                            height: togleSize + 5,
+                                            borderWidth: 2.5,
+                                            // 사이 공백
+                                            // dif: togleSize/1.5
+                                                dif: 0,
+                                            borderColor: Colors.transparent,
+                                            iconBuilder: (value){
+                                              late Icon icon;
+                                              if (value == 0)
+                                                icon = Icon(Icons.mood_bad,);
+                                              else
+                                                icon = Icon(Icons.mood_sharp);
+                                              return icon;
+                                            },
+                                            colorBuilder:(value) => value == 1 ? Color(color_pink) : Color(color_purple),
+                                                boxShadow: const [
+                                                  BoxShadow(
+                                                    color: Colors.black12,
+                                                    spreadRadius: 1,
+                                                    blurRadius: 2,
+                                                    offset: Offset(0, 1.5),
+                                                  ),
+                                                ],
+                                            innerColor: Colors.white,
+                                                textBuilder: (value) {
+                                              String text = "";
+                                              Color color = Colors.black;
+                                              if (value == 0){
+                                                text = ":(";
+                                                color = Color(color_purple);
+                                              }
+                                              else{
+                                                text = ":)";
+                                                color=  Color(color_pink);
+                                              }
+                                              return Text(
+                                                text,
+                                                style: TextStyle(
+                                                    fontSize: togleSize/2,fontWeight: FontWeight.bold),
+                                              );
+                                            },
+                                            onChanged: (p0) async {
+                                              if (await patchDailyState(
+                                                      dailyList[index]
+                                                          .dailyId,
+                                                      dailyList[index]
+                                                          .statue) ==
+                                                  0) {
+                                                // 달성
+                                                if (p0 == 1) {
+                                                  setState(() {
+                                                    dailyList[index].statue =
+                                                        "ON";
+                                                  });
+                                                  Fluttertoast.showToast(
+                                                      msg:
+                                                          "${dailyList[index].title} 성공을 축하드려요!");
+                                                }
+                                                // 미달성
+                                                else {
+                                                  setState(() {
+                                                    dailyList[index].statue =
+                                                        "OFF";
+                                                  });
+                                                }
+                                              }
+                                            },
+                                          )),
+                                        ],
                                       ),
-                                      color: Color(color_whiteYellow),
-                                      margin: EdgeInsets.all(2),
                                     ),
                                   )),
                             ),
@@ -362,40 +411,85 @@ class Real_Main extends State<MainPage> with WidgetsBindingObserver {
                       ],
                     ),
 
-                    // 달성률 페이지
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    // 달성률 페이지로 이동
-                                    builder: (_) =>
-                                        AchievementRate(dailyList.length)))
-                            .then((value) {
-                          setState(() {
-                            getMain(getToday());
-                          });
-                        });
-                      },
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          //모서리를 둥글게 하기 위해 사용
-                          borderRadius: BorderRadius.circular(16.0),
+                    // 하단 버튼
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        // 달성한 목표
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        // 달성률 페이지로 이동
+                                        builder: (_) => AchievedGoal()))
+                                .then((value) {
+                              setState(() {
+                                getMain(getToday());
+                              });
+                            });
+                          },
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              //모서리를 둥글게 하기 위해 사용
+                              borderRadius: BorderRadius.circular(16.0),
+                            ),
+                            color: Color(color_mint),
+                            elevation: 0, // 그림자 깊이
+                            child: Container(
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.all(5),
+                                width:
+                                    getMobileSizeFromPercent(context, 35, true),
+                                height:
+                                    getMobileSizeFromPercent(context, 6, false),
+                                child: Text(
+                                  "달성한 목표",
+                                  style: TextStyle(
+                                    fontSize: btnTitleFontSize,
+                                  ),
+                                )),
+                          ),
                         ),
-                        color: Color(color_mint),
-                        elevation: 0, // 그림자 깊이
-                        child: Container(
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.all(5),
-                            width: getMobileSizeFromPercent(context, 50, true),
-                            height: getMobileSizeFromPercent(context, 6, false),
-                            child: Text(
-                              "달성률 보기",
-                              style: TextStyle(
-                                fontSize: btnTitleFontSize,
-                              ),
-                            )),
-                      ),
+
+                        // 달성률 페이지
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        // 달성률 페이지로 이동
+                                        builder: (_) =>
+                                            AchievementRate(dailyList.length)))
+                                .then((value) {
+                              setState(() {
+                                getMain(getToday());
+                              });
+                            });
+                          },
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              //모서리를 둥글게 하기 위해 사용
+                              borderRadius: BorderRadius.circular(16.0),
+                            ),
+                            color: Color(color_mint),
+                            elevation: 0, // 그림자 깊이
+                            child: Container(
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.all(5),
+                                width:
+                                    getMobileSizeFromPercent(context, 35, true),
+                                height:
+                                    getMobileSizeFromPercent(context, 6, false),
+                                child: Text(
+                                  "달성률 보기",
+                                  style: TextStyle(
+                                    fontSize: btnTitleFontSize,
+                                  ),
+                                )),
+                          ),
+                        ),
+                      ],
                     ),
 
                     Container(
@@ -413,8 +507,6 @@ class Real_Main extends State<MainPage> with WidgetsBindingObserver {
     dio.options.headers['jwt-auth-refresh-token'] = refreshToken;
     try {
       var res = await dio.get(getMainURI);
-      print("삐삐");
-
       // 모든 알림 제거
       cancelNotification();
 
@@ -458,7 +550,6 @@ class Real_Main extends State<MainPage> with WidgetsBindingObserver {
               daily['alert_dates'], daily['daily_status']));
         });
 
-        print(daily);
         // daily 알림 추가
         if (daily['alert_status'] == "ON" && daily['daily_status'] == "OFF") {
           for (String day in daily['alert_dates'].split('')) {
@@ -524,10 +615,7 @@ class Real_Main extends State<MainPage> with WidgetsBindingObserver {
     } catch (e) {
       print("====================");
       print("getMainDataErr");
-      print(e);
-      Fluttertoast.showToast(
-          msg:
-          "정보를 받아오지 못했습니다.");
+      Fluttertoast.showToast(msg: "정보를 받아오지 못했습니다.");
     }
     return -1;
   }
@@ -559,9 +647,7 @@ class Real_Main extends State<MainPage> with WidgetsBindingObserver {
     } catch (e) {
       print("====================");
       print('fetchDailyStatusErr');
-      Fluttertoast.showToast(
-          msg:
-          "상태 변경을 실패했습니다.");
+      Fluttertoast.showToast(msg: "상태 변경을 실패했습니다.");
     }
     return -1;
   }
@@ -577,7 +663,6 @@ class Real_Main extends State<MainPage> with WidgetsBindingObserver {
       print("sucessLogout");
       return 0;
     } catch (e) {
-      print(e);
       print("logout Err");
       return -1;
     }

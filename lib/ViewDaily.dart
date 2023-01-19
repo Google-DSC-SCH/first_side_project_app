@@ -203,7 +203,7 @@ class _ViewDaily extends State<ViewDaily> {
                                   ? "알림 반복 없음"
                                   : this.repeatDay,
                               textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: viewDailyDateFontSize),
+                              style: TextStyle(fontSize: viewDailyDateFontSize,),
                             )
                           ],
                         ),
@@ -301,7 +301,7 @@ class _ViewDaily extends State<ViewDaily> {
                                         else{
                                           Fluttertoast.showToast(
                                               msg:
-                                              "${title}: 목표를 달성했습니다!");
+                                              "${title}! 성공을 축하드려요!");
                                         }
                                       });
                                     });
@@ -359,7 +359,7 @@ class _ViewDaily extends State<ViewDaily> {
                       Container(
                         width: getMobileSizeFromPercent(context, 80, true),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             // 수정
                             ElevatedButton(
@@ -369,7 +369,7 @@ class _ViewDaily extends State<ViewDaily> {
                                     borderRadius: BorderRadius.circular(16)),
                                 primary: Color(color_mint),
                                 onPrimary: Colors.black,
-                                minimumSize: Size(80, 40),
+                                minimumSize: Size(getMobileSizeFromPercent(context, 23, true), getMobileSizeFromPercent(context, 6, false)),
                                 //width, height
                                 shadowColor: Colors.transparent,
                                 elevation: 0,
@@ -396,7 +396,7 @@ class _ViewDaily extends State<ViewDaily> {
                                     borderRadius: BorderRadius.circular(16)),
                                 primary: Color(color_mint),
                                 onPrimary: Colors.black,
-                                minimumSize: Size(80, 40),
+                                minimumSize: Size(getMobileSizeFromPercent(context, 23, true), getMobileSizeFromPercent(context, 6, false)),
                                 shadowColor: Colors.transparent,
                                 elevation: 0,
                               ),
@@ -409,7 +409,7 @@ class _ViewDaily extends State<ViewDaily> {
                                   Navigator.pop(context);
                                   Fluttertoast.showToast(
                                       msg:
-                                      "${title}: 성공적으로 삭제했습니다.");
+                                      "${title}을(를) 삭제했습니다.");
                                 }
                               },
                             ),
@@ -421,7 +421,7 @@ class _ViewDaily extends State<ViewDaily> {
                                       borderRadius: BorderRadius.circular(16)),
                                   primary: Color(color_mint),
                                   onPrimary: Colors.black,
-                                  minimumSize: Size(80, 40),
+                                  minimumSize: Size(getMobileSizeFromPercent(context, 23, true), getMobileSizeFromPercent(context, 6, false)),
                                   shadowColor: Colors.transparent,
                                   elevation: 0,
                                 ),

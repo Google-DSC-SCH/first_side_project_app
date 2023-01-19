@@ -184,7 +184,7 @@ class _CreateGoal extends State<CreateGoal> {
                                   elevation: 0, // 그림자 깊이
                                   child: Container(
                                     alignment: Alignment.center,
-                                    width: 150,
+                                    width: getMobileSizeFromPercent(context, 50, true),
                                     height: 40,
                                     child: Text(this.duoDay,
                                         style:
@@ -240,13 +240,12 @@ class _CreateGoal extends State<CreateGoal> {
                                   elevation: 0, // 그림자 깊이
                                   child: Container(
                                     alignment: Alignment.center,
-                                    width: 60,
+                                    width: getMobileSizeFromPercent(context, 20, true),
                                     height: 40,
                                     child: Text(
                                       alertState,
                                       style: TextStyle(
-                                          fontSize: alertStateFontSize,
-                                          fontWeight: FontWeight.bold),
+                                          fontSize: alertStateFontSize),
                                     ),
                                   ),
                                 ),
@@ -269,7 +268,7 @@ class _CreateGoal extends State<CreateGoal> {
                                   elevation: 0, // 그림자 깊이
                                   child: Container(
                                     alignment: Alignment.center,
-                                    width: 150,
+                                    width: getMobileSizeFromPercent(context, 40, true),
                                     height: 40,
                                     child: Text(
                                       int.parse(alertTime.split(":")[0]) >= 12
@@ -414,8 +413,8 @@ class _CreateGoal extends State<CreateGoal> {
                                   onPrimary: Colors.black,
                                   minimumSize: Size(
                                       getMobileSizeFromPercent(
-                                          context, 30, true),
-                                      40),
+                                          context, 35, true),
+                                      getMobileSizeFromPercent(context, 6, false)),
                                   shadowColor: Colors.transparent,
                                   elevation: 0,
                                 ),
@@ -428,7 +427,7 @@ class _CreateGoal extends State<CreateGoal> {
                                     Navigator.pop(context);
                                     Fluttertoast.showToast(
                                         msg:
-                                        "${titleController.text}: 성공적으로 추가했습니다.");
+                                        "${titleController.text}! 열심히 달성해보아요!");
                                   } else {
                                     Fluttertoast.showToast(
                                         msg:
@@ -446,8 +445,8 @@ class _CreateGoal extends State<CreateGoal> {
                                   onPrimary: Colors.black,
                                   minimumSize: Size(
                                       getMobileSizeFromPercent(
-                                          context, 30, true),
-                                      40),
+                                          context, 35, true),
+                                      getMobileSizeFromPercent(context, 6, false)),
                                   shadowColor: Colors.transparent,
                                   elevation: 0,
                                 ),

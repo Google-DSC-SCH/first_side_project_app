@@ -221,10 +221,11 @@ class _EditDaily extends State<EditDaily> {
                                     // 월
                                     GestureDetector(
                                       child: Card(
+                                        margin: EdgeInsets.only(top:5),
                                         shape: RoundedRectangleBorder(
                                           //모서리를 둥글게 하기 위해 사용
                                           borderRadius:
-                                              BorderRadius.circular(20.0),
+                                          BorderRadius.circular(10.0),
                                         ),
                                         color: Color(checkedDayList[0]
                                             ? color_realYellow
@@ -233,20 +234,19 @@ class _EditDaily extends State<EditDaily> {
                                         child: Container(
                                             alignment: Alignment.center,
                                             width: getMobileSizeFromPercent(
-                                                context, 9, true),
+                                                context, 10, true),
                                             height: getMobileSizeFromPercent(
                                                 context, 10, true),
                                             child: Text(
                                               "월",
                                               style: TextStyle(
-                                                  fontSize: daySelectFontSize,
-                                                  fontWeight: FontWeight.bold),
+                                                  fontSize: daySelectFontSize),
                                             )),
                                       ),
                                       onTap: () {
                                         setState(() {
                                           checkedDayList[0] =
-                                              checkedDayList[0] ? false : true;
+                                          checkedDayList[0] ? false : true;
                                         });
                                       },
                                     ),
@@ -254,10 +254,11 @@ class _EditDaily extends State<EditDaily> {
                                     // 화
                                     GestureDetector(
                                       child: Card(
+                                        margin: EdgeInsets.only(top:5),
                                         shape: RoundedRectangleBorder(
                                           //모서리를 둥글게 하기 위해 사용
                                           borderRadius:
-                                              BorderRadius.circular(20.0),
+                                          BorderRadius.circular(10.0),
                                         ),
                                         color: Color(checkedDayList[1]
                                             ? color_realYellow
@@ -266,20 +267,19 @@ class _EditDaily extends State<EditDaily> {
                                         child: Container(
                                             alignment: Alignment.center,
                                             width: getMobileSizeFromPercent(
-                                                context, 9, true),
+                                                context, 10, true),
                                             height: getMobileSizeFromPercent(
                                                 context, 10, true),
                                             child: Text(
                                               "화",
                                               style: TextStyle(
-                                                  fontSize: daySelectFontSize,
-                                                  fontWeight: FontWeight.bold),
+                                                  fontSize: daySelectFontSize),
                                             )),
                                       ),
                                       onTap: () {
                                         setState(() {
                                           checkedDayList[1] =
-                                              checkedDayList[1] ? false : true;
+                                          checkedDayList[1] ? false : true;
                                         });
                                       },
                                     ),
@@ -287,10 +287,11 @@ class _EditDaily extends State<EditDaily> {
                                     // 수
                                     GestureDetector(
                                       child: Card(
+                                        margin: EdgeInsets.only(top:5),
                                         shape: RoundedRectangleBorder(
                                           //모서리를 둥글게 하기 위해 사용
                                           borderRadius:
-                                              BorderRadius.circular(20.0),
+                                          BorderRadius.circular(10.0),
                                         ),
                                         color: Color(checkedDayList[2]
                                             ? color_realYellow
@@ -299,20 +300,19 @@ class _EditDaily extends State<EditDaily> {
                                         child: Container(
                                             alignment: Alignment.center,
                                             width: getMobileSizeFromPercent(
-                                                context, 9, true),
+                                                context, 10, true),
                                             height: getMobileSizeFromPercent(
                                                 context, 10, true),
                                             child: Text(
                                               "수",
                                               style: TextStyle(
-                                                  fontSize: daySelectFontSize,
-                                                  fontWeight: FontWeight.bold),
+                                                  fontSize: daySelectFontSize),
                                             )),
                                       ),
                                       onTap: () {
                                         setState(() {
                                           checkedDayList[2] =
-                                              checkedDayList[2] ? false : true;
+                                          checkedDayList[2] ? false : true;
                                         });
                                       },
                                     ),
@@ -320,10 +320,11 @@ class _EditDaily extends State<EditDaily> {
                                     // 목
                                     GestureDetector(
                                       child: Card(
+                                        margin: EdgeInsets.only(top:5),
                                         shape: RoundedRectangleBorder(
                                           //모서리를 둥글게 하기 위해 사용
                                           borderRadius:
-                                              BorderRadius.circular(20.0),
+                                          BorderRadius.circular(10.0),
                                         ),
                                         color: Color(checkedDayList[3]
                                             ? color_realYellow
@@ -332,20 +333,19 @@ class _EditDaily extends State<EditDaily> {
                                         child: Container(
                                             alignment: Alignment.center,
                                             width: getMobileSizeFromPercent(
-                                                context, 9, true),
+                                                context, 10, true),
                                             height: getMobileSizeFromPercent(
                                                 context, 10, true),
                                             child: Text(
                                               "목",
                                               style: TextStyle(
-                                                  fontSize: daySelectFontSize,
-                                                  fontWeight: FontWeight.bold),
+                                                  fontSize: daySelectFontSize),
                                             )),
                                       ),
                                       onTap: () {
                                         setState(() {
                                           checkedDayList[3] =
-                                              checkedDayList[3] ? false : true;
+                                          checkedDayList[3] ? false : true;
                                         });
                                       },
                                     ),
@@ -353,10 +353,11 @@ class _EditDaily extends State<EditDaily> {
                                     // 금
                                     GestureDetector(
                                       child: Card(
+                                        margin: EdgeInsets.only(top:5),
                                         shape: RoundedRectangleBorder(
                                           //모서리를 둥글게 하기 위해 사용
                                           borderRadius:
-                                              BorderRadius.circular(20.0),
+                                          BorderRadius.circular(10.0),
                                         ),
                                         color: Color(checkedDayList[4]
                                             ? color_realYellow
@@ -365,20 +366,19 @@ class _EditDaily extends State<EditDaily> {
                                         child: Container(
                                             alignment: Alignment.center,
                                             width: getMobileSizeFromPercent(
-                                                context, 9, true),
+                                                context, 10, true),
                                             height: getMobileSizeFromPercent(
                                                 context, 10, true),
                                             child: Text(
                                               "금",
                                               style: TextStyle(
-                                                  fontSize: daySelectFontSize,
-                                                  fontWeight: FontWeight.bold),
+                                                  fontSize: daySelectFontSize),
                                             )),
                                       ),
                                       onTap: () {
                                         setState(() {
                                           checkedDayList[4] =
-                                              checkedDayList[4] ? false : true;
+                                          checkedDayList[4] ? false : true;
                                         });
                                       },
                                     ),
@@ -386,10 +386,11 @@ class _EditDaily extends State<EditDaily> {
                                     // 토
                                     GestureDetector(
                                       child: Card(
+                                        margin: EdgeInsets.only(top:5),
                                         shape: RoundedRectangleBorder(
                                           //모서리를 둥글게 하기 위해 사용
                                           borderRadius:
-                                              BorderRadius.circular(20.0),
+                                          BorderRadius.circular(10.0),
                                         ),
                                         color: Color(checkedDayList[5]
                                             ? color_realYellow
@@ -398,20 +399,19 @@ class _EditDaily extends State<EditDaily> {
                                         child: Container(
                                             alignment: Alignment.center,
                                             width: getMobileSizeFromPercent(
-                                                context, 9, true),
+                                                context, 10, true),
                                             height: getMobileSizeFromPercent(
                                                 context, 10, true),
                                             child: Text(
                                               "토",
                                               style: TextStyle(
-                                                  fontSize: daySelectFontSize,
-                                                  fontWeight: FontWeight.bold),
+                                                  fontSize: daySelectFontSize),
                                             )),
                                       ),
                                       onTap: () {
                                         setState(() {
                                           checkedDayList[5] =
-                                              checkedDayList[5] ? false : true;
+                                          checkedDayList[5] ? false : true;
                                         });
                                       },
                                     ),
@@ -419,10 +419,11 @@ class _EditDaily extends State<EditDaily> {
                                     // 일
                                     GestureDetector(
                                       child: Card(
+                                        margin: EdgeInsets.only(top:5),
                                         shape: RoundedRectangleBorder(
                                           //모서리를 둥글게 하기 위해 사용
                                           borderRadius:
-                                              BorderRadius.circular(20.0),
+                                          BorderRadius.circular(10.0),
                                         ),
                                         color: Color(checkedDayList[6]
                                             ? color_realYellow
@@ -431,20 +432,19 @@ class _EditDaily extends State<EditDaily> {
                                         child: Container(
                                             alignment: Alignment.center,
                                             width: getMobileSizeFromPercent(
-                                                context, 9, true),
+                                                context, 10, true),
                                             height: getMobileSizeFromPercent(
                                                 context, 10, true),
                                             child: Text(
                                               "일",
                                               style: TextStyle(
-                                                  fontSize: daySelectFontSize,
-                                                  fontWeight: FontWeight.bold),
+                                                  fontSize: daySelectFontSize),
                                             )),
                                       ),
                                       onTap: () {
                                         setState(() {
                                           checkedDayList[6] =
-                                              checkedDayList[6] ? false : true;
+                                          checkedDayList[6] ? false : true;
                                         });
                                       },
                                     ),
@@ -474,13 +474,12 @@ class _EditDaily extends State<EditDaily> {
                                   elevation: 0, // 그림자 깊이
                                   child: Container(
                                     alignment: Alignment.center,
-                                    width: 60,
+                                    width: getMobileSizeFromPercent(context, 20, true),
                                     height: 40,
                                     child: Text(
                                       alertState,
                                       style: TextStyle(
-                                          fontSize: alertStateFontSize,
-                                          fontWeight: FontWeight.bold),
+                                          fontSize: alertStateFontSize),
                                     ),
                                   ),
                                 ),
@@ -503,7 +502,7 @@ class _EditDaily extends State<EditDaily> {
                                   elevation: 0, // 그림자 깊이
                                   child: Container(
                                     alignment: Alignment.center,
-                                    width: 150,
+                                    width: getMobileSizeFromPercent(context, 40, true),
                                     height: 40,
                                     child: Text(
                                       int.parse(alertTime.split(":")[0]) >= 12
@@ -569,8 +568,8 @@ class _EditDaily extends State<EditDaily> {
                                   onPrimary: Colors.black,
                                   minimumSize: Size(
                                       getMobileSizeFromPercent(
-                                          context, 30, true),
-                                      40),
+                                          context, 35, true),
+                                      getMobileSizeFromPercent(context, 6, false)),
                                   shadowColor: Colors.transparent,
                                   elevation: 0,
                                 ),
@@ -583,7 +582,7 @@ class _EditDaily extends State<EditDaily> {
                                     Navigator.pop(context);
                                     Fluttertoast.showToast(
                                         msg:
-                                        "${titleController.text}: 성공적으로 수정했습니다.");
+                                        "${titleController.text}을(를) 수정했습니다.");
                                   } else {
                                     Fluttertoast.showToast(
                                         msg:
@@ -601,8 +600,8 @@ class _EditDaily extends State<EditDaily> {
                                   onPrimary: Colors.black,
                                   minimumSize: Size(
                                       getMobileSizeFromPercent(
-                                          context, 30, true),
-                                      40),
+                                          context, 35, true),
+                                      getMobileSizeFromPercent(context, 6, false)),
                                   shadowColor: Colors.transparent,
                                   elevation: 0,
                                 ),
