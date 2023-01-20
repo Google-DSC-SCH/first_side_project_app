@@ -199,10 +199,11 @@ class _CreateDaily extends State<CreateDaily> {
                                     // 월
                                     GestureDetector(
                                       child: Card(
+                                        margin: EdgeInsets.only(top:5),
                                         shape: RoundedRectangleBorder(
                                           //모서리를 둥글게 하기 위해 사용
                                           borderRadius:
-                                              BorderRadius.circular(20.0),
+                                              BorderRadius.circular(10.0),
                                         ),
                                         color: Color(checkedDayList[0]
                                             ? color_realYellow
@@ -211,14 +212,13 @@ class _CreateDaily extends State<CreateDaily> {
                                         child: Container(
                                             alignment: Alignment.center,
                                             width: getMobileSizeFromPercent(
-                                                context, 9, true),
+                                                context, 10, true),
                                             height: getMobileSizeFromPercent(
                                                 context, 10, true),
                                             child: Text(
                                               "월",
                                               style: TextStyle(
-                                                  fontSize: daySelectFontSize,
-                                                  fontWeight: FontWeight.bold),
+                                                  fontSize: daySelectFontSize),
                                             )),
                                       ),
                                       onTap: () {
@@ -232,10 +232,11 @@ class _CreateDaily extends State<CreateDaily> {
                                     // 화
                                     GestureDetector(
                                       child: Card(
+                                        margin: EdgeInsets.only(top:5),
                                         shape: RoundedRectangleBorder(
                                           //모서리를 둥글게 하기 위해 사용
                                           borderRadius:
-                                              BorderRadius.circular(20.0),
+                                              BorderRadius.circular(10.0),
                                         ),
                                         color: Color(checkedDayList[1]
                                             ? color_realYellow
@@ -244,14 +245,13 @@ class _CreateDaily extends State<CreateDaily> {
                                         child: Container(
                                             alignment: Alignment.center,
                                             width: getMobileSizeFromPercent(
-                                                context, 9, true),
+                                                context, 10, true),
                                             height: getMobileSizeFromPercent(
                                                 context, 10, true),
                                             child: Text(
                                               "화",
                                               style: TextStyle(
-                                                  fontSize: daySelectFontSize,
-                                                  fontWeight: FontWeight.bold),
+                                                  fontSize: daySelectFontSize),
                                             )),
                                       ),
                                       onTap: () {
@@ -265,10 +265,11 @@ class _CreateDaily extends State<CreateDaily> {
                                     // 수
                                     GestureDetector(
                                       child: Card(
+                                        margin: EdgeInsets.only(top:5),
                                         shape: RoundedRectangleBorder(
                                           //모서리를 둥글게 하기 위해 사용
                                           borderRadius:
-                                              BorderRadius.circular(20.0),
+                                              BorderRadius.circular(10.0),
                                         ),
                                         color: Color(checkedDayList[2]
                                             ? color_realYellow
@@ -277,14 +278,13 @@ class _CreateDaily extends State<CreateDaily> {
                                         child: Container(
                                             alignment: Alignment.center,
                                             width: getMobileSizeFromPercent(
-                                                context, 9, true),
+                                                context, 10, true),
                                             height: getMobileSizeFromPercent(
                                                 context, 10, true),
                                             child: Text(
                                               "수",
                                               style: TextStyle(
-                                                  fontSize: daySelectFontSize,
-                                                  fontWeight: FontWeight.bold),
+                                                  fontSize: daySelectFontSize),
                                             )),
                                       ),
                                       onTap: () {
@@ -298,10 +298,11 @@ class _CreateDaily extends State<CreateDaily> {
                                     // 목
                                     GestureDetector(
                                       child: Card(
+                                        margin: EdgeInsets.only(top:5),
                                         shape: RoundedRectangleBorder(
                                           //모서리를 둥글게 하기 위해 사용
                                           borderRadius:
-                                              BorderRadius.circular(20.0),
+                                              BorderRadius.circular(10.0),
                                         ),
                                         color: Color(checkedDayList[3]
                                             ? color_realYellow
@@ -310,14 +311,13 @@ class _CreateDaily extends State<CreateDaily> {
                                         child: Container(
                                             alignment: Alignment.center,
                                             width: getMobileSizeFromPercent(
-                                                context, 9, true),
+                                                context, 10, true),
                                             height: getMobileSizeFromPercent(
                                                 context, 10, true),
                                             child: Text(
                                               "목",
                                               style: TextStyle(
-                                                  fontSize: daySelectFontSize,
-                                                  fontWeight: FontWeight.bold),
+                                                  fontSize: daySelectFontSize),
                                             )),
                                       ),
                                       onTap: () {
@@ -331,10 +331,11 @@ class _CreateDaily extends State<CreateDaily> {
                                     // 금
                                     GestureDetector(
                                       child: Card(
+                                        margin: EdgeInsets.only(top:5),
                                         shape: RoundedRectangleBorder(
                                           //모서리를 둥글게 하기 위해 사용
                                           borderRadius:
-                                              BorderRadius.circular(20.0),
+                                              BorderRadius.circular(10.0),
                                         ),
                                         color: Color(checkedDayList[4]
                                             ? color_realYellow
@@ -343,14 +344,13 @@ class _CreateDaily extends State<CreateDaily> {
                                         child: Container(
                                             alignment: Alignment.center,
                                             width: getMobileSizeFromPercent(
-                                                context, 9, true),
+                                                context, 10, true),
                                             height: getMobileSizeFromPercent(
                                                 context, 10, true),
                                             child: Text(
                                               "금",
                                               style: TextStyle(
-                                                  fontSize: daySelectFontSize,
-                                                  fontWeight: FontWeight.bold),
+                                                  fontSize: daySelectFontSize),
                                             )),
                                       ),
                                       onTap: () {
@@ -364,10 +364,11 @@ class _CreateDaily extends State<CreateDaily> {
                                     // 토
                                     GestureDetector(
                                       child: Card(
+                                        margin: EdgeInsets.only(top:5),
                                         shape: RoundedRectangleBorder(
                                           //모서리를 둥글게 하기 위해 사용
                                           borderRadius:
-                                              BorderRadius.circular(20.0),
+                                              BorderRadius.circular(10.0),
                                         ),
                                         color: Color(checkedDayList[5]
                                             ? color_realYellow
@@ -376,14 +377,13 @@ class _CreateDaily extends State<CreateDaily> {
                                         child: Container(
                                             alignment: Alignment.center,
                                             width: getMobileSizeFromPercent(
-                                                context, 9, true),
+                                                context, 10, true),
                                             height: getMobileSizeFromPercent(
                                                 context, 10, true),
                                             child: Text(
                                               "토",
                                               style: TextStyle(
-                                                  fontSize: daySelectFontSize,
-                                                  fontWeight: FontWeight.bold),
+                                                  fontSize: daySelectFontSize),
                                             )),
                                       ),
                                       onTap: () {
@@ -397,10 +397,11 @@ class _CreateDaily extends State<CreateDaily> {
                                     // 일
                                     GestureDetector(
                                       child: Card(
+                                        margin: EdgeInsets.only(top:5),
                                         shape: RoundedRectangleBorder(
                                           //모서리를 둥글게 하기 위해 사용
                                           borderRadius:
-                                              BorderRadius.circular(20.0),
+                                              BorderRadius.circular(10.0),
                                         ),
                                         color: Color(checkedDayList[6]
                                             ? color_realYellow
@@ -409,14 +410,13 @@ class _CreateDaily extends State<CreateDaily> {
                                         child: Container(
                                             alignment: Alignment.center,
                                             width: getMobileSizeFromPercent(
-                                                context, 9, true),
+                                                context, 10, true),
                                             height: getMobileSizeFromPercent(
                                                 context, 10, true),
                                             child: Text(
                                               "일",
                                               style: TextStyle(
-                                                  fontSize: daySelectFontSize,
-                                                  fontWeight: FontWeight.bold),
+                                                  fontSize: daySelectFontSize),
                                             )),
                                       ),
                                       onTap: () {
@@ -452,13 +452,12 @@ class _CreateDaily extends State<CreateDaily> {
                                   elevation: 0, // 그림자 깊이
                                   child: Container(
                                     alignment: Alignment.center,
-                                    width: 60,
+                                    width: getMobileSizeFromPercent(context, 20, true),
                                     height: 40,
                                     child: Text(
                                       alertState,
                                       style: TextStyle(
-                                          fontSize: alertStateFontSize,
-                                          fontWeight: FontWeight.bold),
+                                          fontSize: alertStateFontSize),
                                     ),
                                   ),
                                 ),
@@ -481,7 +480,7 @@ class _CreateDaily extends State<CreateDaily> {
                                   elevation: 0, // 그림자 깊이
                                   child: Container(
                                     alignment: Alignment.center,
-                                    width: 150,
+                                    width: getMobileSizeFromPercent(context, 40, true),
                                     height: 40,
                                     child: Text(
                                       int.parse(alertTime.split(":")[0]) >= 12
@@ -552,8 +551,8 @@ class _CreateDaily extends State<CreateDaily> {
                                   onPrimary: Colors.black,
                                   minimumSize: Size(
                                       getMobileSizeFromPercent(
-                                          context, 30, true),
-                                      40),
+                                          context, 35, true),
+                                      getMobileSizeFromPercent(context, 6, false)),
                                   shadowColor: Colors.transparent,
                                   elevation: 0,
                                 ),
@@ -566,7 +565,7 @@ class _CreateDaily extends State<CreateDaily> {
                                     Navigator.pop(context);
                                     Fluttertoast.showToast(
                                         msg:
-                                        "${titleController.text}: 성공적으로 추가했습니다.");
+                                        "${titleController.text}! 열심히 달성해보아요!");
                                   } else {
                                     Fluttertoast.showToast(
                                         msg:
@@ -584,8 +583,8 @@ class _CreateDaily extends State<CreateDaily> {
                                   onPrimary: Colors.black,
                                   minimumSize: Size(
                                       getMobileSizeFromPercent(
-                                          context, 30, true),
-                                      40),
+                                          context, 35, true),
+                                      getMobileSizeFromPercent(context, 6, false)),
                                   shadowColor: Colors.transparent,
                                   elevation: 0,
                                 ),

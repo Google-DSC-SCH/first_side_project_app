@@ -122,7 +122,7 @@ class ViewDiary extends State<View_Diary> {
                     Container(
                       width: getMobileSizeFromPercent(context, 80, true),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
@@ -131,7 +131,7 @@ class ViewDiary extends State<View_Diary> {
                                   borderRadius: BorderRadius.circular(16)),
                               primary: Color(color_mint),
                               onPrimary: Colors.black,
-                              minimumSize: Size(130, 40),
+                              minimumSize: Size(getMobileSizeFromPercent(context, 35, true), getMobileSizeFromPercent(context, 6, false)),
                               //width, height
                               shadowColor: Colors.transparent,
                               elevation: 0,
@@ -159,7 +159,7 @@ class ViewDiary extends State<View_Diary> {
                                     borderRadius: BorderRadius.circular(16)),
                                 primary: Color(color_mint),
                                 onPrimary: Colors.black,
-                                minimumSize: Size(130, 40),
+                                minimumSize: Size(getMobileSizeFromPercent(context, 35, true), getMobileSizeFromPercent(context, 6, false)),
                                 shadowColor: Colors.transparent,
                                 elevation: 0,
                               ),

@@ -223,7 +223,7 @@ class _AchievementRate extends State<AchievementRate> {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(16),
                                 border:
-                                    Border.all(color: Colors.black, width: 3)),
+                                    Border.all(color: Colors.black, width: 2)),
                             // color: Colors.yellow,
                             width: getMobileSizeFromPercent(context, 80, true),
                             height:
@@ -231,7 +231,7 @@ class _AchievementRate extends State<AchievementRate> {
                                                 12) /
                                             7 +
                                         2) *
-                                    (dayAchieve.length / 7).ceil(),
+                                    (dayAchieve.length / 7).ceil() -1,
                             child: GridView.builder(
                                 // 스크롤 사용 안함
                                 physics: NeverScrollableScrollPhysics(),
@@ -291,7 +291,7 @@ class _AchievementRate extends State<AchievementRate> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text("0 %",
-                                              style: TextStyle(fontSize: achievementPercentFontSize)),
+                                              style: TextStyle(fontSize: achievementPercentFontSize),),
                                           Container(
                                               width: (getMobileSizeFromPercent(
                                                           context, 80, true) -
@@ -423,59 +423,24 @@ class _AchievementRate extends State<AchievementRate> {
                       ),
 
                       // 뒤로가기
-                      Container(
-                        width: getMobileSizeFromPercent(context, 80, true),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            ElevatedButton(
-                              // 완료
-                              style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                    //모서리를 둥글게
-                                    borderRadius: BorderRadius.circular(16)),
-                                primary: Color(color_mint),
-                                onPrimary: Colors.black,
-                                minimumSize: Size(
-                                    getMobileSizeFromPercent(context, 30, true),
-                                    40),
-                                shadowColor: Colors.transparent,
-                                elevation: 0,
-                              ),
-                              child: Text(
-                                "달성한 목표",
-                                style: TextStyle(fontSize: btnTitleFontSize),
-                              ),
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            AchievedGoal()));
-                              },
-                            ),
-                            // 취소
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                    //모서리를 둥글게
-                                    borderRadius: BorderRadius.circular(16)),
-                                primary: Color(color_mint),
-                                onPrimary: Colors.black,
-                                minimumSize: Size(
-                                    getMobileSizeFromPercent(context, 30, true),
-                                    40),
-                                shadowColor: Colors.transparent,
-                                elevation: 0,
-                              ),
-                              child: Text(
-                                "뒤로가기",
-                                style: TextStyle(fontSize: btnTitleFontSize),
-                              ),
-                              onPressed: () => Navigator.pop(context),
-                            ),
-                          ],
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              //모서리를 둥글게
+                              borderRadius: BorderRadius.circular(16)),
+                          primary: Color(color_mint),
+                          onPrimary: Colors.black,
+                          minimumSize: Size(
+                              getMobileSizeFromPercent(context, 50, true),
+                              getMobileSizeFromPercent(context, 6, false)),
+                          shadowColor: Colors.transparent,
+                          elevation: 0,
                         ),
+                        child: Text(
+                          "뒤로가기",
+                          style: TextStyle(fontSize: btnTitleFontSize),
+                        ),
+                        onPressed: () => Navigator.pop(context),
                       ),
                     ]))),
       );

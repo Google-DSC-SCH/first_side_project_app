@@ -197,7 +197,7 @@ class _EditGoal extends State<EditGoal> {
                                   elevation: 0, // 그림자 깊이
                                   child: Container(
                                     alignment: Alignment.center,
-                                    width: 150,
+                                    width: getMobileSizeFromPercent(context, 50, true),
                                     height: 40,
                                     child: Text(this.duoDay,
                                         style: TextStyle(fontSize: duoDayFontSize)),
@@ -252,13 +252,12 @@ class _EditGoal extends State<EditGoal> {
                                   elevation: 0, // 그림자 깊이
                                   child: Container(
                                     alignment: Alignment.center,
-                                    width: 60,
+                                    width: getMobileSizeFromPercent(context, 20, true),
                                     height: 40,
                                     child: Text(
                                       alertState,
                                       style: TextStyle(
-                                          fontSize: alertStateFontSize,
-                                          fontWeight: FontWeight.bold),
+                                          fontSize: alertStateFontSize),
                                     ),
                                   ),
                                 ),
@@ -281,7 +280,7 @@ class _EditGoal extends State<EditGoal> {
                                   elevation: 0, // 그림자 깊이
                                   child: Container(
                                     alignment: Alignment.center,
-                                    width: 150,
+                                    width: getMobileSizeFromPercent(context, 40, true),
                                     height: 40,
                                     child: Text(
                                       int.parse(alertTime.split(":")[0]) >= 12
@@ -426,8 +425,8 @@ class _EditGoal extends State<EditGoal> {
                                   onPrimary: Colors.black,
                                   minimumSize: Size(
                                       getMobileSizeFromPercent(
-                                          context, 30, true),
-                                      40),
+                                          context, 35, true),
+                                      getMobileSizeFromPercent(context, 6, false)),
                                   shadowColor: Colors.transparent,
                                   elevation: 0,
                                 ),
@@ -440,7 +439,7 @@ class _EditGoal extends State<EditGoal> {
                                     Navigator.pop(context);
                                     Fluttertoast.showToast(
                                         msg:
-                                        "${titleController.text}: 성공적으로 수정했습니다.");
+                                        "${titleController.text}을(를) 수정했습니다.");
                                   }
                                   else {
                                     Fluttertoast.showToast(
@@ -459,8 +458,8 @@ class _EditGoal extends State<EditGoal> {
                                   onPrimary: Colors.black,
                                   minimumSize: Size(
                                       getMobileSizeFromPercent(
-                                          context, 30, true),
-                                      40),
+                                          context, 35, true),
+                                      getMobileSizeFromPercent(context, 6, false)),
                                   shadowColor: Colors.transparent,
                                   elevation: 0,
                                 ),

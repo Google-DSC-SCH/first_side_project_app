@@ -156,7 +156,7 @@ class EditDiary extends StatelessWidget {
                                       alignment: Alignment.center,
                                       padding: EdgeInsets.all(5),
                                       width: getMobileSizeFromPercent(
-                                          context, 30, true),
+                                          context, 35, true),
                                       height: getMobileSizeFromPercent(
                                           context, 6, false),
                                       child: Text(
@@ -184,7 +184,7 @@ class EditDiary extends StatelessWidget {
                                       alignment: Alignment.center,
                                       padding: EdgeInsets.all(5),
                                       width: getMobileSizeFromPercent(
-                                          context, 30, true),
+                                          context, 35, true),
                                       height: getMobileSizeFromPercent(
                                           context, 6, false),
                                       child: Text(
