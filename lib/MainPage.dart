@@ -287,7 +287,7 @@ class Real_Main extends State<MainPage> with WidgetsBindingObserver {
                                               width: getMobileSizeFromPercent(
                                                       context, 80, true) -
                                                   50 -
-                                                  (togleSize * 2),
+                                                  (togleSize * 2.5),
                                               child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
@@ -336,8 +336,7 @@ class Real_Main extends State<MainPage> with WidgetsBindingObserver {
                                             height: togleSize + 5,
                                             borderWidth: 2.5,
                                             // 사이 공백
-                                            // dif: togleSize/1.5
-                                                dif: 0,
+                                                dif: togleSize/2,
                                             borderColor: Colors.transparent,
                                             iconBuilder: (value){
                                               late Icon icon;
@@ -347,7 +346,7 @@ class Real_Main extends State<MainPage> with WidgetsBindingObserver {
                                                 icon = Icon(Icons.mood_sharp);
                                               return icon;
                                             },
-                                            colorBuilder:(value) => value == 1 ? Color(color_pink) : Color(color_purple),
+                                            colorBuilder:(value) => value == 1 ? Color(color_skyBlue) : Color(color_purple),
                                                 boxShadow: const [
                                                   BoxShadow(
                                                     color: Colors.black12,
@@ -361,17 +360,17 @@ class Real_Main extends State<MainPage> with WidgetsBindingObserver {
                                               String text = "";
                                               Color color = Colors.black;
                                               if (value == 0){
-                                                text = ":(";
+                                                text = "실패";
                                                 color = Color(color_purple);
                                               }
                                               else{
-                                                text = ":)";
+                                                text = "성공";
                                                 color=  Color(color_pink);
                                               }
                                               return Text(
                                                 text,
                                                 style: TextStyle(
-                                                    fontSize: togleSize/2,fontWeight: FontWeight.bold),
+                                                    fontSize: togleSize/2,fontWeight: FontWeight.w500),
                                               );
                                             },
                                             onChanged: (p0) async {

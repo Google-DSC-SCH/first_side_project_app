@@ -102,6 +102,8 @@ class _AchievedGoal extends State<AchievedGoal> {
                               itemCount: goalList.length,
                               padding: EdgeInsets.all(10),
                               itemBuilder: (context, index) => Card(
+                                color: Color(color_whiteYellow),
+                                margin: EdgeInsets.all(2),
                                 child: GestureDetector(
                                   onTap: () {
                                     Navigator.push(
@@ -111,15 +113,16 @@ class _AchievedGoal extends State<AchievedGoal> {
                                                     goalList[index].goalId)))
                                         .then((value) => getAchievedGoal());
                                   },
-                                  child: Text(
-                                    goalList[index].title,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(fontSize: listTitleFontSize),
+                                  child: Container(
+                                    padding: EdgeInsets.only(top: 5, bottom: 5),
+                                    child: Text(
+                                      goalList[index].title,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(fontSize: listTitleFontSize),
+                                    ),
                                   ),
                                 ),
-                                color: Color(color_whiteYellow),
-                                margin: EdgeInsets.all(2),
                               ),
                             ),
                           ),

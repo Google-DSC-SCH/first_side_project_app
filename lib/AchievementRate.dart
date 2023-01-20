@@ -223,7 +223,7 @@ class _AchievementRate extends State<AchievementRate> {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(16),
                                 border:
-                                    Border.all(color: Colors.black, width: 3)),
+                                    Border.all(color: Colors.black, width: 2)),
                             // color: Colors.yellow,
                             width: getMobileSizeFromPercent(context, 80, true),
                             height:
@@ -231,7 +231,7 @@ class _AchievementRate extends State<AchievementRate> {
                                                 12) /
                                             7 +
                                         2) *
-                                    (dayAchieve.length / 7).ceil(),
+                                    (dayAchieve.length / 7).ceil() -1,
                             child: GridView.builder(
                                 // 스크롤 사용 안함
                                 physics: NeverScrollableScrollPhysics(),
